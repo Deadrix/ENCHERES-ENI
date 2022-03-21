@@ -1,4 +1,4 @@
-package com.dreamteam.test;
+package main.java.com.dreamteam.test;
 
 public class testKam {
 
