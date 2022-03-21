@@ -12,14 +12,7 @@ public class alorsMeVoisTu {
 			System.out.println("Oh no");
 			System.out.println("he heeeeee");
 			System.out.println("peu importe");
-			System.out.println("he hoooooo");
-			System.out.println("It works!");
-			System.out.println("Oh Yeah");
-			System.out.println("Oh no");
-			System.out.println("he heeeeee");
-			System.out.println("peu importe");
-			System.out.println("he hoooooo");
-
+			System.out.println("he hoooooo");			
 		}
 	}
 
