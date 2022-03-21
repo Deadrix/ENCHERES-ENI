@@ -9,7 +9,7 @@ public class alorsMeVoisTu {
 			System.out.println("OKAY");
 			
 		System.out.println("It works!");
-		System.out.println("It works!");
+		System.out.println("Oh Yeah");
 		}
 	}
 
