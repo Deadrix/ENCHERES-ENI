@@ -7,6 +7,8 @@ public class alorsMeVoisTu {
 		
 		for(int i=0; i<10;i++) {
 			System.out.println("OKAY");
+			
+		System.out.println("It works!");	
 		}
 	}
 
