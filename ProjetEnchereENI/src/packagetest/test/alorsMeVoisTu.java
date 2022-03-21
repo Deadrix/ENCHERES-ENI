@@ -13,7 +13,13 @@ public class alorsMeVoisTu {
 		System.out.println("Oh no");
 		System.out.println("he heeeeee");
 		
+		
+<<<<<<< HEAD
+		
 		System.out.println("peu importe");
+=======
+		System.out.println("he hoooooo");
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 		}
 	}
 
