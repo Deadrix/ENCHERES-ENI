@@ -4,7 +4,10 @@ public class alorsMeVoisTu {
 
 	public static void main(String[] args) {
 		System.out.println("YES I can see you!");
-
+		
+		for(int i=0; i>=10;i++) {
+			System.out.println("OKAY");
+		}
 	}
 
 }
