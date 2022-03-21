@@ -12,6 +12,8 @@ public class alorsMeVoisTu {
 		System.out.println("Oh Yeah");
 		System.out.println("Oh no");
 		System.out.println("he heeeeee");
+		
+		System.out.println("peu importe");
 		}
 	}
 
