@@ -15,5 +15,4 @@ public class alorsMeVoisTu {
 			System.out.println("he hoooooo");			
 		}
 	}
-
 }
