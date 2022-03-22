@@ -10,6 +10,7 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Integer userId;
 	private String alias;
 	private String lastName;
 	private String firstName;
@@ -20,6 +21,8 @@ public class User implements Serializable {
 	private String city;
 	private String password;
 	private List<SoldArticle> soldArticle;
+	private List<SoldArticle> boughtArticle;
+	private List<Auction> auctions;
 
 	public User() {
 		super();
@@ -124,5 +127,37 @@ public class User implements Serializable {
 
 	public void setSoldArticles(List<SoldArticle> soldArticles) {
 		this.soldArticle = soldArticles;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public List<SoldArticle> getSoldArticle() {
+		return soldArticle;
+	}
+
+	public void setSoldArticle(List<SoldArticle> soldArticle) {
+		this.soldArticle = soldArticle;
+	}
+
+	public List<SoldArticle> getBoughtArticle() {
+		return boughtArticle;
+	}
+
+	public void setBoughtArticle(List<SoldArticle> boughtArticle) {
+		this.boughtArticle = boughtArticle;
+	}
+
+	public List<Auction> getAuctions() {
+		return auctions;
+	}
+
+	public void setAuctions(List<Auction> auctions) {
+		this.auctions = auctions;
 	}
 }

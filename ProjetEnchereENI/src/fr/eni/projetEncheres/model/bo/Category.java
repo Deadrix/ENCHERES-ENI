@@ -7,6 +7,7 @@ public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer categoryId;
 	private String libelle;
 	private List<SoldArticle> articles;
 
@@ -34,4 +35,13 @@ public class Category implements Serializable {
 	public void setArticles(List<SoldArticle> articles) {
 		this.articles = articles;
 	}
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
 }

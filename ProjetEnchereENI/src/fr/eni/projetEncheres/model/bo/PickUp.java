@@ -12,7 +12,8 @@ public class PickUp implements Serializable {
 	private String rueRetrait;
 	private String codePostalRetrait;
 	private String villeRetrait;
-
+	private SoldArticle articleToPickUp;
+	
 	public PickUp() {
 		super();
 	}
@@ -46,6 +47,14 @@ public class PickUp implements Serializable {
 
 	public void setVilleRetrait(String villeRetrait) {
 		this.villeRetrait = villeRetrait;
+	}
+
+	public SoldArticle getArticleToPickUp() {
+		return articleToPickUp;
+	}
+
+	public void setArticleToPickUp(SoldArticle articleToPickUp) {
+		this.articleToPickUp = articleToPickUp;
 	}
 
 }

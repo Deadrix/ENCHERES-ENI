@@ -6,13 +6,17 @@ import java.util.Date;
 public class SoldArticle implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private Integer articleId;
 	private String articleName;
 	private String description;
 	private Date auctionStart;
 	private Date auctionEnd;
 	private Integer initialPrice;
 	private Integer soldPrice;
-	private User user;
+	private User buyer;
+	private User seller;
+
 	private Category category;
 
 	public SoldArticle() {
@@ -86,12 +90,27 @@ public class SoldArticle implements Serializable {
 		this.soldPrice = soldPrice;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getArticleId() {
+		return articleId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 
+	public User getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
+	}
+
+	public User getSeller() {
+		return seller;
+	}
+
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
 }
