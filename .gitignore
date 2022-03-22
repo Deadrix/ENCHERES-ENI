@@ -1,1 +1,10 @@
 /ProjetEnchereENI/
+
+# ignore all .ods files
+*.ods
+# ignore all .txt files
+*.txt
+# ignore all .properties files
+*.properties
+# ignore context.xml
+/ProjetEnchereENI/WebContent/META-INF/context.xml
