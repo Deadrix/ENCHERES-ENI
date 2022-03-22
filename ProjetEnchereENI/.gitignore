@@ -15,6 +15,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+/WebContent/META-INF/context.xml
 
 # External tool builders
 .externalToolBuilders/
