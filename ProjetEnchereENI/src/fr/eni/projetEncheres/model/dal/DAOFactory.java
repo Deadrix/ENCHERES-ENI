@@ -3,6 +3,7 @@ package fr.eni.projetEncheres.model.dal;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 import fr.eni.projetEncheres.model.bo.User;
 import fr.eni.projetEncheres.model.bo.Category;
+import fr.eni.projetEncheres.model.bo.PickUp;
 
 
 
@@ -19,6 +20,10 @@ public class DAOFactory {
 
 	public static DAO<Category> getCategoryDAO() {
 		return new CategoryDAOImpl();
+	}
+	
+	public static DAO<PickUp> getPickUpDAO() {
+		return new PickUpDAOImpl();
 	}
 
 
