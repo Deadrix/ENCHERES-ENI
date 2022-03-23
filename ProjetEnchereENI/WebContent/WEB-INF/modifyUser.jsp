@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Modifier Utilisateur</title>
+<title><fmt:message key="pageTitle_modifyUser"></fmt:message></title>
 </head>
 	<body>	
 	
@@ -17,7 +17,7 @@
 			
 			<label for="pseudo"><fmt:message key="msg_pseudo"></fmt:message></label><input type="text" id="pseudo" name="txtAlias" value="${user.alias}" required/>
 			<br>
-			<label for="lastName"><fmt:message key="msg_lastName"></fmt:message></label><input type="text" id="lastName"" name="txtLastName" value="${user.lastName}" required/>
+			<label for="lastName"><fmt:message key="msg_lastName"></fmt:message></label><input type="text" id="lastName" name="txtLastName" value="${user.lastName}" required/>
 			<br>
 			<label for="firstName"><fmt:message key="msg_firstName"></fmt:message></label><input type="text" id="firstName" name="txtFirstName" value="${user.firstName}" required/>
 			<br>
@@ -30,15 +30,14 @@
 			<label for="postalCode"><fmt:message key="msg_postalCode"></fmt:message></label><input type="text" id="postalCode" name="txtpostalCode" value="${user.postalCode}" required/>
 			<br>
 			<label for="city"><fmt:message key="msg_city"></fmt:message></label><input type="text" id="city" name="txtcity" value="${user.city}" required/>
-			<br>
-		
+			<br>		
 			<input type="submit" name="valider" value="<fmt:message key="msg_confirmModification"></fmt:message>"/>
 			
 		</form> 
 		
 		<form action="ServletDeleteUser" method="POST">
 		
-			<input type="submit" name="delete" value="<fmt:message key="msg_deleteAccount"></fmt:message>"/>
+			<input type="submit" name="delete" value="<fmt:message key="msg_deleteAccount"></fmt:message>" onclick="return confirm('<fmt:message key="msg_confirmDeleteAccount"></fmt:message>');"/>
 		
 		</form>	
 	
