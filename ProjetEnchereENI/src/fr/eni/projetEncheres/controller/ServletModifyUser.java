@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetEncheres.model.bo.User;
+import fr.eni.projetEncheres.model.dal.DALException;
 import fr.eni.projetEncheres.model.bll.UserManager;
 
 /**
@@ -27,7 +28,12 @@ public class ServletModifyUser extends HttpServlet {
 		int userId;
 		userId = Integer.parseInt(request.getParameter("id"));
 		User u = null;
-		u = UserManager.getInstance().findById(userId);
+		try {
+			u = UserManager.getInstance().selectById(userId);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute("user", u);
 		getServletContext().getRequestDispatcher("/WEB-INF/modifyUser.jsp").forward(request, response);
 
@@ -55,8 +61,9 @@ public class ServletModifyUser extends HttpServlet {
 		city = request.getParameter("txtCity");
 		password = request.getParameter("txtPassword");
 
-		u = UserManager.getInstance().findById(userId);
-
+		try {
+			u = UserManager.getInstance().selectById(userId);
+		
 		u.setLastName(lastName);
 		u.setFirstName(firstName);
 		u.setEmail(email);
@@ -66,8 +73,13 @@ public class ServletModifyUser extends HttpServlet {
 		u.setCity(city);
 		u.setPassword(password);
 
-		UserManager.getInstance().modifier(u);
+		UserManager.getInstance().update(u);
 		response.sendRedirect("home.html");
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+
 	}
 
 }

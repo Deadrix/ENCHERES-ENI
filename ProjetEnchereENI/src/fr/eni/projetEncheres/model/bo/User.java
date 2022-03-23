@@ -23,13 +23,14 @@ public class User implements Serializable {
 	private List<SoldArticle> soldArticle;
 	private List<SoldArticle> boughtArticle;
 	private List<Auction> auctions;
+	private Integer credit = 0;
 
 	public User() {
 		super();
 	}
 
 	public User(String alias, String lastName, String firstName, String email, String telephone, String street,
-			String postalCode, String city, String password) {
+			String postalCode, String city, String password, Integer credit) {
 		super();
 		this.alias = alias;
 		this.lastName = lastName;
@@ -40,6 +41,7 @@ public class User implements Serializable {
 		this.postalCode = postalCode;
 		this.city = city;
 		this.password = password;
+		this.credit = credit;
 	}
 
 	public User(String alias, String email, String password) {
@@ -159,5 +161,12 @@ public class User implements Serializable {
 
 	public void setAuctions(List<Auction> auctions) {
 		this.auctions = auctions;
+	}
+	public Integer getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Integer credit) {
+		this.credit = credit;
 	}
 }
