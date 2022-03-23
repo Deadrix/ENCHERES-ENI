@@ -12,6 +12,7 @@
 		<form action="ServletModifyUser" method="POST">
 		
 			<input type="hidden" name="userId" value="${user.id}"/>
+			
 			<label for="pseudo">Pseudo: </label><input type="text" id="pseudo" name="txtAlias" value="${user.alias}"/>
 			<br>
 			<label for="lastName">Nom: </label><input type="text" id="lastName"" name="txtLastName" value="${user.lastName}"/>
@@ -26,7 +27,7 @@
 			<br>
 			<label for="postalCode">Code Postal: </label><input type="text" id="postalCode" name="txtpostalCode" value="${user.postalCode}"/>
 			<br>
-			<label for="city">Ville: </label><input type="text" id="city"" name="txtcity" value="${user.city}"/>
+			<label for="city">Ville: </label><input type="text" id="city" name="txtcity" value="${user.city}"/>
 			<br>
 		
 			<input type="submit" name="valider" value="Enregistrer Modification"/>
