@@ -1,6 +1,8 @@
 package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,18 +26,8 @@ public class ServletModifyUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		int userId;
-		userId = Integer.parseInt(request.getParameter("id"));
-		User u = null;
-		try {
-			u = UserManager.getInstance().selectById(userId);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.setAttribute("user", u);
 		getServletContext().getRequestDispatcher("/WEB-INF/modifyUser.jsp").forward(request, response);
+		
 
 	}
 
@@ -74,7 +66,8 @@ public class ServletModifyUser extends HttpServlet {
 		u.setPassword(password);
 
 		UserManager.getInstance().update(u);
-		response.sendRedirect("home.html");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
+		dispatch.forward(request, response);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
