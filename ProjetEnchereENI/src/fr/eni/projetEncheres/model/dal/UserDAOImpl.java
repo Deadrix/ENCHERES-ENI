@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import fr.eni.projetEncheres.model.bo.User;
 import fr.eni.projetEncheres.model.dal.ConnectionProvider;
 import fr.eni.projetEncheres.model.dal.UserDAO;
@@ -24,7 +28,9 @@ public class UserDAOImpl implements UserDAO {
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
 	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
-	private static final String SELECTBYKEYWORD = "SELECT pseudo from UTILISATEURS WHERE  email like ? and mot_de_passe like ?";
+	private static final String SELECTBYKEYWORD = "SELECT pseudo FROM UTILISATEURS WHERE email like ? and mot_de_passe like ?";
+	private final String SQLLOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
+
 
 	private void setFields(PreparedStatement ps, User user) throws SQLException {
 		ps.setString(1, user.getAlias());
@@ -88,12 +94,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User Login(String email, String pwd) {
 		User tempUser = null;
-		try (Connection connect = ConnectionProvider.getConnection();
-				PreparedStatement ps = connect.prepareStatement(SELECTBYKEYWORD)) {
+		try {
+			Connection con = connectionBDD();
+			PreparedStatement ps = con.prepareStatement(SQLLOGIN);
 			ps.setString(1, email);
 			ps.setString(2, pwd);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
+				
+				tempUser = new User();
 				tempUser.setAlias(rs.getString("pseudo"));
 				tempUser.setLastName(rs.getString("nom"));
 				tempUser.setFirstName(rs.getString("prenom"));
@@ -105,7 +114,8 @@ public class UserDAOImpl implements UserDAO {
 				tempUser.setTelephone(rs.getString("telephone"));
 				tempUser.setCredit(rs.getInt("credit"));
 			}
-		} catch (SQLException d) {
+			con.close();
+		} catch (SQLException | ClassNotFoundException d) {
 			d.printStackTrace();
 		}
 		return tempUser;
@@ -153,4 +163,27 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 	}
+	
+	private static Connection connectionBDD() throws ClassNotFoundException, SQLException {
+		/*	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			String url = "jdbc:sqlserver://localhost:1433;database=Annuaire"; // fabriquer l'url de connexion
+			Connection con = DriverManager.getConnection(url, "sa", "Pa$$w0rd"); // lance la connexion
+			return con;*/
+			
+			Connection cnx=null;
+			DataSource ds;
+			InitialContext ctx;
+			try 
+			{
+				ctx=new InitialContext();
+				ds=(DataSource) ctx.lookup("java:comp/env/jdbc/pool_cnx");
+				cnx=ds.getConnection();
+				
+			} catch (NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return cnx;
+			
+		}
 }

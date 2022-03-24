@@ -28,7 +28,7 @@ public class DAOFactory {
 		return new PickUpDAOImpl();
 	}
 
-	public UserDAO getUserDAO() {
+	public static UserDAO getUserDAO() {
 		return new UserDAOImpl();
 	}
 	
