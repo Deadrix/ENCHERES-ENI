@@ -39,6 +39,5 @@ public class UserManager {
 	public void update(User user) throws DALException {
 		aUserDAOImpl.update(user);
 	}
-	
-	
+		
 }
