@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
 	private static final String UPDATE = "update UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?)";
-	private static final String DELETE = "delete from UTILSATEURS where no_utilisateur=?";
+	private static final String DELETEBYID = "delete from UTILISATEURS where no_utilisateur=?";
 	private static final String SelectById = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
 	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
@@ -103,16 +103,7 @@ public class UserDAOImpl implements UserDAO {
 			if (rs.next()) {
 				
 				tempUser = new User();
-				tempUser.setAlias(rs.getString("pseudo"));
-				tempUser.setLastName(rs.getString("nom"));
-				tempUser.setFirstName(rs.getString("prenom"));
-				tempUser.setEmail(rs.getString("email"));
-				tempUser.setStreet(rs.getString("rue"));
-				tempUser.setPostalCode(rs.getString("code_postal"));
-				tempUser.setCity(rs.getString("ville"));
-				tempUser.setPassword(rs.getString("mot_de_passe"));
-				tempUser.setTelephone(rs.getString("telephone"));
-				tempUser.setCredit(rs.getInt("credit"));
+				getFields(rs, tempUser);
 			}
 			con.close();
 		} catch (SQLException | ClassNotFoundException d) {
@@ -151,9 +142,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(int userId) throws DALException {
-		if (userId != 0) {
-			try (Connection connect = ConnectionProvider.getConnection()) {
-				PreparedStatement ps = connect.prepareStatement(DELETE);
+
+		try (Connection connect = ConnectionProvider.getConnection()) {
+				PreparedStatement ps = connect.prepareStatement(DELETEBYID);
 				ps.setInt(1, userId);
 				ps.executeUpdate();
 
@@ -162,13 +153,10 @@ public class UserDAOImpl implements UserDAO {
 				e.printStackTrace();
 			}
 		}
-	}
+	
 	
 	private static Connection connectionBDD() throws ClassNotFoundException, SQLException {
-		/*	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			String url = "jdbc:sqlserver://localhost:1433;database=Annuaire"; // fabriquer l'url de connexion
-			Connection con = DriverManager.getConnection(url, "sa", "Pa$$w0rd"); // lance la connexion
-			return con;*/
+		
 			
 			Connection cnx=null;
 			DataSource ds;
