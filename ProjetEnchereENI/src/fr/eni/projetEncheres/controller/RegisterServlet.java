@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/Success.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/TestSuccess.jsp");
 		dispatch.forward(request, response);
 
 	}

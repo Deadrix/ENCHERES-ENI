@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 			Cookie loggedIn = new Cookie("login", tempUser.getEmail());
 			loggedIn.setMaxAge(-1);
 			response.addCookie(loggedIn);
-			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/Success.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/TestSuccess.jsp");
 			dispatch.forward(request, response);
 		} else {
 			getServletContext().getRequestDispatcher("/WEB-INF/view/TestServletAndFunction.jsp").forward(request,
