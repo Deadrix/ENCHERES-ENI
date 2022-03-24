@@ -31,6 +31,17 @@ public class DAOFactory {
 		return new UserDAOImpl();
 	}
 	
+<<<<<<< HEAD
+=======
+//	public static DAOFactory getInstanceOfDaoFactory() {
+//		if (instanceOfDaoFactory == null) {
+//			instanceOfDaoFactory = new DAOFactory();
+//		}
+//		return instanceOfDaoFactory;
+//	}
+
+	
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 	 /*
 	  * public static ArticleDAO getArticleDAO()  {
 		ArticleDAO articleDAO=null;
