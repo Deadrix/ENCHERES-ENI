@@ -5,4 +5,5 @@
 # ignore all .properties files
 #*.properties
 # ignore context.xml
+
 /ProjetEnchereENI/WebContent/META-INF/context.xml
