@@ -10,15 +10,10 @@ import fr.eni.projetEncheres.model.bo.User;
 
 public class DAOFactory {
 	
-	private static DAOFactory  instanceOfDaoFactory;
 	
 	public static DAO<SoldArticle> getArticleDAO() {
 		return new SoldArticleDAOImpl();
 	}
-	
-//	public static DAO<User> getUserDAO() {
-//		return new UserDAOImpl();
-//	}
 
 	public static DAO<Category> getCategoryDAO() {
 		return new CategoryDAOImpl();
@@ -32,12 +27,6 @@ public class DAOFactory {
 		return new UserDAOImpl();
 	}
 	
-//	public static DAOFactory getInstanceOfDaoFactory() {
-//		if (instanceOfDaoFactory == null) {
-//			instanceOfDaoFactory = new DAOFactory();
-//		}
-//		return instanceOfDaoFactory;
-//	}
 
 	
 	 /*
