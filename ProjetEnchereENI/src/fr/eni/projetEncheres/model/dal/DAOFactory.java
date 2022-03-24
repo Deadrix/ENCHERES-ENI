@@ -32,12 +32,12 @@ public class DAOFactory {
 		return new UserDAOImpl();
 	}
 	
-	public static DAOFactory getInstanceOfDaoFactory() {
-		if (instanceOfDaoFactory == null) {
-			instanceOfDaoFactory = new DAOFactory();
-		}
-		return instanceOfDaoFactory;
-	}
+//	public static DAOFactory getInstanceOfDaoFactory() {
+//		if (instanceOfDaoFactory == null) {
+//			instanceOfDaoFactory = new DAOFactory();
+//		}
+//		return instanceOfDaoFactory;
+//	}
 
 	
 	 /*

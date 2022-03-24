@@ -103,16 +103,7 @@ public class UserDAOImpl implements UserDAO {
 			if (rs.next()) {
 				
 				tempUser = new User();
-				tempUser.setAlias(rs.getString("pseudo"));
-				tempUser.setLastName(rs.getString("nom"));
-				tempUser.setFirstName(rs.getString("prenom"));
-				tempUser.setEmail(rs.getString("email"));
-				tempUser.setStreet(rs.getString("rue"));
-				tempUser.setPostalCode(rs.getString("code_postal"));
-				tempUser.setCity(rs.getString("ville"));
-				tempUser.setPassword(rs.getString("mot_de_passe"));
-				tempUser.setTelephone(rs.getString("telephone"));
-				tempUser.setCredit(rs.getInt("credit"));
+				getFields(rs, tempUser);
 			}
 			con.close();
 		} catch (SQLException | ClassNotFoundException d) {
