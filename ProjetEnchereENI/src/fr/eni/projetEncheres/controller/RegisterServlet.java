@@ -5,26 +5,25 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.User;
+import fr.eni.projetEncheres.model.dal.DALException;
 
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LoginServlet() {
+	public RegisterServlet() {
 		super();
 	}
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp");
 		dispatch.forward(request, response);
@@ -32,23 +31,20 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User tempUser;
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		tempUser = UserManager.getInstance().login(email, password);
 
-		if (tempUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", tempUser);
-			Cookie loggedIn = new Cookie("login", tempUser.getEmail());
-			loggedIn.setMaxAge(0);
-			response.addCookie(loggedIn);
-			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
-			dispatch.forward(request, response);
-		} else {
-			getServletContext().getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp").forward(request,
-					response);
+		User user = new User(request.getParameter("alias"), request.getParameter("lastName"),
+				request.getParameter("firstName"), request.getParameter("email"), request.getParameter("telephone"),
+				request.getParameter("street"), request.getParameter("postalCode"), request.getParameter("city"),
+				request.getParameter("password"));
+
+		try {
+			UserManager.getInstance().insert(user);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
+		dispatch.forward(request, response);
 
 	}
 
