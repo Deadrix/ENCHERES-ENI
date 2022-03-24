@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.sun.xml.internal.ws.org.objectweb.asm.Type;
 
+import fr.eni.projetEncheres.model.bll.CategoryManager;
 import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 
@@ -101,8 +102,9 @@ public class SoldArticleDAOImpl implements DAO<SoldArticle> {
 				pstmt.setInt(6, object.getSoldPrice());
 			}
 			
-			pstmt.setObject(7, object.getBuyer());
-			pstmt.setObject(8, object.getCategory());
+			pstmt.setInt(7, object.getSeller().getUserId());
+			pstmt.setInt(8, object.getBuyer().getUserId());
+			pstmt.setInt(9, object.getCategory().getCategoryId());
 			
 			pstmt.executeUpdate();
 			con.close();
@@ -152,7 +154,7 @@ public class SoldArticleDAOImpl implements DAO<SoldArticle> {
 									  rs.getInt("prix_vente"),									  
 									  UserManager.getInstance().selectById(rs.getInt("no_vendeur")),
 									  UserManager.getInstance().selectById(rs.getInt("no_acheteur")),
-									  CategoryManager.getInstance().selectById(rs.getInt("no_categorie"));
+									  CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				return art;  		
 			}
 		} catch (SQLException e) {
@@ -174,9 +176,6 @@ public class SoldArticleDAOImpl implements DAO<SoldArticle> {
 		return art;
 		}
 		
-	
-
-	@Override
 	public List<SoldArticle> selectAll() throws DALException {
 		Connection con = null;
 		java.sql.Statement stmt = null;
@@ -200,7 +199,7 @@ public class SoldArticleDAOImpl implements DAO<SoldArticle> {
 												  rs.getInt("prix_vente"),									  
 												  UserManager.getInstance().selectById(rs.getInt("no_vendeur")),
 												  UserManager.getInstance().selectById(rs.getInt("no_acheteur")),
-												  CategoryManager.getInstance().selectById(rs.getInt("no_categorie"));
+												  CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 					lst.add(soldArticle);
 				}
 						

@@ -2,6 +2,7 @@ package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,19 +19,22 @@ public class ServletDeleteUser extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		getServletContext().getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp").forward(request, response);;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id;
-		id = Integer.parseInt(request.getParameter("id"));
+		int userId;
+		userId = Integer.parseInt(request.getParameter("userId"));
 		try {
-			UserManager.getInstance().delete(id);
+			UserManager.getInstance().delete(userId);
 		} catch (DALException e) {
 			e.printStackTrace();
 		};
-		response.sendRedirect("home.html");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
+		dispatch.forward(request, response);
+		
 
 	}
 
