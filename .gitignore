@@ -3,6 +3,6 @@
 # ignore all .txt files
 *.txt
 # ignore all .properties files
-*.properties
+#*.properties
 # ignore context.xml
 /ProjetEnchereENI/WebContent/META-INF/context.xml
