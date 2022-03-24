@@ -46,19 +46,19 @@ public class PickUpManager {
 		}
 	}
 	
-	public void deletePickUp(int id) throws BLLException {
+	public void deletePickUp(int soldArticleid) throws BLLException {
 		try {
-			PickUpDAO.delete(id);
+			PickUpDAO.delete(soldArticleid);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Pick-up deletion failed - ", e);
 		}
 	}
 	
-	public PickUp getPickUp(int id) throws BLLException {
+	public PickUp getPickUp(int soldArticleid) throws BLLException {
 		PickUp pu = null;
 		try {
-			pu = PickUpDAO.selectById(id);
+			pu = PickUpDAO.selectById(soldArticleid);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Pick-up selection failed - ", e);

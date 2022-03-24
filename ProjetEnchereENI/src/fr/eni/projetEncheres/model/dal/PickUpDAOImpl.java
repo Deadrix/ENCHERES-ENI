@@ -1,6 +1,5 @@
 package fr.eni.projetEncheres.model.dal;
 
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +26,8 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 	private static final String DELETE ="DELETE FROM PICKUPS WHERE no_article = ?;";
 	private static final String SELECT_ALL ="SELECT * FROM PICKUPS";
 	private static final String SELECT_BY_ID ="SELECT * FROM PICKUPS WHERE no_article = ?;";
+	private static final String SELECT_BY_KEYWORD = "SELECT rue, code_postal, ville"
+			+ " FROM RETRAITS WHERE rue like ? or ville like ? or code_postal like ?";
 	
 
 	@Override
@@ -162,8 +163,29 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 
 	@Override
 	public List<PickUp> selectByMotCle(String motCle) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connect = null;
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		List<PickUp> liste = new ArrayList<PickUp>();
+		try {
+			connect = ConnectionProvider.getConnection();
+			pStmt = connect.prepareStatement(SELECT_BY_KEYWORD);
+			pStmt.setString(1, motCle);
+			rs = pStmt.executeQuery();
+			while (rs.next()) {
+				PickUp pu = new PickUp(
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4)
+						);
+			
+				liste.add(pu);
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectByMotCle failed - ", e);
+		} 
+		return liste;
+		
 	}
 
 	@Override
