@@ -25,13 +25,16 @@ public class User implements Serializable {
 	private List<Auction> auctions;
 	private Integer credit = 0;
 
+	
+
 	public User() {
 		super();
 	}
 
-	public User(String alias, String lastName, String firstName, String email, String telephone, String street,
-			String postalCode, String city, String password, Integer credit) {
+	public User(Integer userId, String alias, String lastName, String firstName, String email, String telephone,
+			String street, String postalCode, String city, String password, Integer credit) {
 		super();
+		this.userId = userId;
 		this.alias = alias;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -42,6 +45,20 @@ public class User implements Serializable {
 		this.city = city;
 		this.password = password;
 		this.credit = credit;
+	}
+
+	public User(String alias, String lastName, String firstName, String email, String telephone, String street,
+			String postalCode, String city, String password) {
+		super();
+		this.alias = alias;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+		this.telephone = telephone;
+		this.street = street;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.password = password;
 	}
 
 	public User(String alias, String email, String password) {
@@ -123,13 +140,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public List<SoldArticle> getSoldArticles() {
-		return soldArticle;
-	}
-
-	public void setSoldArticles(List<SoldArticle> soldArticles) {
-		this.soldArticle = soldArticles;
-	}
 
 	public Integer getUserId() {
 		return userId;
@@ -137,6 +147,15 @@ public class User implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+
+	public List<Auction> getAuctions() {
+		return auctions;
+	}
+
+	public void setAuctions(List<Auction> auctions) {
+		this.auctions = auctions;
 	}
 
 	public List<SoldArticle> getSoldArticle() {
@@ -154,14 +173,6 @@ public class User implements Serializable {
 	public void setBoughtArticle(List<SoldArticle> boughtArticle) {
 		this.boughtArticle = boughtArticle;
 	}
-
-	public List<Auction> getAuctions() {
-		return auctions;
-	}
-
-	public void setAuctions(List<Auction> auctions) {
-		this.auctions = auctions;
-	}
 	public Integer getCredit() {
 		return credit;
 	}
@@ -169,4 +180,5 @@ public class User implements Serializable {
 	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
+	
 }

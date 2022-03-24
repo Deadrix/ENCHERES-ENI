@@ -25,7 +25,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/TestServletAndFunction.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp");
 		dispatch.forward(request, response);
 	}
 
@@ -35,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
 		User user = new User(request.getParameter("alias"), request.getParameter("lastName"),
 				request.getParameter("firstName"), request.getParameter("email"), request.getParameter("telephone"),
 				request.getParameter("street"), request.getParameter("postalCode"), request.getParameter("city"),
-				request.getParameter("password"), null);
+				request.getParameter("password"));
 
 		try {
 			UserManager.getInstance().insert(user);
@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/TestSuccess.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
 		dispatch.forward(request, response);
 
 	}

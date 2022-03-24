@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp");
 		dispatch.forward(request, response);
 	}
 
@@ -41,12 +41,12 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", tempUser);
 			Cookie loggedIn = new Cookie("login", tempUser.getEmail());
-			loggedIn.setMaxAge(-1);
+			loggedIn.setMaxAge(0);
 			response.addCookie(loggedIn);
-			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/view/TestSuccess.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
 			dispatch.forward(request, response);
 		} else {
-			getServletContext().getRequestDispatcher("/WEB-INF/view/TestServletAndFunction.jsp").forward(request,
+			getServletContext().getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp").forward(request,
 					response);
 		}
 
