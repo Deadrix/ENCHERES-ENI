@@ -6,16 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import com.mysql.cj.protocol.Resultset;
-
 import fr.eni.projetEncheres.model.bo.User;
-import fr.eni.projetEncheres.model.dal.ConnectionProvider;
-import fr.eni.projetEncheres.model.dal.UserDAO;
-import fr.eni.projetEncheres.model.dal.DALException;
 
 public class UserDAOImpl implements UserDAO {
 
