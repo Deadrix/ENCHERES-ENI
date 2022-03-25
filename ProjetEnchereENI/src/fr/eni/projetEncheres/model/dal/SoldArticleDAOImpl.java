@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.sun.xml.internal.ws.org.objectweb.asm.Type;
 
+import fr.eni.projetEncheres.model.bll.AuctionManager;
 import fr.eni.projetEncheres.model.bll.CategoryManager;
 import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
@@ -131,8 +132,7 @@ public class SoldArticleDAOImpl implements DAO<SoldArticle> {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",
-					e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",e);
 		}
 		return lst;
 	}

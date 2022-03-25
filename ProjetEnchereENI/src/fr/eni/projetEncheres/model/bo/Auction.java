@@ -12,18 +12,18 @@ public class Auction implements Serializable {
 
 	private Date auctionDate;
 	private Integer itemPrice;
-	private User user;
+	private User buyer;
 	private SoldArticle auctionedArticle;
 
 	public Auction() {
 		super();
 	}
 
-	public Auction(Date auctionDate, Integer itemPrice, User user, SoldArticle auctionedArticle) {
+	public Auction(Date auctionDate, Integer itemPrice, User buyer, SoldArticle auctionedArticle) {
 		super();
 		this.auctionDate = auctionDate;
 		this.itemPrice = itemPrice;
-		this.user = user;
+		this.buyer = buyer;
 		this.auctionedArticle = auctionedArticle;
 
 	}
@@ -44,12 +44,12 @@ public class Auction implements Serializable {
 		this.itemPrice = itemPrice;
 	}
 
-	public User getUser() {
-		return user;
+	public User getBuyer() {
+		return buyer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
 	}
 
 	public SoldArticle getAuctionedArticle() {

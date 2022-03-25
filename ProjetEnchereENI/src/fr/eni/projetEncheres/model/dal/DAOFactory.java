@@ -27,6 +27,9 @@ public class DAOFactory {
 		return new UserDAOImpl();
 	}
 	
+	public static AuctionDAO getAuctionDAO( ) {
+		return new AuctionDAOImpl()
+;	}
 
 	
 	 /*
