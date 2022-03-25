@@ -6,7 +6,7 @@ import fr.eni.projetEncheres.model.bo.SoldArticle;
 
 public interface SoldArticleDAO extends DAO<SoldArticle>{
 	
-	public List<SoldArticle> SelectByCategoryByState(String motCle, int categorie) throws DALException;
+	public List<SoldArticle> selectByCategoryByState(int category, int state) throws DALException;
 	
 	public void updateAuction(int articleId);
 	

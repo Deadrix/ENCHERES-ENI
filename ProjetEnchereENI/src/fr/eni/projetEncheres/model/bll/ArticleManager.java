@@ -48,31 +48,20 @@ public class ArticleManager implements SoldArticleDAO {
 		soldArticleDAOImpl.delete(idArticle);
 	}
 
-	public List<SoldArticle> selectByCategoryByState(String motCle, int categorie) throws DALException {
-		return soldArticleDAOImpl.selectByCategoryByState(motCle, categorie);
+	public List<SoldArticle> selectByCategoryByState(int category, int state) throws DALException {
+		return soldArticleDAOImpl.selectByCategoryByState(category, state);
 	}
 
-	@Override
-	public List<SoldArticle> SelectByCategoryByState(String motCle, int categorie) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void updateAuction(int articleId) {
-		// TODO Auto-generated method stub
-		
+		soldArticleDAOImpl.updateAuction(articleId);		
 	}
 
-	@Override
 	public void updateBuyer(int articleId) {
-		// TODO Auto-generated method stub
-		
+		soldArticleDAOImpl.updateBuyer(articleId);
 	}
 
-	@Override
 	public void updateSoldPrice(int articleId) {
-		// TODO Auto-generated method stub
-		
+		soldArticleDAOImpl.updateSoldPrice(articleId);
 	}
+
 }
