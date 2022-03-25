@@ -267,7 +267,6 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article SoldPrice update from database failed - ", e);
 		}
-
 		
 	}
 
