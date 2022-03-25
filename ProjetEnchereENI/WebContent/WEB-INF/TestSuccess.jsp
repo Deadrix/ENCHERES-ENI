@@ -8,7 +8,7 @@
 		<div class="col-12 col-md-6">
 			<div class="card-header-pills">
 				<div class="card-body">
-					<a href="/ProjetEncherENI/Home"> <img src="Assets/legend.jpg" alt="redirect"
+					<a href="<%=request.getContextPath()%>/register"> <img src="Assets/legend.jpg" alt="redirect"
 						class="card-img"></a>
 				</div>
 			</div>

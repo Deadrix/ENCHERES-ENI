@@ -57,9 +57,12 @@ public class RegisterServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		if (user.getEmail().equals(tempUser.getEmail())) {
+		if (user.getEmail().equals(tempUser.getEmail()) || user.getPassword() != null) {
 			PrintWriter out = response.getWriter();
-			out.print("Dude, you are already in");
+			out.print("Dude, What are you doing?");
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp");
+			dispatch.forward(request, response);
 		} else {
 			try {
 				UserManager.getInstance().insert(user);
