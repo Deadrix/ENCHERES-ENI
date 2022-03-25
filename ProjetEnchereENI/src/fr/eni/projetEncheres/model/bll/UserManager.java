@@ -29,6 +29,12 @@ public class UserManager {
 	public void insert(User user) throws DALException {
 		aUserDAOImpl.insert(user);
 	}
+	public User selectByMail(User user) throws DALException {
+		return aUserDAOImpl.selectByMail(user);
+	}
+	public User selectByAlias(User user) throws DALException {
+		return aUserDAOImpl.selectByAlias(user);
+	}
 	
 	public void delete(Integer userId) throws DALException {
 		aUserDAOImpl.delete(userId);
@@ -39,5 +45,12 @@ public class UserManager {
 	public void update(User user) throws DALException {
 		aUserDAOImpl.update(user);
 	}
+<<<<<<< HEAD
 		
+=======
+
+
+	
+	
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 }

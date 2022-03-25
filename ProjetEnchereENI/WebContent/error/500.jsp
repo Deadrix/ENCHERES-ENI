@@ -1,6 +1,6 @@
-<%@ include file="/WEB-INF/fragments/HeaderAndNavBar.jspf"%>
+<%@ include file="/WEB-INF/fragments/ErrorHeaderAndNavBar.jspf"%>
 
-	<h1>OUCH</h1>
+	<h1>Hollaback girl coming soon</h1>
 	<div class="container">
 	<div class="row g-5">
 		<div class="col-12 col-md-6">

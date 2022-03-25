@@ -1,6 +1,7 @@
 package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,15 +38,38 @@ public class RegisterServlet extends HttpServlet {
 				request.getParameter("street"), request.getParameter("postalCode"), request.getParameter("city"),
 				request.getParameter("password"));
 
+//	try {
+//		UserManager.getInstance().insert(user);
+//	} catch (DALException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
+//	dispatch.forward(request, response);
+
+
+
+		User tempUser = new User();
 		try {
-			UserManager.getInstance().insert(user);
-		} catch (DALException e) {
+			tempUser = UserManager.getInstance().selectByMail(user);
+		} catch (DALException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
-		dispatch.forward(request, response);
+
+		if (user.getEmail().equals(tempUser.getEmail())) {
+			PrintWriter out = response.getWriter();
+			out.print("Dude, you are already in");
+		} else {
+			try {
+				UserManager.getInstance().insert(user);
+				
+			} catch (DALException e) {
+				e.printStackTrace();
+			}
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
+			dispatch.forward(request, response);
+		}
 
 	}
-
 }

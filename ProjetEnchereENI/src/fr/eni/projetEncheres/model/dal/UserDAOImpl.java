@@ -10,6 +10,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.mysql.cj.protocol.Resultset;
+
 import fr.eni.projetEncheres.model.bo.User;
 import fr.eni.projetEncheres.model.dal.ConnectionProvider;
 import fr.eni.projetEncheres.model.dal.UserDAO;
@@ -21,15 +23,19 @@ public class UserDAOImpl implements UserDAO {
 
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
-	private static final String UPDATE = "update UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
+	private static final String UPDATE = "UPDATE UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?)";
-	private static final String DELETEBYID = "delete from UTILISATEURS where no_utilisateur=?";
-	private static final String SelectById = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+	private static final String UPDATEPASSWORD = "UPDATE UTILISATEURS SET mot_de_passe=? where email=?";
+	private static final String UPDATECREDITBYID = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
+	
+	private static final String DELETEBYID = "DELETE FROM UTILISATEURS where no_utilisateur=?";
+	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
 	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
-	private static final String SELECTBYKEYWORD = "SELECT pseudo FROM UTILISATEURS WHERE email like ? and mot_de_passe like ?";
-	private final String SQLLOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
+	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
+	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
+	private final String LOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
 
 
 	private void setFields(PreparedStatement ps, User user) throws SQLException {
@@ -59,6 +65,40 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	public User selectByMail(User user) throws DALException {
+		if (user != null) {
+			User tempUser = null;
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(SELECTBYMAIL)) {
+				ps.setString(1, user.getEmail());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					tempUser = new User();
+					getFields(rs, user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return tempUser;
+	}
+	public User selectByAlias(User user) throws DALException {
+		if (user != null) {
+			User tempUser = null;
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(SELECTBYALIAS)) {
+				ps.setString(1, user.getEmail());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					tempUser = new User();
+					getFields(rs, user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return tempUser;
+	}
 	@Override
 	public void insert(User user) throws DALException {
 		if (user != null) {
@@ -94,9 +134,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User Login(String email, String pwd) {
 		User tempUser = null;
-		try {
-			Connection con = connectionBDD();
-			PreparedStatement ps = con.prepareStatement(SQLLOGIN);
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(LOGIN)){
 			ps.setString(1, email);
 			ps.setString(2, pwd);
 			ResultSet rs = ps.executeQuery();
@@ -105,9 +144,8 @@ public class UserDAOImpl implements UserDAO {
 				tempUser = new User();
 				getFields(rs, tempUser);
 			}
-			con.close();
-		} catch (SQLException | ClassNotFoundException d) {
-			d.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return tempUser;
 	}
@@ -116,7 +154,7 @@ public class UserDAOImpl implements UserDAO {
 	public User selectById(int userid) throws DALException {
 		User tempUser = new User();
 		try (Connection connect = ConnectionProvider.getConnection();
-				PreparedStatement ps = connect.prepareStatement(SelectById)) {
+				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
 			ps.setInt(1, userid);
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -154,24 +192,4 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 	
-	
-	private static Connection connectionBDD() throws ClassNotFoundException, SQLException {
-		
-			
-			Connection cnx=null;
-			DataSource ds;
-			InitialContext ctx;
-			try 
-			{
-				ctx=new InitialContext();
-				ds=(DataSource) ctx.lookup("java:comp/env/jdbc/pool_cnx");
-				cnx=ds.getConnection();
-				
-			} catch (NamingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return cnx;
-			
-		}
 }
