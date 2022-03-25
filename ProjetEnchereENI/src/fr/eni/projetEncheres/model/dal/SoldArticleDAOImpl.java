@@ -50,7 +50,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle insertion into database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Article insertion into database failed - ", e);
 		}
 
 	}
@@ -71,7 +71,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle Global update into database failed", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Global Article update into database failed", e);
 		}
 	}
 
@@ -100,7 +100,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle selectById from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Article by Id from database failed - ", e);
 		}
 		return art;
 	}
@@ -133,15 +133,12 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Article from database failed - ",
 					e);
 		}
 		return lst;
 	}
 
-	public List<SoldArticle> selectByMotCle(String motCle) throws DALException {
-		return null;
-	}
 
 	public List<SoldArticle> selectByDescription(String motCle) throws DALException {
 
@@ -172,7 +169,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Article by Description from database failed - ",
 					e);
 		}
 		return lst;
@@ -185,7 +182,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle deletion into database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Delete Article from database failed - ", e);
 		}
 	}
 
@@ -219,7 +216,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select SoldArticle by Categoy and State failed - ",
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Article by Category and State from database failed - ",
 					e);
 		}
 		return lst;
@@ -236,7 +233,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle Auction update failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article Auction from database failed - ", e);
 		}
 
 	}
@@ -252,7 +249,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle Buyer update failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article Buyer from database failed - ", e);
 		}
 
 	}
@@ -268,10 +265,14 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle SoldPrice update failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article SoldPrice update from database failed - ", e);
 		}
 
 		
 	}
 
+	public List<SoldArticle> selectByMotCle(String motCle) throws DALException {
+		return null;
+	}
+	
 }
