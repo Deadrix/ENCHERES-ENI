@@ -45,12 +45,4 @@ public class UserManager {
 	public void update(User user) throws DALException {
 		aUserDAOImpl.update(user);
 	}
-<<<<<<< HEAD
-		
-=======
-
-
-	
-	
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 }
