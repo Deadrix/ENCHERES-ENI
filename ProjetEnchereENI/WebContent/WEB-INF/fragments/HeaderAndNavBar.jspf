@@ -29,7 +29,7 @@
 	<div class="container">
 		<nav class="navbar navbar-expand-md navbar-light">
 			<a href="#" class="navbar-brand"> <img
-				src="../Assets/emoji-sunglasses.svg" alt="sunglasses"
+				src="Assets/emoji-sunglasses.svg" alt="sunglasses"
 				width="25" height="25" class="d-inline-block align-bottom">
 				Home
 			</a>
