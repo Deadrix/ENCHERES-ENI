@@ -16,239 +16,180 @@ import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 
 public class SoldArticleDAOImpl implements DAO<SoldArticle> {
-	
-	private static SoldArticleDAOImpl instance = null;
 
-	private final String SQLINSERT="INSERT INTO ARTICLES_VENDUS (nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categories) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final String SQLUPDATE="UPDATE ARTICLES_VENDUS set nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_vendeur=?, no_acheteur=?, no_categorie=? WHERE id=?";
-	private final String SQLDELETEBYID="DELETE FROM ARTICLES_VENDUS WHERE id=?";
-	private final String SQLSELECTBYID="SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM ARTICLES_VENDUS where id=?";
-	private final String SQLSELECTALL="SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM ARTICLES_VENDUS";
-	
-	
+	private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,no_vendeur,no_categorie, state) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=? WHERE id=?";
+	private final String DELETEBYID = "DELETE FROM ARTICLES_VENDUS WHERE id=?";
+	private final String SELECTBYID = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS where id=?";
+	private final String SELECTALL = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS";
+	private final String SELECTBYDESCRIPTION = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS where description like=%?%";
+	private final String AUCTIONUPDATE = "UPDATE ARTICLES_VENDUS enchere_courante=? WHERE id=?";
+	private final String BUYERNUPDATE = "UPDATE ARTICLES_VENDUS no_acheteur=? WHERE id=?";
+
 	@Override
-	public void insert(SoldArticle object) throws DALException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			con=ConnectionProvider.getConnection();
-			pstmt=con.prepareStatement(SQLINSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, object.getArticleName());
-			pstmt.setString(2, object.getDescription());
-			pstmt.setDate(3, (Date) object.getAuctionStart());
-			pstmt.setDate(4, (Date) object.getAuctionEnd());	
-			if(object.getAuctionStart()==null) {
-				pstmt.setNull(5, Type.INT);
+	public void insert(SoldArticle article) throws DALException {
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, article.getArticleName());
+			ps.setString(2, article.getDescription());
+			ps.setDate(3, (Date) article.getAuctionStart());
+			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setInt(5, article.getInitialPrice());
+			ps.setInt(6, article.getSeller().getUserId());
+			ps.setInt(7, article.getCategory().getCategoryId());
+			ps.setInt(8, article.getState());
+			ps.executeUpdate();
+
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				article.setArticleId(rs.getInt(1));
 			}
-			else {
-				pstmt.setInt(5, object.getInitialPrice());
-			}
-			if(object.getAuctionStart()==null) {
-				pstmt.setNull(6, Type.INT);
-			}
-			else {
-				pstmt.setInt(6, object.getSoldPrice());
-			}
-			
-			pstmt.setInt(7, object.getSeller().getUserId());
-			pstmt.setInt(8, object.getBuyer().getUserId());
-			pstmt.setInt(9, object.getCategory().getCategoryId());
-			
-			pstmt.executeUpdate();
-			con.close();
-			
-		} 
-		catch (SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle insertion into database failed - ", e);
 		}
-		
-		finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DALException("Close failed - ", e);
-			}
+
+	}
+
+	public void update(SoldArticle article) throws DALException {
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
+			ps.setString(1, article.getArticleName());
+			ps.setString(2, article.getDescription());
+			ps.setDate(3, (Date) article.getAuctionStart());
+			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setInt(5, article.getInitialPrice());
+			ps.setInt(6, article.getSoldPrice());
+			ps.setInt(7, article.getSeller().getUserId());
+			ps.setInt(8, article.getCategory().getCategoryId());
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle update failed - ", e);
 		}
 	}
 
 	@Override
-	public void update(SoldArticle object) throws DALException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			con=ConnectionProvider.getConnection();
-			pstmt=con.prepareStatement(SQLUPDATE);
-			pstmt.setString(1, object.getArticleName());
-			pstmt.setString(2, object.getDescription());
-			pstmt.setDate(3, (Date) object.getAuctionStart());
-			pstmt.setDate(4, (Date) object.getAuctionEnd());	
-			if(object.getAuctionStart()==null) {
-				pstmt.setNull(5, Type.INT);
-			}
-			else {
-				pstmt.setInt(5, object.getInitialPrice());
-			}
-			if(object.getAuctionStart()==null) {
-				pstmt.setNull(6, Type.INT);
-			}
-			else {
-				pstmt.setInt(6, object.getSoldPrice());
-			}
-			
-			pstmt.setInt(7, object.getSeller().getUserId());
-			pstmt.setInt(8, object.getBuyer().getUserId());
-			pstmt.setInt(9, object.getCategory().getCategoryId());
-			
-			pstmt.executeUpdate();
-			con.close();
-			
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle insertion into database failed - ", e);
-		}
-		
-		finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DALException("Close failed - ", e);
-			}
-		}
-		
-	}
+	public SoldArticle selectById(int idArticle) throws DALException {
 
-	@Override
-	public SoldArticle selectById(int idObject) throws DALException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
 		SoldArticle art = null;
-		ResultSet rs;
-		
-		try {
-			con = ConnectionProvider.getConnection();
-			pstmt = con.prepareStatement(SQLDELETEBYID);
-			pstmt.setInt(1, idObject);
-			rs = pstmt.executeQuery(SQLSELECTBYID);
-			if(rs.next()) 
-			{
-				art = new SoldArticle(rs.getInt("no_article"),
-									  rs.getString("nom_article"),
-									  rs.getString("description"),
-									  rs.getDate("date_debut_encheres"),
-									  rs.getDate("date_fin_encheres"),
-									  rs.getInt("prix_initial"),
-									  rs.getInt("prix_vente"),									  
-									  UserManager.getInstance().selectById(rs.getInt("no_vendeur")),
-									  UserManager.getInstance().selectById(rs.getInt("no_acheteur")),
-									  CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
-				return art;  		
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
+			ps.setInt(1, idArticle);
+			ResultSet rs = ps.executeQuery(SELECTBYID);
+			if (rs.next()) {
+				art = new SoldArticle();
+				art.setArticleId(rs.getInt("no_article"));
+				art.setArticleName(rs.getString("nom_article"));
+				art.setDescription(rs.getString("description"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres"));
+				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setInitialPrice(rs.getInt("prix_initial"));
+				art.setSoldPrice(rs.getInt("prix_vente"));
+				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
+				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
+				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setState(rs.getInt("state"));
+				art.setAuction(AuctionManager.getInstance().selectLastAuctionFromArticle(rs.getInt("no_article")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle selectionById from database failed - ", e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DALException("Close failed - ", e);
-			}
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle selectById from database failed - ", e);
 		}
 		return art;
-		}
-		
+	}
+
 	public List<SoldArticle> selectAll() throws DALException {
-		Connection con = null;
-		java.sql.Statement stmt = null;
+
 		List<SoldArticle> lst;
 		lst = new ArrayList<>();
-		ResultSet rs;
-		SoldArticle soldArticle;
-				
-			try {
-				con = ConnectionProvider.getConnection();
-				stmt = con.createStatement();
-				rs = stmt.executeQuery(SQLSELECTALL);
-				while(rs.next()) 
-				{
-					soldArticle = new SoldArticle(rs.getInt("no_article"),
-												  rs.getString("nom_article"),
-												  rs.getString("description"),
-												  rs.getDate("date_debut_encheres"),
-												  rs.getDate("date_fin_encheres"),
-												  rs.getInt("prix_initial"),
-												  rs.getInt("prix_vente"),									  
-												  UserManager.getInstance().selectById(rs.getInt("no_vendeur")),
-												  UserManager.getInstance().selectById(rs.getInt("no_acheteur")),
-												  CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
-					lst.add(soldArticle);
-				}
-						
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ", e);
-			} finally {
-				try {
-					if (stmt != null) {
-						stmt.close();
-					}
-					if (con != null) {
-						con.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new DALException("Close failed - ", e);
-				}
-			}
-			return lst;
-			}
-		
-	
+		SoldArticle art = null;
 
-	@Override
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
+			ResultSet rs = ps.executeQuery(SELECTALL);
+			while (rs.next()) {
+				art = new SoldArticle();
+				art.setArticleId(rs.getInt("no_article"));
+				art.setArticleName(rs.getString("nom_article"));
+				art.setDescription(rs.getString("description"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres"));
+				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setInitialPrice(rs.getInt("prix_initial"));
+				art.setSoldPrice(rs.getInt("prix_vente"));
+				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
+				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
+				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setState(rs.getInt("state"));
+				art.setAuction(AuctionManager.getInstance().selectLastAuctionFromArticle(rs.getInt("no_article")));
+				lst.add(art);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",
+					e);
+		}
+		return lst;
+	}
+
 	public List<SoldArticle> selectByMotCle(String motCle) throws DALException {
 		return null;
 	}
+	
+	public List<SoldArticle> selectByDescription(String motCle) throws DALException {
+		
+		List<SoldArticle> lst;
+		lst = new ArrayList<>();
+		SoldArticle art = null;
 
-	@Override
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(SELECTBYDESCRIPTION)) {
+			ps.setString(1, motCle);
+			ResultSet rs = ps.executeQuery(SELECTBYDESCRIPTION);
+			while (rs.next()) {
+				art = new SoldArticle();
+				art.setArticleId(rs.getInt("no_article"));
+				art.setArticleName(rs.getString("nom_article"));
+				art.setDescription(rs.getString("description"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres"));
+				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setInitialPrice(rs.getInt("prix_initial"));
+				art.setSoldPrice(rs.getInt("prix_vente"));
+				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
+				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
+				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setState(rs.getInt("state"));
+				art.setAuction(AuctionManager.getInstance().selectLastAuctionFromArticle(rs.getInt("no_article")));
+				lst.add(art);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : All SoldArticle selection from database failed - ",
+					e);
+		}
+		return lst;
+	}
+
 	public void delete(int idObject) throws DALException {
-		Connection con;
-		PreparedStatement pstmt;
-		try {
-			con=ConnectionProvider.getConnection();
-			pstmt=con.prepareStatement(SQLDELETEBYID);
-			pstmt.setInt(1, idObject);
-						
-			pstmt.executeUpdate();
-			con.close();
-			
-		} 
-		catch (SQLException e) {
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(DELETEBYID)) {
+			ps.setInt(1, idObject);
+			ps.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : SoldArticle deletion into database failed - ", e);
 		}
-		
-	
-		
+	}
+
+	public List<SoldArticle> selectByCategoryByState(String motCle, int categorie) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
