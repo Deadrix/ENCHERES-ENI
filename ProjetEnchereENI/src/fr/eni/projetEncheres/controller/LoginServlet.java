@@ -1,6 +1,7 @@
 package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.User;
+import javafx.print.Printer;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,28 +27,43 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		getServletContext().getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp").forward(request, response);
+		
+		getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User tempUser;
+		User tempUser = new User();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		tempUser = UserManager.getInstance().login(email, password);
 
-		if (tempUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", tempUser);
-			Cookie loggedIn = new Cookie("login", tempUser.getEmail());
-			loggedIn.setMaxAge(0);
-			response.addCookie(loggedIn);
-			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
-			dispatch.forward(request, response);
-		} else {
-			getServletContext().getRequestDispatcher("/WEB-INF/TestServletAndFunction.jsp").forward(request,
-					response);
+		HttpSession session = request.getSession();
+		request.getSession().getAttribute("userID");
+		if (tempUser.getUserId() != null && request.getSession().getAttribute("userID") == null) {
+			
+			
+			session.setAttribute("userID", tempUser.getUserId());
+			session.setAttribute("alias", tempUser.getAlias());
+			session.setAttribute("lastName", tempUser.getLastName());
+			session.setAttribute("firstName", tempUser.getFirstName());
+			session.setAttribute("email", tempUser.getEmail());
+			session.setAttribute("telephone", tempUser.getTelephone());
+			session.setAttribute("street", tempUser.getStreet());
+			session.setAttribute("postalCode", tempUser.getPostalCode());
+			session.setAttribute("city" ,tempUser.getCity());
+			session.setAttribute("credit" ,tempUser.getCredit());
+			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
+			HHAconnection.setMaxAge(60*5);
+			response.addCookie(HHAconnection);
+			request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
+			
+		} else if (request.getSession().getAttribute("userID") != null){
+		request.setAttribute("loginErrorMessage", "you are already logged in");
+		request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+		}else {
+			request.setAttribute("loginErrorMessage", "something wrong with your credentials");
+			request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 		}
 
 	}

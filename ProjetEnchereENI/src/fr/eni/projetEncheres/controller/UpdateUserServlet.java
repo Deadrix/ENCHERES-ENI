@@ -11,28 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetEncheres.model.bo.User;
+import fr.eni.projetEncheres.model.dal.DALException;
 import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bll.UserManager;
-import fr.eni.projetEncheres.model.bo.User;
 
-@WebServlet("/Register")
-public class RegisterServlet extends HttpServlet {
+
+@WebServlet("/UpdateUser")
+public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public RegisterServlet() {
-		super();
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
-		getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+		System.out.println("fucking hell");
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
 		String alias, email, password;
 		alias = request.getParameter("alias");
 		email = request.getParameter("email");
@@ -43,21 +41,20 @@ public class RegisterServlet extends HttpServlet {
 			User tempUser = new User(alias, request.getParameter("lastName"),
 					request.getParameter("firstName"), email, request.getParameter("telephone"),
 					request.getParameter("street"), request.getParameter("zipCode"), request.getParameter("city"),
-					password);
-
+					password, (Integer)session.getAttribute("credit"));
+			tempUser.setUserId((Integer)session.getAttribute("userID"));
 			try {
-				UserManager.getInstance().registerProcess(tempUser);
-			} catch (BLLException e) {
-				request.setAttribute("registerErrorMessage", "something was wrong with your form");
-				request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+				UserManager.getInstance().updateProcess(tempUser);
+			} catch (BLLException | DALException e) {
+				request.setAttribute("updateErrorMessage", "something was wrong with the info provided");
+				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
 				e.printStackTrace();
 			}
 
-			if (tempUser.getUserId() == 0) {
-				request.setAttribute("registerErrorMessage", "something was wrong with your form");
+			if (tempUser.getUserId() != session.getAttribute("userID")) {
+				request.setAttribute("updateErrorMessage", "i don't think you are logged in");
 				request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 			} else {
-				HttpSession session = request.getSession();
 
 				
 				session.setAttribute("userID", tempUser.getUserId());
@@ -69,6 +66,7 @@ public class RegisterServlet extends HttpServlet {
 				session.setAttribute("street", tempUser.getStreet());
 				session.setAttribute("postalCode", tempUser.getPostalCode());
 				session.setAttribute("city" ,tempUser.getCity());
+				session.setAttribute("credit" ,tempUser.getCredit());
 				Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
 				HHAconnection.setMaxAge(60*5);
 				response.addCookie(HHAconnection);
@@ -76,9 +74,10 @@ public class RegisterServlet extends HttpServlet {
 				
 			}
 		} else {
-			request.setAttribute("registerErrorMessage", "something was wrong with your form");
-			request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+			request.setAttribute("updateErrorMessage", "something was wrong with your form");
+			request.getRequestDispatcher("/ConnectedHP.jsp").forward(request, response);
 		}
 
 	}
+
 }

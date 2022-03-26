@@ -3,7 +3,7 @@
 
 
 
-        <input type="hidden" name="userId" value="${user.id}" /> <label for="pseudo">
+        <input type="number" name="userId" value="${user.id}" /> <label for="pseudo">
             <fmt:message key="msg_pseudo" bundle="${base}"/>
 
         </label><input type="text" id="pseudo" name="txtAlias" value="${user.alias}" required />
@@ -18,7 +18,7 @@
         </label><input type="text" id="email" name="txtEmail" value="${user.email}" required /> <br>
         <label for="phone">
             <fmt:message key="msg_phone" bundle="${base}"/>
-        </label><input type="tel" id="phone" name="txtPhone" value="${user.telephone}" pattern="[0-9]{10}" required />
+        </label><input type="tel" id="phone" name="txtPhone" value="${user.telephone}" pattern="[0-9]{>2}" required />
         <br> <label for="street">
             <fmt:message key="msg_street" bundle="${base}"/>
         </label><input type="text" id="street" name="txtStreet" value="${user.street}" required /> <br> <label

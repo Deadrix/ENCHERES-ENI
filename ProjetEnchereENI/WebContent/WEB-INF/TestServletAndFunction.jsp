@@ -3,15 +3,16 @@
 	<h2>Login</h2>
 </div>
 
-<form action="LoginServlet" method="post">
+<form action="<%=request.getContextPath()%>/Login" method="post">
 	<table>
+	<thead>${loginErrorMessage}</thead>
 		<tr>
 			<td>email</td>
-			<td><input type="text" name="email"></td>
+			<td><input type="text" name="email" value="${cookie.HHAconnection.value}"></td>
 		</tr>
 		<tr>
 			<td>password</td>
-			<td><input type="password" name="password"></td>
+			<td><input type="password" name="password" placeholder="8 char min"></td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="login"></td>
@@ -25,6 +26,7 @@
 	<h2>User Registration Form</h2>
 	<form action="<%=request.getContextPath()%>/register" method="post">
 		<table>
+		<thead>${registerErrorMessage}</thead>
 			<tr>
 				<td>Pseudo</td>
 				<td><input type="text" name="alias" /></td>

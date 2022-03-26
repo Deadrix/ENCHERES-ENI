@@ -1,0 +1,124 @@
+<div class="container-fluid pb-5 ">
+
+			<div class="row g-5">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/FuckIt.jpg" alt="whatever" class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 1 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/Nope.jpg" alt="whatever"
+							class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 2 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/PowerToThePeople.jpg" alt="whatever"
+							class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 3 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="container-fluid pb-5">
+
+			<div class="row g-5">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/RaisedFist.jpg" alt="whatever" class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 4 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/Shutdown.jpg" alt="whatever"
+							class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 5 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card-header-pills">
+						<img src="Assets/Warning.jpg" alt="whatever"
+							class="card-img">
+						<div class="card-body">
+							<h5 class="card-title"> Category 6 </h5>
+							<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+								eveniet maiores eligendi placeat! Deserunt libero iure veniam, repellendus itaque
+								necessitatibus quidem eos aperiam fugiat omnis, facilis consequatur incidunt sequi aut
+								fuga earum modi, mollitia laudantium sint repudiandae. Animi autem perferendis deserunt
+								sit nostrum commodi! Accusamus, dolore placeat obcaecati sunt quod, perferendis itaque
+								doloremque molestiae doloribus officiis dicta? Fuga quidem doloremque voluptatem quis
+								reiciendis unde! Praesentium mollitia eaque cum sapiente debitis dolorum laboriosam
+								culpa ipsam ea vel voluptatibus beatae quis, libero delectus. Ut, ab. Nihil, accusantium
+								quam. Dignissimos non reprehenderit magnam delectus natus? Ex commodi praesentium iure
+								impedit maxime velit nemo!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

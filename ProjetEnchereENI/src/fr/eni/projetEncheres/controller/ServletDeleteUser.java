@@ -32,8 +32,8 @@ public class ServletDeleteUser extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		};
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp");
-		dispatch.forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/TestSuccess.jsp").forward(request, response);
+		response.sendRedirect("/WEB-INF/TestSuccess.jsp");
 		
 
 	}

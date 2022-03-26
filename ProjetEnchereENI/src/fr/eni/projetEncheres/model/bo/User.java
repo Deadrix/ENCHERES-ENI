@@ -23,15 +23,19 @@ public class User implements Serializable {
 	private List<SoldArticle> soldArticle;
 	private List<SoldArticle> boughtArticle;
 	private List<Auction> auctions;
-	private Integer credit = 0;
+	private Integer credit;
 
 	
 
 	public User() {
 		super();
 	}
-
-	public User(Integer userId, String alias, String lastName, String firstName, String email, String telephone,
+	public User(String alias, String email) {
+		this.alias = alias;
+		this.email=email;
+		
+	}
+	public User(String alias, String lastName, String firstName, String email, String telephone,
 			String street, String postalCode, String city, String password, Integer credit) {
 		super();
 		this.userId = userId;
