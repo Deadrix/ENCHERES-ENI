@@ -5,15 +5,12 @@ import java.util.Date;
 
 public class Auction implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private Date auctionDate;
-	private Integer itemPrice;
 	private User buyer;
 	private SoldArticle auctionedArticle;
+	private Date auctionDate;
+	private Integer itemPrice;
 
 	public Auction() {
 		super();

@@ -10,7 +10,7 @@ import fr.eni.projetEncheres.model.dal.SoldArticleDAOImpl;
 
 public class ArticleManager implements SoldArticleDAO {
 
-	private static ArticleManager instanceArticleManager = null;
+	private static ArticleManager instanceOfArticleManager = null;
 	private SoldArticleDAOImpl soldArticleDAOImpl = (SoldArticleDAOImpl) DAOFactory.getArticleDAO();
 
 	public ArticleManager(SoldArticleDAOImpl aSoldArticleDAOImpl) {
@@ -18,10 +18,10 @@ public class ArticleManager implements SoldArticleDAO {
 	}
 
 	public static ArticleManager getInstance() {
-		if (instanceArticleManager == null) {
-			instanceArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());
+		if (instanceOfArticleManager == null) {
+			instanceOfArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());
 		}
-		return instanceArticleManager;
+		return instanceOfArticleManager;
 	}
 
 	public void insert(SoldArticle article) throws DALException {
@@ -32,36 +32,36 @@ public class ArticleManager implements SoldArticleDAO {
 		soldArticleDAOImpl.update(article);
 	}
 
-	public SoldArticle selectById(int idArticle) throws DALException {
-		return soldArticleDAOImpl.selectById(idArticle);
+	public SoldArticle selectById(int articleId) throws DALException {
+		return soldArticleDAOImpl.selectById(articleId);
 	}
 
 	public List<SoldArticle> selectAll() throws DALException {
 		return soldArticleDAOImpl.selectAll();
 	}
 
-	public List<SoldArticle> selectByMotCle(String motCle) throws DALException {
-		return soldArticleDAOImpl.selectByMotCle(motCle);
+	public void delete(int articleId) throws DALException {
+		soldArticleDAOImpl.delete(articleId);
 	}
 
-	public void delete(int idArticle) throws DALException {
-		soldArticleDAOImpl.delete(idArticle);
+	public List<SoldArticle> selectByDescription(String motCle) throws DALException {
+		return soldArticleDAOImpl.selectByDescription(motCle);
 	}
-
+	
 	public List<SoldArticle> selectByCategoryByState(int category, int state) throws DALException {
 		return soldArticleDAOImpl.selectByCategoryByState(category, state);
 	}
 
-	public void updateAuction(int articleId) {
-		soldArticleDAOImpl.updateAuction(articleId);		
+	public void updateAuction(SoldArticle article) throws DALException {
+		soldArticleDAOImpl.updateAuction(article);		
 	}
 
-	public void updateBuyer(int articleId) {
-		soldArticleDAOImpl.updateBuyer(articleId);
+	public void updateBuyer(SoldArticle article) throws DALException {
+		soldArticleDAOImpl.updateBuyer(article);
 	}
 
-	public void updateSoldPrice(int articleId) {
-		soldArticleDAOImpl.updateSoldPrice(articleId);
+	public void updateSoldPrice(SoldArticle article) throws DALException {
+		soldArticleDAOImpl.updateSoldPrice(article);
 	}
-
+	
 }

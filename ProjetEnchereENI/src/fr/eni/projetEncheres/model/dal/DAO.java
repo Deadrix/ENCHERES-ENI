@@ -12,9 +12,8 @@ public interface DAO<T> {
 	
 	public List<T> selectAll() throws DALException;
 	
-	public List<T> selectByMotCle(String motCle) throws DALException;
-	
 	public void delete(int idObject) throws DALException;
 	
-
+	//public List<T> selectByMotCle(String motCle) throws DALException;
+	
 }
