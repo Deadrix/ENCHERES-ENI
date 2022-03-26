@@ -161,7 +161,6 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 		return list;
 	}
 
-	@Override
 	public List<PickUp> selectByMotCle(String motCle) throws DALException {
 		Connection connect = null;
 		PreparedStatement pStmt = null;
