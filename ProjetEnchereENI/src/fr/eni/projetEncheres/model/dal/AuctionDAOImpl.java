@@ -76,7 +76,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All SoldArticle from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Auction from database failed - ", e);
 		}
 		return lst;
 	}

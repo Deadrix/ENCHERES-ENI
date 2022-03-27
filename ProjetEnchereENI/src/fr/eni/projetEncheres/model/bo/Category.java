@@ -7,9 +7,8 @@ public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer categoryId;
 	private String libelle;
-	private List<SoldArticle> articles;
+	private Integer categoryId;
 
 	public Category() {
 		super();
@@ -26,14 +25,6 @@ public class Category implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
-	}
-
-	public List<SoldArticle> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(List<SoldArticle> articles) {
-		this.articles = articles;
 	}
 
 	public Integer getCategoryId() {

@@ -10,70 +10,108 @@ import java.util.List;
 import fr.eni.projetEncheres.model.bo.Category;
 
 public class CategoryDAOImpl implements CategoryDAO {
-	
-	private final String SQLINSERT="INSERT INTO Categories (libelle) VALUES (?)";
-	private final String SQLUPDATE="UPDATE Categories set libelle=? where id=?";
-	private final String SQLDELETEBYID="DELETE FROM Categories WHERE id=? ";
-	private final String SQLSELECTALL="SELECT SELECT * FROM CATEGORIES";
-	private final String SQLSELECTBYID="SELECT libelle FROM Categories where id=?";
-	public List<Category> selectAll() throws DALException {
-		Connection con = null;
-		java.sql.Statement stmt = null;
-		List<Category> lstCategory = new ArrayList<Category>();
-		ResultSet rs;
-		Category category;
-		
-		try {
-			con = ConnectionProvider.getConnection();
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(SQLSELECTALL);
-			while(rs.next()) 
-			{
-				category = new Category();
-				category.setLibelle(rs.getString("libelle"));
-				category.setCategoryId(rs.getInt("no-categories"));
-				lstCategory.add(category);
+
+	private final String INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
+	private final String UPDATE = "UPDATE Categories set libelle=? where id=?";
+	private final String SELECTBYID = "SELECT libelle FROM Categories where id=?";
+	private final String SELECTALL = "SELECT no_categorie, libelle FROM CATEGORIES";
+	private final String DELETEBYID = "DELETE FROM Categories WHERE id=? ";
+
+	public void insert(Category category) throws DALException {
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+			ps.setString(1, category.getLibelle());
+
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				category.setCategoryId(rs.getInt(1));
 			}
-		}catch (SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : All Category selection from database failed - ", e);
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DALException("Close failed - ", e);
-			}
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Insert Category into database failed - ", e);
 		}
-		return lstCategory;
-			
-}
 
-	public void insert(Category object) throws DALException {
-		// TODO Auto-generated method stub
-		
 	}
 
-	public void update(Category object) throws DALException {
-		// TODO Auto-generated method stub
-		
+	public void update(Category category) throws DALException {
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
+			ps.setString(1, category.getLibelle());
+			ps.setInt(2, category.getCategoryId());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Category update into database failed - ", e);
+		}
 	}
 
-	public Category selectById(int idObject) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+	public Category selectById(int categoryId) throws DALException {
+
+		Category cat = null;
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
+
+			ps.setInt(1, categoryId);
+			ResultSet rs = ps.executeQuery(SELECTBYID);
+
+			if (rs.next()) {
+				cat = new Category();
+				cat.setCategoryId(rs.getInt("no_categorie"));
+				cat.setLibelle(rs.getString("libelle"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Category by Id from database failed - ", e);
+		}
+
+		return cat;
+
 	}
 
-	public void delete(int idObject) throws DALException {
-		// TODO Auto-generated method stub
-		
-	}
-		
+	public List<Category> selectAll() throws DALException {
 
-	
+		List<Category> lst;
+		lst = new ArrayList<>();
+		Category cat = null;
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
+
+			ResultSet rs = ps.executeQuery(SELECTALL);
+			while (rs.next()) {
+				cat = new Category();
+				cat.setCategoryId(rs.getInt("no-categorie"));
+				cat.setLibelle(rs.getString("libelle"));
+				lst.add(cat);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Category from database failed - ", e);
+		}
+		return lst;
+
+	}
+
+	public void delete(int categoryId) throws DALException {
+
+		try (Connection connect = ConnectionProvider.getConnection();
+				PreparedStatement ps = connect.prepareStatement(DELETEBYID)) {
+
+			ps.setInt(1, categoryId);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Delete Category from database failed - ", e);
+		}
+	}
+
 }

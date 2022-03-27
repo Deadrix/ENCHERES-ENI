@@ -1,13 +1,11 @@
 package fr.eni.projetEncheres.model.bll;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetEncheres.model.bo.Category;
 import fr.eni.projetEncheres.model.dal.CategoryDAO;
 import fr.eni.projetEncheres.model.dal.CategoryDAOImpl;
 import fr.eni.projetEncheres.model.dal.DALException;
-import fr.eni.projetEncheres.model.dal.DAO;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 
 public class CategoryManager implements CategoryDAO {
@@ -34,20 +32,16 @@ public class CategoryManager implements CategoryDAO {
 		categoryDAOImpl.update(category);
 	}
 	
-	public Category selectById(int no_category) throws DALException {
-		return categoryDAOImpl.selectById(no_category);
+	public Category selectById(int categoryId) throws DALException {
+		return categoryDAOImpl.selectById(categoryId);
 	}
 	
 	public List<Category> selectAll() throws DALException {
-		return null;
+		return categoryDAOImpl.selectAll();
 	}
 
-	public void delete(int idObject) throws DALException {
+	public void delete(int categoryId) throws DALException {
+		categoryDAOImpl.delete(categoryId);
 	}
 
-	public List<Category> selectCategory() {
-		List<Category> lstCategory = new ArrayList<Category>();
-		
-		return lstCategory;
-	}
 }

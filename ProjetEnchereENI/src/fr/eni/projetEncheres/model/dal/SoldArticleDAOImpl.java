@@ -28,6 +28,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 	private final String SOLDPRICEUPDATE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE id=?";
 
 	public void insert(SoldArticle article) throws DALException {
+
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, article.getArticleName());
@@ -53,6 +54,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 	}
 
 	public void update(SoldArticle article) throws DALException {
+
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
 			ps.setString(1, article.getArticleName());
@@ -63,7 +65,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 			ps.setInt(6, article.getSoldPrice());
 			ps.setInt(7, article.getSeller().getUserId());
 			ps.setInt(8, article.getCategory().getCategoryId());
-			ps.setInt(9,  article.getArticleId());
+			ps.setInt(9, article.getArticleId());
 
 			ps.executeUpdate();
 
@@ -94,7 +96,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
+						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,6 +114,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
+
 			ResultSet rs = ps.executeQuery(SELECTALL);
 			while (rs.next()) {
 				art = new SoldArticle();
@@ -125,7 +129,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
+						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
 				lst.add(art);
 			}
 
@@ -136,12 +141,13 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		return lst;
 	}
 
-	public void delete(int idObject) throws DALException {
+	public void delete(int articleId) throws DALException {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(DELETEBYID)) {
-			ps.setInt(1, idObject);
+			ps.setInt(1, articleId);
 			ps.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Delete Article from database failed - ", e);
@@ -171,7 +177,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
+						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
 				lst.add(art);
 			}
 
