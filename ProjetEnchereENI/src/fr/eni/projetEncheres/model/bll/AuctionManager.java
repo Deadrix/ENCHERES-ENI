@@ -3,13 +3,15 @@ package fr.eni.projetEncheres.model.bll;
 import java.util.List;
 
 import fr.eni.projetEncheres.model.bo.Auction;
+import fr.eni.projetEncheres.model.bo.SoldArticle;
+import fr.eni.projetEncheres.model.dal.AuctionDAO;
 import fr.eni.projetEncheres.model.dal.AuctionDAOImpl;
 import fr.eni.projetEncheres.model.dal.DALException;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 
-public class AuctionManager {
+public class AuctionManager implements AuctionDAO{
 
-	private static AuctionManager instanceofUserManager = null;
+	private static AuctionManager instanceOfAuctionManager = null;
 	private AuctionDAOImpl aAuctionDAOImpl = (AuctionDAOImpl) DAOFactory.getAuctionDAO();
 	
 	public AuctionManager(AuctionDAOImpl aAuctionDAOImpl) {
@@ -17,10 +19,10 @@ public class AuctionManager {
 		}
 	
 	public static AuctionManager getInstance() {
-		if (instanceofUserManager ==null) {
-			instanceofUserManager = new AuctionManager((AuctionDAOImpl) DAOFactory.getAuctionDAO());
+		if (instanceOfAuctionManager ==null) {
+			instanceOfAuctionManager = new AuctionManager((AuctionDAOImpl) DAOFactory.getAuctionDAO());
 		}
-		return instanceofUserManager;
+		return instanceOfAuctionManager;
 	}
 	
 	public void insert(Auction auction) throws DALException {
@@ -31,25 +33,24 @@ public class AuctionManager {
 		aAuctionDAOImpl.update(auction);
 	}
 	
-	public void delete(Integer idObject) throws DALException {
-		aAuctionDAOImpl.delete(idObject);
-	}
-	
 	public List<Auction> selectAll() throws DALException {
 		return aAuctionDAOImpl.selectAll();
-		}
-
-/*
- *  Je ne vois pas comment réup' la valeurcorrespondant au prix de l'enchère en cours
- * 
-	public Auction selectLastAuctionFromArticle (Integer lastAuctionFromArticle) throws DALException {
-		return aAuctionDAOImpl.selectLastAuctionFromArticle(lastAuctionFromArticle);
 	}
-	*/
 	
-	
-	
-	
-	
+	public Auction selectBestAuctionFromArticle(SoldArticle article) throws DALException {
+		return aAuctionDAOImpl.selectBestAuctionFromArticle(article);
+	}
+
+	public Auction selectBestAuctionFromArticle(int articleId) throws DALException {
+		return aAuctionDAOImpl.selectBestAuctionFromArticle(articleId);
+	}
+
+	public Auction selectById(int idObject) throws DALException {
+		return null;
+	}
+
+	public void delete(int idObject) throws DALException {
+		
+	}
 	
 }

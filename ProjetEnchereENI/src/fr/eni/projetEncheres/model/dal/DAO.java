@@ -8,13 +8,12 @@ public interface DAO<T> {
 	
 	public void update(T object) throws DALException;
 	
-	public T selectById(int idObject) throws DALException;
+	public T selectById(int objectId) throws DALException;
 	
 	public List<T> selectAll() throws DALException;
 	
-	public List<T> selectByMotCle(String motCle) throws DALException;
+	public void delete(int objectId) throws DALException;
 	
-	public void delete(int idObject) throws DALException;
+	//public List<T> selectByMotCle(String motCle) throws DALException;
 	
-
 }
