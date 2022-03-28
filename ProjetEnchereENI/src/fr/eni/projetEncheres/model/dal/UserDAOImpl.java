@@ -14,37 +14,37 @@ public class UserDAOImpl implements UserDAO {
 	User tempUserDAO;
 
 //MSSQL
-//	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,rue,code_postal,"
-//			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
-//	private static final String UPDATE = "UPDATE UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
-//			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1) WHERE  no_utilisateur = ?";
-//	private static final String UPDATEPASSWORD = "UPDATE UTILISATEURS SET mot_de_passe=? where email=?";
-//	private static final String UPDATECREDITBYID = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
-//	
-//	private static final String DELETEBYID = "DELETE FROM UTILISATEURS where no_utilisateur=?";
-//	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
-//			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
-//	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
-//			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
-//	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
-//	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
-//	private final String LOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
+	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,rue,code_postal,"
+			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
+	private static final String UPDATE = "UPDATE UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
+			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1) WHERE  no_utilisateur = ?";
+	private static final String UPDATEPASSWORD = "UPDATE UTILISATEURS SET mot_de_passe=? where email=?";
+	private static final String UPDATECREDITBYID = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
+	
+	private static final String DELETEBYID = "DELETE FROM UTILISATEURS where no_utilisateur=?";
+	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
+	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
+	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
+	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
+	private final String LOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
 
 //MYSQL
-	private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userStreet,userZipCode,"
-			+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,1)";
-	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?,userStreet=?,userZipCode=?,userCity=?,userPassword=?,userCredit=?,userAdmin=1 WHERE userID = ?";
-	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
-	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
-
-	private static final String DELETEBYID = "DELETE FROM USERS where userID=?";
-	private static final String SELECTBYID = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
-			+ "userCity,userPassword,userCredit,userAdmin from USERS WHERE  userID = ?";
-	private static final String SELECTALL = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
-			+ "userCity,userPassword,userCredit,userAdmin from USERS";
-	private static final String SELECTBYMAIL = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userEmail=?";
-	private static final String SELECTBYALIAS = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userAlias=?";
-	private final String LOGIN = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userEmail=? and userPassword=?";
+//	private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userStreet,userZipCode,"
+//			+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,1)";
+//	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?,userStreet=?,userZipCode=?,userCity=?,userPassword=?,userCredit=?,userAdmin=1 WHERE userID = ?";
+//	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
+//	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
+//
+//	private static final String DELETEBYID = "DELETE FROM USERS where userID=?";
+//	private static final String SELECTBYID = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
+//			+ "userCity,userPassword,userCredit,userAdmin from USERS WHERE  userID = ?";
+//	private static final String SELECTALL = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
+//			+ "userCity,userPassword,userCredit,userAdmin from USERS";
+//	private static final String SELECTBYMAIL = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userEmail=?";
+//	private static final String SELECTBYALIAS = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userAlias=?";
+//	private final String LOGIN = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userEmail=? and userPassword=?";
 
 	private void setFields(PreparedStatement ps, User user) throws SQLException {
 		ps.setString(1, user.getAlias());

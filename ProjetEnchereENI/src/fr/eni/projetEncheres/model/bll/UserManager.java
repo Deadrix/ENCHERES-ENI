@@ -16,6 +16,9 @@ public class UserManager {
 		this.aUserDAOImpl = aUserDAOImpl;
 	}
 
+	public UserManager() {
+	}
+
 	public static UserManager getInstance() {
 		if (instanceOfUserManager == null) {
 			instanceOfUserManager = new UserManager((UserDAOImpl) DAOFactory.getUserDAO());

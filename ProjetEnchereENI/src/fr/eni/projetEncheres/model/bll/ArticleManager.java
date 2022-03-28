@@ -17,6 +17,10 @@ public class ArticleManager implements SoldArticleDAO {
 		this.soldArticleDAOImpl = aSoldArticleDAOImpl;
 	}
 
+	public ArticleManager() {
+		super();
+	}
+
 	public static ArticleManager getInstance() {
 		if (instanceOfArticleManager == null) {
 			instanceOfArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());

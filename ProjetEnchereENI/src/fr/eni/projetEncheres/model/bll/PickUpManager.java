@@ -15,11 +15,15 @@ public class PickUpManager {
 	private DAO<PickUp> PickUpDAO;
 	
 	
-	public PickUpManager() throws BLLException {
+	public PickUpManager() {
 		this.PickUpDAO = DAOFactory.getPickUpDAO();
 	}
 	
-	
+
+
+
+
+
 	public void addPickUp(PickUp pickup) throws BLLException {
 		if(this.validatePickUp(pickup)) {
 			try {

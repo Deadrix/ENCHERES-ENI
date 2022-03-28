@@ -18,6 +18,10 @@ public class AuctionManager implements AuctionDAO{
 		this.aAuctionDAOImpl = aAuctionDAOImpl;
 		}
 	
+	public AuctionManager() {
+		}
+	
+	
 	public static AuctionManager getInstance() {
 		if (instanceOfAuctionManager ==null) {
 			instanceOfAuctionManager = new AuctionManager((AuctionDAOImpl) DAOFactory.getAuctionDAO());
