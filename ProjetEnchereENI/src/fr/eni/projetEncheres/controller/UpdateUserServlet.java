@@ -38,11 +38,10 @@ public class UpdateUserServlet extends HttpServlet {
 
 		if (alias.length() > 3 || email.length() > 5 && password.length() > 4) {
 
-			User tempUser = new User(alias, request.getParameter("lastName"),
+			User tempUser = new User((Integer)session.getAttribute("userID"), alias, request.getParameter("lastName"),
 					request.getParameter("firstName"), email, request.getParameter("telephone"),
 					request.getParameter("street"), request.getParameter("zipCode"), request.getParameter("city"),
-					password, (Integer)session.getAttribute("credit"));
-			tempUser.setUserId((Integer)session.getAttribute("userID"));
+					password, (Integer)session.getAttribute("credit"),(Boolean) session.getAttribute("amIAdmin"));
 			try {
 				UserManager.getInstance().updateProcess(tempUser);
 			} catch (BLLException | DALException e) {
@@ -57,7 +56,6 @@ public class UpdateUserServlet extends HttpServlet {
 			} else {
 
 				
-				session.setAttribute("userID", tempUser.getUserId());
 				session.setAttribute("alias", tempUser.getAlias());
 				session.setAttribute("lastName", tempUser.getLastName());
 				session.setAttribute("firstName", tempUser.getFirstName());
