@@ -78,7 +78,7 @@
 						id="Sign">
 						<div class="form-outline mb-4">
 							<input type="email" id="email" class="form-control" name="email"
-								value="${cookie.HHAconnection.value}" /> <label
+								value="${!empty email ? email : ''}" /> <label
 								class="form-label" for="email"> <fmt:message
 									key="msg_email" bundle="${base}" /> ${loginErrorMessage}
 							</label>

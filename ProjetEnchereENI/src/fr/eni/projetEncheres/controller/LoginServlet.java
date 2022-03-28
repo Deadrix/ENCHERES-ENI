@@ -28,6 +28,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		Cookie cookies[] = request.getCookies();
+		for(Cookie chocolateFudge : cookies) {
+			if (chocolateFudge.getName().equals("HHAconnection")){
+				request.setAttribute("email", chocolateFudge.getValue());
+			}
+		}
 		getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 	}
 
@@ -57,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
 			
 			if (request.getParameter("rememberMe") != null){
-				HHAconnection.setMaxAge(0);								
+				HHAconnection.setMaxAge(3600*24*365);								
 			} else {
 				HHAconnection.setMaxAge(3600);								
 			}

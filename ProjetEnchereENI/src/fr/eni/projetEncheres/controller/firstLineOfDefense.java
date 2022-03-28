@@ -13,38 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/")
+@WebFilter(urlPatterns = { "/*" })
 public class firstLineOfDefense implements Filter {
 
-    public firstLineOfDefense() {
-    }
+	public firstLineOfDefense() {
+	}
 
-	
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		HttpSession session;
-		session=((HttpServletRequest)request).getSession();
-		if(((HttpServletRequest)request).getServletPath().startsWith("Login"))
-		{
-			chain.doFilter(request, response);
-		}
-		else
-		{
-		if(session.getAttribute("userID")!=null)
-		{
-			chain.doFilter(request, response);
-		}
-		else
-		{
-			((HttpServletResponse)response).sendRedirect("Login");
-		}
-		}
-		}
-	
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
+		HttpSession session;
+		session = ((HttpServletRequest) request).getSession();
+		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
+			chain.doFilter(request, response);
+		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
+			chain.doFilter(request, response);
+		} else if (session.getAttribute("userID") != null) {
+			chain.doFilter(request, response);
+		} else {
+			((HttpServletResponse) response).sendRedirect("Login");
+		}
+	}
 }
