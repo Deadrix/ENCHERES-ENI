@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		request.getSession().getAttribute("userID");
 		if (tempUser.getUserId() != null && request.getSession().getAttribute("userID") == null) {
 			
-			
+		
 			session.setAttribute("userID", tempUser.getUserId());
 			session.setAttribute("alias", tempUser.getAlias());
 			session.setAttribute("lastName", tempUser.getLastName());
@@ -53,12 +53,13 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("postalCode", tempUser.getPostalCode());
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
+			session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
 			
 			if (request.getParameter("rememberMe") != null){
 				HHAconnection.setMaxAge(0);								
 			} else {
-				HHAconnection.setMaxAge(60*5);								
+				HHAconnection.setMaxAge(3600);								
 			}
 			response.addCookie(HHAconnection);
 			request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);

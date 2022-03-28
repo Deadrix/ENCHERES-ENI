@@ -90,56 +90,56 @@
 						<div class="form-outline mb-4">
 							<h3>${updateErrorMessage}</h3>
 							<input type="text" id="alias" class="form-control" name="alias"
-								value=${alias } /> <label class="form-label" for="alias"
+								value=${alias} /> <label class="form-label" for="alias"
 								name="alias"> <fmt:message key="msg_alias"
 									bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="text" id="firstName" class="form-control"
-								name="firstName" value=${firstName } /> <label
+								name="firstName" value=${firstName} /> <label
 								class="form-label" for="firstName" name="firstName"> <fmt:message
 									key="msg_firstName" bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="text" id="lastName" class="form-control"
-								name="lastName" value=${lastName } /> <label class="form-label"
+								name="lastName" value=${lastName} /> <label class="form-label"
 								for="lastName" name="lastName"> <fmt:message
 									key="msg_lastName" bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="email" id="email" class="form-control" name="email"
-								value=${email } /> <label class="form-label" for="email"
+								value=${email} /> <label class="form-label" for="email"
 								name="email"> <fmt:message key="msg_email"
 									bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="number" id="telephone" class="form-control"
-								name="telephone" value=${tempuUser.telephone } /> <label
+								name="telephone" value=${telephone} /> <label
 								class="form-label" for="telephone" name="telephone"}> <fmt:message
 									key="msg_phone" bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="text" id="street" class="form-control" name="street"
-								value=${street } /> <label class="form-label" for="street"
+								value=${street} /> <label class="form-label" for="street"
 								name="street"}> <fmt:message key="msg_street"
 									bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="text" id="zipCode" class="form-control"
-								name="zipCode" value=${postalCode } /> <label
+								name="zipCode" value=${postalCode} /> <label
 								class="form-label" for="zipCode" name="zipCode"}> <fmt:message
 									key="msg_postalCode" bundle="${base}" />
 							</label>
 						</div>
 						<div class="form-outline mb-4">
 							<input type="text" id="city" class="form-control" name="city"
-								value=${city } /> <label class="form-label" for="city"
+								value=${city} /> <label class="form-label" for="city"
 								name="city"> <fmt:message key="msg_city"
 									bundle="${base}" />
 							</label>
@@ -147,13 +147,27 @@
 						<div class="form-outline mb-4">
 							<input type="password" id="password" class="form-control"
 								name="password" /> <label class="form-label" for="password"
-								name="password" aria-placeholder="8 char min"> <fmt:message
+								name="password"> <fmt:message
 									key="msg_password" bundle="${base}" />
 							</label>
 						</div>
 						<button type="submit" class="btn btn-dark btn-block mb-4"
 							value="submit">
 							<fmt:message key="msg_update" bundle="${base}" />
+						</button>
+					</form>
+					<form action="<%=request.getContextPath()%>/DeleteUser"
+						method="post">
+						<div class="form-outline mb-4">
+							<input type="password" id="password" class="form-control"
+								name="password"/> <label class="form-label" for="password"
+								name="password" aria-placeholder="8 char min"> <fmt:message
+									key="msg_password" bundle="${base}" />
+							</label>
+						</div>
+						<button type="submit" class="btn btn-dark btn-block mb-4"
+							value="deleteMe" name="deleteMe" >
+							<fmt:message key="msg_deleteMe" bundle="${base}" />
 						</button>
 					</form>
 				</div>

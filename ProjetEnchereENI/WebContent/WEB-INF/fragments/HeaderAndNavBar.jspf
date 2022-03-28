@@ -160,7 +160,7 @@
 						</div>
 						<div class="form-outline mb-4">
 							<input type="email" id="email" class="form-control" name="email"
-								value="email" required /> <label class="form-label" for="email"
+								 required /> <label class="form-label" for="email"
 								name="email" value="email"> <fmt:message key="msg_email"
 									bundle="${base}" />
 							</label>
@@ -201,6 +201,7 @@
 									key="msg_password" bundle="${base}" />
 							</label>
 						</div>
+						
 						<button type="submit" class="btn btn-dark btn-block mb-4"
 							value="submit">
 							<fmt:message key="msg_register" bundle="${base}" />

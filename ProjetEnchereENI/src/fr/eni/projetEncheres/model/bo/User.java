@@ -23,10 +23,17 @@ public class User implements Serializable {
 	private List<SoldArticle> soldArticle;
 	private List<SoldArticle> boughtArticle;
 	private List<Auction> auctions;
-	private Integer credit;
+	private Integer credit = 0;
+	private boolean amIAdmin;
 
 	
 
+	public boolean getAmIAdmin() {
+		return amIAdmin;
+	}
+	public void setamIAdmin(boolean admin) {
+		this.amIAdmin = admin;
+	}
 	public User() {
 		super();
 	}
@@ -38,7 +45,6 @@ public class User implements Serializable {
 	public User(String alias, String lastName, String firstName, String email, String telephone,
 			String street, String postalCode, String city, String password, Integer credit) {
 		super();
-		this.userId = userId;
 		this.alias = alias;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -54,6 +60,20 @@ public class User implements Serializable {
 	public User(String alias, String lastName, String firstName, String email, String telephone, String street,
 			String postalCode, String city, String password) {
 		super();
+		this.alias = alias;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+		this.telephone = telephone;
+		this.street = street;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.password = password;
+	}
+	public User(Integer userId,String alias, String lastName, String firstName, String email, String telephone, String street,
+			String postalCode, String city, String password, Integer credit, Boolean amIAdmin) {
+		super();
+		this.userId = userId;
 		this.alias = alias;
 		this.lastName = lastName;
 		this.firstName = firstName;

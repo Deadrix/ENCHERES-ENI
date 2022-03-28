@@ -67,9 +67,8 @@ public class UpdateUserServlet extends HttpServlet {
 				session.setAttribute("postalCode", tempUser.getPostalCode());
 				session.setAttribute("city" ,tempUser.getCity());
 				session.setAttribute("credit" ,tempUser.getCredit());
+				session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 				Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-				HHAconnection.setMaxAge(60*5);
-				response.addCookie(HHAconnection);
 				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
 				
 			}
