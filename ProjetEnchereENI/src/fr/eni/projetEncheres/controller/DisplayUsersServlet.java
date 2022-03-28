@@ -57,10 +57,10 @@ public class DisplayUsersServlet extends HttpServlet {
 			request.setAttribute("street", tempUser.getStreet());
 			request.setAttribute("postalCode", tempUser.getPostalCode());
 			request.setAttribute("city" ,tempUser.getCity());
-			request.getRequestDispatcher("/displayUser.jsp").forward(request, response);
+			request.getRequestDispatcher("/TestSuccess.jsp").forward(request, response);
 
 		}else {
-			response.sendRedirect("/displayUser.jsp");;
+			response.sendRedirect("/TestSuccess.jsp");
 	}
 }
 }

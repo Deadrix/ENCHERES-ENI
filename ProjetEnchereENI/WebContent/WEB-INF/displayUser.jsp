@@ -1,16 +1,16 @@
 <%@ include file="fragments/HeaderAndNavBar.jspf"%>
 
 
-<c:if test="${ tempUser == null }">
+<c:if test="${ User == null }">
 	<h3>
 		<fmt:message key="msg_WhatIsThisShit" />
 	</h3>
 </c:if>
 
-<c:if test="${ tempUser != null }">
+<c:if test="${ User != null }">
 <!-- Teste si User a afficher = user connecté -->
 	<c:if
-		test="${tempUser != null && tempUser.userId == user.userId }">
+		test="${currentUser != null && currentUser.userId == user.userId }">
 		<h1>
 			<fmt:message key="msg_displayUser">
 				<fmt:param value="${user.alias}"></fmt:param>
@@ -19,7 +19,7 @@
 	</c:if>
 <!-- Si user connecté n'est pas le user à afficher -->
 	<c:if
-		test="${tempUser == null || tempUser.userId != user.userId }">
+		test="${currentUser == null || currentUser.userId != user.userId }">
 		<h1>
 			<fmt:message key="msg_displayUser">
 				<fmt:param value="${user.alias}"></fmt:param>
