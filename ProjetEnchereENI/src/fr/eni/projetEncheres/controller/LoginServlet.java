@@ -54,7 +54,12 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-			HHAconnection.setMaxAge(60*5);
+			
+			if (request.getParameter("rememberMe") != null){
+				HHAconnection.setMaxAge(0);								
+			} else {
+				HHAconnection.setMaxAge(60*5);								
+			}
 			response.addCookie(HHAconnection);
 			request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
 			
