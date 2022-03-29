@@ -28,8 +28,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 	private final String SOLDPRICEUPDATE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE id=?";
 
 	private static AuctionManager auctionMng = new AuctionManager();
-	
-	
+	private static CategoryManager categoryMng = new CategoryManager();
+		
 	public void insert(SoldArticle article) throws DALException {
 
 		try (Connection connect = ConnectionProvider.getConnection();
@@ -97,7 +97,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
-				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 			}
@@ -132,7 +132,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
-				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
@@ -179,7 +179,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
-				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
@@ -215,7 +215,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
-				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
+				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);

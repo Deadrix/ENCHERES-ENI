@@ -34,7 +34,7 @@ public class ArticleManager {
 
 	public void insert(SoldArticle article) throws BLLException {
 		try {
-			soldArticleDAO.insert(article);
+			soldArticleDAO.insert(validatedDate(article));
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Insert failed - ", e);
@@ -125,12 +125,16 @@ public class ArticleManager {
 		return article;
 	}
 	
-	public static void validatedDate(SoldArticle article) throws BLLException{
+	public SoldArticle validatedDate(SoldArticle article) throws BLLException{
+		
 		if (article.getAuctionStart() == null || article.getAuctionEnd() == null || article.getAuctionStart().isBefore(LocalDate.now()) ||
-				article.getAuctionEnd().isBefore(article.getAuctionStart())) {
+				article.getAuctionEnd().isBefore(article.getAuctionStart())) {	
 			
-		}
-	
+			return article;
+			
+		} else {
+			throw new BLLException("Date non valide - ");
+		}	
 	}
 	
 }

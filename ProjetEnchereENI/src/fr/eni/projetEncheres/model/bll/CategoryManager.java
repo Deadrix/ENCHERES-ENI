@@ -31,24 +31,49 @@ public class CategoryManager  {
 //		return instanceOfCategoryManager;
 //	}
 	
-	public void insert(Category category) throws DALException {
-		categoryDAOImpl.insert(category);
+	public void insert(Category category) throws BLLException {
+		try {
+			categoryDAOImpl.insert(category);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void update(Category category) throws DALException {
-		categoryDAOImpl.update(category);
+	public void update(Category category) throws BLLException {
+		try {
+			categoryDAOImpl.update(category);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Update failed - ", e);
+		}
 	}
 	
-	public Category selectById(int categoryId) throws DALException {
-		return categoryDAOImpl.selectById(categoryId);
+	public Category selectById(int categoryId) throws BLLException {
+		try {
+			return categoryDAOImpl.selectById(categoryId);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select by Id failed - ", e);
+		}
 	}
 	
-	public List<Category> selectAll() throws DALException {
-		return categoryDAOImpl.selectAll();
+	public List<Category> selectAll() throws BLLException {
+		try {
+			return categoryDAOImpl.selectAll();
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select All failed - ", e);
+		}
 	}
 
-	public void delete(int categoryId) throws DALException {
-		categoryDAOImpl.delete(categoryId);
+	public void delete(int categoryId) throws BLLException {
+		try {
+			categoryDAOImpl.delete(categoryId);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Delete failed - ", e);
+		}
 	}
 
 }
