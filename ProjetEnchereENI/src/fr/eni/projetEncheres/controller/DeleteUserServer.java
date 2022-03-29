@@ -33,15 +33,23 @@ public class DeleteUserServer extends HttpServlet {
 //			e.printStackTrace();
 //		};
 
+		
 		HttpSession session = request.getSession();
+		if  ((Boolean)session.getAttribute("amIAdmin") == true) {
+			Integer userIdToDelete = Integer.valueOf(request.getParameter("userIDToDelete"));
+			try {
+				UserManager.getInstance().delete(userIdToDelete);
+				request.getRequestDispatcher("/Admin.jsp").forward(request, response);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else {
 		String alias, email, password;
 		alias = (String) session.getAttribute("alias");
 		email = (String) session.getAttribute("email");
 		password = request.getParameter("password");
-		
-		
-		
-		
 		
 
 		if (alias.length() > 3 || email.length() > 5 && password.length() > 4) {
@@ -61,11 +69,14 @@ public class DeleteUserServer extends HttpServlet {
 				session.removeAttribute("street");
 				session.removeAttribute("postalCode");
 				session.removeAttribute("city");
+				session.removeAttribute("credit");
+				session.removeAttribute("amIAdmin");
+				session.removeAttribute("connected");
 				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 				response.setHeader("Pragma", "no-cache");
 				response.setHeader("Expires", "0");
 				session.invalidate();
-				response.sendRedirect("Login");				
+				response.sendRedirect("Login");			
 			} catch (DALException e) {
 				request.setAttribute("updateErrorMessage", "something was wrong with the info provided");
 				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
@@ -77,4 +88,5 @@ public class DeleteUserServer extends HttpServlet {
 
 	}
 
+}
 }

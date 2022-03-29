@@ -47,8 +47,8 @@
 		<nav class="navbar navbar-expand-md navbar-light">
 			<a href="<%=request.getContextPath()%>/Login" class="navbar-brand">
 				<img src="Assets/emoji-sunglasses.svg" alt="sunglasses" width="25"
-				height="25" class="d-inline-block align-bottom"> <fmt:message
-					key="msg_home" bundle="${base}" />
+				height="25" class="d-inline-block align-bottom"> <!--<fmt:message
+					key="msg_home" bundle="${base}" />-->
 			</a>
 			<nav class="navbar navbar-dark bg-dark"></nav>
 			<form class="form-inline">
@@ -66,8 +66,8 @@
 				<ul class="navbar-nav ms-auto text-center">
 					<li><a class="nav-link" href="#"> Category</a></li>
 					<li><a class="nav-link" href="#"> Last Minute</a></li>
-				<li><a class="nav-link" href="<%=request.getContextPath()%>/TestSuccess.jsp"> Profile</a></li>
-					<li><a class="nav-link" href="ProjetEnchereENI/TestSuccess.jsp"> Contact</a></li>
+				<li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
+					<li><a class="nav-link" href="#"> Contact</a></li>
 				</ul>
 			</div>
 		</nav>

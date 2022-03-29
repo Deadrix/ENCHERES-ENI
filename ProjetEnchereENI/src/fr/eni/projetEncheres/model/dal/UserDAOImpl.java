@@ -11,7 +11,7 @@ import fr.eni.projetEncheres.model.bo.User;
 
 public class UserDAOImpl implements UserDAO {
 
-	User tempUserDAO;
+	
 
 // ARX's Tables
 //	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal,\"\r\n"
@@ -111,39 +111,6 @@ public class UserDAOImpl implements UserDAO {
 		return exist;
 	}
 
-	public User selectByMail(User user) throws DALException {
-		if (user != null) {
-			try (Connection connect = ConnectionProvider.getConnection();
-					PreparedStatement ps = connect.prepareStatement(SELECTBYMAIL)) {
-				tempUserDAO = new User();
-				ps.setString(1, user.getEmail());
-				ResultSet rs = ps.executeQuery();
-				if (rs.next()) {
-					getFields(rs, user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return tempUserDAO;
-	}
-
-	public User selectByAlias(User user) throws DALException {
-		if (user != null) {
-			try (Connection connect = ConnectionProvider.getConnection();
-					PreparedStatement ps = connect.prepareStatement(SELECTBYALIAS)) {
-				tempUserDAO = new User();
-				ps.setString(1, user.getAlias());
-				ResultSet rs = ps.executeQuery();
-				if (rs.next()) {
-					getFields(rs, user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return tempUserDAO;
-	}
 
 	public User register(User user) throws DALException {
 		if (user != null) {
@@ -211,9 +178,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User Login(String userEmail, String pwd) {
+		User tempUserDAO = new User();
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(LOGIN)) {
-			tempUserDAO = new User();
 			ps.setString(1, userEmail);
 			ps.setString(2, pwd);
 			ResultSet rs = ps.executeQuery();
@@ -233,7 +200,7 @@ public class UserDAOImpl implements UserDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
 			ps.setInt(1, UserId);
-			ResultSet rs = ps.getGeneratedKeys();
+			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				getFields(rs, tempUserDAO);
 			}
@@ -243,6 +210,38 @@ public class UserDAOImpl implements UserDAO {
 		return tempUserDAO;
 	}
 
+public User selectByMail(User user) throws DALException {
+		
+		if (user != null) {
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(SELECTBYMAIL)) {
+				ps.setString(1, user.getEmail());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					getFields(rs, user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+
+	public User selectByAlias(User user) throws DALException {
+		if (user != null) {
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(SELECTBYALIAS)) {
+				ps.setString(1, user.getAlias());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					getFields(rs, user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
 	@Override
 	public List<User> selectAll() throws DALException {
 		// TODO Auto-generated method stub

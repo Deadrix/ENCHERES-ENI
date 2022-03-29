@@ -43,7 +43,7 @@
 				<ul class="navbar-nav ms-auto text-center">
 					<li><a class="nav-link" href="#"> Categorie</a></li>
 					<li><a class="nav-link" href="#"> Last Minute</a></li>
-					<li><a class="nav-link" href="#"> Profile</a></li>
+					<li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
 					<li><a class="nav-link" href="#"> Contact</a></li>
 				</ul>
 			</div>
