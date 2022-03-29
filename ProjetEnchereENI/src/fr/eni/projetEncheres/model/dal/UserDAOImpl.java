@@ -13,7 +13,7 @@ public class UserDAOImpl implements UserDAO {
 
 	
 
-<<<<<<< HEAD
+
 //MSSQL
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
@@ -30,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
 	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
 	private final String LOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
-=======
+
 // ARX's Tables
 //	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal,\"\r\n"
 //			+ "			+ \"ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
@@ -47,23 +47,21 @@ public class UserDAOImpl implements UserDAO {
 //	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
 //	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
 //	private final String LOGIN = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 
-<<<<<<< HEAD
 //MYSQL
 //	private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userStreet,userZipCode,"
 //			+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,1)";
 //	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?,userStreet=?,userZipCode=?,userCity=?,userPassword=?,userCredit=?,userAdmin=1 WHERE userID = ?";
 //	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
 //	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
-=======
+
 //Kam's Tables
-	private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userTelephone, userStreet, userZipCode,"
-			+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?, userTelephone=?, userStreet=?, userZipCode=?, userCity=?, userPassword=?, userCredit=?, userAdmin=? WHERE userID = ?";
-	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
-	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+	//private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userTelephone, userStreet, userZipCode,"
+	//		+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+//	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?, userTelephone=?, userStreet=?, userZipCode=?, userCity=?, userPassword=?, userCredit=?, userAdmin=? WHERE userID = ?";
+//	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
+//	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
+
 
 //	private static final String DELETEBYID = "DELETE FROM USERS where userID=?";
 //	private static final String SELECTBYID = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
@@ -108,7 +106,7 @@ public class UserDAOImpl implements UserDAO {
 
 //	Kam's Tables
 	private User getFields(ResultSet rs, User user) throws SQLException {
-<<<<<<< HEAD
+
 		user.setUserId(rs.getInt("no_utilisateur"));
 		user.setAlias(rs.getString("pseudo"));
 		user.setLastName(rs.getString("nom"));
@@ -120,7 +118,7 @@ public class UserDAOImpl implements UserDAO {
 		user.setPassword(rs.getString("mot_de_passe"));
 		user.setTelephone(rs.getString("telephone"));
 		user.setCredit(rs.getInt("credit"));
-=======
+
 		user.setUserId(rs.getInt("userID"));
 		user.setAlias(rs.getString("userAlias"));
 		user.setLastName(rs.getString("userLastName"));
@@ -133,7 +131,7 @@ public class UserDAOImpl implements UserDAO {
 		user.setPassword(rs.getString("userPassword"));
 		user.setCredit(rs.getInt("userCredit"));
 		user.setamIAdmin(rs.getBoolean("userAdmin"));
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+
 		return user;
 	}
 
