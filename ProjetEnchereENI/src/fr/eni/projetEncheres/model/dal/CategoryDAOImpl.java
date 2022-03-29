@@ -46,7 +46,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Category update into database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Category into database failed - ", e);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Category from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Categorys from database failed - ", e);
 		}
 		return lst;
 

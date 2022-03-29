@@ -37,8 +37,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
-			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
+			ps.setDate(3, Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSeller().getUserId());
 			ps.setInt(7, article.getCategory().getCategoryId());
@@ -63,8 +63,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
-			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
+			ps.setDate(3, Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSoldPrice());
 			ps.setInt(7, article.getSeller().getUserId());
@@ -140,7 +140,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Article from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Articles from database failed - ", e);
 		}
 		return lst;
 	}
@@ -188,7 +188,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException(
-					"DATA ACCESS LAYER EXCEPTION : Select Article by Description from database failed - ", e);
+					"DATA ACCESS LAYER EXCEPTION : Select Articles by Description from database failed - ", e);
 		}
 		return lst;
 	}
@@ -224,7 +224,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException(
-					"DATA ACCESS LAYER EXCEPTION : Select Article by Category and State from database failed - ", e);
+					"DATA ACCESS LAYER EXCEPTION : Select Articles by Category and State from database failed - ", e);
 		}
 		return lst;
 	}

@@ -44,7 +44,7 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Pick-up insertion into database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Insert Pick-Up into database failed - ", e);
 		} finally {
 			try {
 				if (pstmt != null) {
@@ -73,7 +73,7 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Pick-up update in database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Pick-Up into database failed", e);
 		} finally {
 			try {
 				if (pstmt != null) {
@@ -108,7 +108,7 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Pick-up selection by id from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Pick-Up by Id from database failed - ", e);
 		} finally {
 			try {
 				if (pstmt != null) {
@@ -144,7 +144,7 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : All pick-ups selection from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Pick-Ups selection from database failed - ", e);
 		} finally {
 			try {
 				if (pstmt != null) {
@@ -198,7 +198,7 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DALException("DATA ACCESS LAYER EXCEPTION : Pick-up deletion from database failed - ", e);
+			throw new DALException("DATA ACCESS LAYER EXCEPTION : Delete Pick-up from database failed - ", e);
 		}
 		
 	}
