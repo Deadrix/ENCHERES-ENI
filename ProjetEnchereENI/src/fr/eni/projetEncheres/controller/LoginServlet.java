@@ -62,17 +62,17 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email", tempUser.getEmail());
 			session.setAttribute("telephone", tempUser.getTelephone());
 			session.setAttribute("street", tempUser.getStreet());
-<<<<<<< HEAD
+
 			session.setAttribute("zipCode", tempUser.getPostalCode());
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
-=======
+
 			session.setAttribute("postalCode", tempUser.getPostalCode());
 			session.setAttribute("city", tempUser.getCity());
 			session.setAttribute("credit", tempUser.getCredit());
 			session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 			session.setAttribute("connected", userIsConnected);
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
 
 			if (request.getParameter("rememberMe") != null) {

@@ -60,13 +60,13 @@ public class ServletTestSoldArticle extends HttpServlet {
 
 		} else {
 			article.setAuctionStart(LocalDate.parse((request.getParameter("auctionStart"))));
-<<<<<<< HEAD
+
 			article.setAuctionEnd(LocalDate.parse((request.getParameter("auctionEnd"))));
 			article.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
 			article.setSoldPrice(Integer.parseInt(request.getParameter("soldPrice")));
 			//Comment récup' l'objet user connecté
 			article.setSeller((User)request.getAttribute("userID"));
-=======
+
 			article.setState(0);
 		}
 		article.setAuctionEnd(LocalDate.parse((request.getParameter("auctionEnd"))));
@@ -75,9 +75,9 @@ public class ServletTestSoldArticle extends HttpServlet {
 		// Comment récup' l'objet user connecté
 		article.setSeller((User) request.getAttribute("userID"));
 		try {
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+
 			article.setCategory(catMng.selectById(Integer.parseInt(request.getParameter("categoryId"))));
-<<<<<<< HEAD
+
 			if(LocalDate.parse(request.getParameter("auctionStart")).isAfter(LocalDate.now())) {
 				article.setState(0);
 			}
@@ -126,9 +126,9 @@ public class ServletTestSoldArticle extends HttpServlet {
 				
 		} catch (DALException | BLLException e) {
 			// TODO Auto-generated catch block
-=======
+
 		} catch (NumberFormatException | BLLException e) {
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+
 			e.printStackTrace();
 		}
 
