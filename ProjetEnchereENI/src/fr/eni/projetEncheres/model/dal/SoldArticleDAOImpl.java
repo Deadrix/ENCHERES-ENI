@@ -10,6 +10,7 @@ import java.util.List;
 
 import fr.eni.projetEncheres.model.bll.ArticleManager;
 import fr.eni.projetEncheres.model.bll.AuctionManager;
+import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bll.CategoryManager;
 import fr.eni.projetEncheres.model.bll.UserManager;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
@@ -27,14 +28,17 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 	private final String BUYERNUPDATE = "UPDATE ARTICLES_VENDUS SET no_acheteur=? WHERE id=?";
 	private final String SOLDPRICEUPDATE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE id=?";
 
+	private static AuctionManager auctionMng = new AuctionManager();
+	
+	
 	public void insert(SoldArticle article) throws DALException {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, (Date) article.getAuctionStart());
-			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSeller().getUserId());
 			ps.setInt(7, article.getCategory().getCategoryId());
@@ -59,8 +63,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, (Date) article.getAuctionStart());
-			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSoldPrice());
 			ps.setInt(7, article.getSeller().getUserId());
@@ -88,24 +92,25 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
-						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Article by Id from database failed - ", e);
 		}
 		return art;
 	}
+	
 
+	
 	public List<SoldArticle> selectAll() throws DALException {
 
 		List<SoldArticle> lst;
@@ -121,20 +126,19 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
-						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select All Article from database failed - ", e);
 		}
@@ -169,20 +173,19 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(
-						ArticleManager.getInstance().selectById(rs.getInt("no_article"))));
+				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException(
 					"DATA ACCESS LAYER EXCEPTION : Select Article by Description from database failed - ", e);
@@ -206,19 +209,19 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(CategoryManager.getInstance().selectById(rs.getInt("no_categorie")));
 				art.setState(rs.getInt("state"));
-				art.setAuction(AuctionManager.getInstance().selectBestAuctionFromArticle(rs.getInt("no_article")));
+				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException(
 					"DATA ACCESS LAYER EXCEPTION : Select Article by Category and State from database failed - ", e);
@@ -230,12 +233,12 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(AUCTIONUPDATE)) {
-			ps.setInt(1, AuctionManager.getInstance().selectBestAuctionFromArticle(article).getItemPrice());
+			ps.setInt(1, auctionMng.selectBestAuctionFromArticle(article).getItemPrice());
 			ps.setInt(2, article.getArticleId());
 
 			ps.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article Auction from database failed - ", e);
 		}
@@ -246,12 +249,12 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(BUYERNUPDATE)) {
-			ps.setInt(1, AuctionManager.getInstance().selectBestAuctionFromArticle(article).getBuyer().getUserId());
+			ps.setInt(1, auctionMng.selectBestAuctionFromArticle(article).getBuyer().getUserId());
 			ps.setInt(2, article.getArticleId());
 
 			ps.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Update Article Buyer from database failed - ", e);
 		}
@@ -262,12 +265,12 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SOLDPRICEUPDATE)) {
-			ps.setInt(1, AuctionManager.getInstance().selectBestAuctionFromArticle(article).getItemPrice());
+			ps.setInt(1, auctionMng.selectBestAuctionFromArticle(article).getItemPrice());
 			ps.setInt(2, article.getArticleId());
 
 			ps.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException(
 					"DATA ACCESS LAYER EXCEPTION : Update Article SoldPrice update from database failed - ", e);
