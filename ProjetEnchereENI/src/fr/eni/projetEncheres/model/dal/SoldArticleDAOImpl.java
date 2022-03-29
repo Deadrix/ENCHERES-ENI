@@ -101,6 +101,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setState(rs.getInt("state"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 			}
+			
 		} catch (SQLException | BLLException e) {
 			e.printStackTrace();
 			throw new DALException("DATA ACCESS LAYER EXCEPTION : Select Article by Id from database failed - ", e);
