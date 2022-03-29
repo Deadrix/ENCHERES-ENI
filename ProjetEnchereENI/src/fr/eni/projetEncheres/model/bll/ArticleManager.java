@@ -9,7 +9,7 @@ import fr.eni.projetEncheres.model.dal.DAOFactory;
 import fr.eni.projetEncheres.model.dal.SoldArticleDAO;
 import fr.eni.projetEncheres.model.dal.SoldArticleDAOImpl;
 
-public class ArticleManager implements SoldArticleDAO {
+public class ArticleManager {
 
 	private static ArticleManager instanceOfArticleManager = null;
 	private SoldArticleDAOImpl soldArticleDAOImpl = (SoldArticleDAOImpl) DAOFactory.getArticleDAO();

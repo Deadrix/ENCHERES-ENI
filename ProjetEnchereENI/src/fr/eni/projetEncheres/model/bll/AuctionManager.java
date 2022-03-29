@@ -9,7 +9,7 @@ import fr.eni.projetEncheres.model.dal.AuctionDAOImpl;
 import fr.eni.projetEncheres.model.dal.DALException;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 
-public class AuctionManager implements AuctionDAO{
+public class AuctionManager {
 
 	private static AuctionManager instanceOfAuctionManager = null;
 	private AuctionDAOImpl aAuctionDAOImpl = (AuctionDAOImpl) DAOFactory.getAuctionDAO();
