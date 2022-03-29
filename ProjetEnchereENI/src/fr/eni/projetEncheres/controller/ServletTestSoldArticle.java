@@ -18,6 +18,7 @@ import fr.eni.projetEncheres.model.bll.PickUpManager;
 import fr.eni.projetEncheres.model.bo.PickUp;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 import fr.eni.projetEncheres.model.bo.User;
+import fr.eni.projetEncheres.model.dal.DALException;
 
 /**
  * Servlet implementation class ServletTestSoldArticle
