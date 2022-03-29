@@ -115,7 +115,9 @@ public class AuctionDetailServlet extends HttpServlet {
 
 		// Pick Up management
 		String thisPickUp = request.getParameter("pickUp");
-		int finalPrice = articleManager.selectById(no_article).getSoldPrice();
+		int finalPrice;
+		try {
+			finalPrice = articleManager.selectById(no_article).getSoldPrice();
 		if (thisPickUp != null) {
 			System.out.println("Sold at = " + finalPrice);
 			if (finalPrice == 0) {
@@ -132,7 +134,10 @@ public class AuctionDetailServlet extends HttpServlet {
 				out.close();
 			}
 		}
-
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		request.getServletContext().getRequestDispatcher("/AuctionList").forward(request, response);
 	}
 
