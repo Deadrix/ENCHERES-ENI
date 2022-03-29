@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.projetEncheres.model.bll.ArticleManager;
 import fr.eni.projetEncheres.model.bll.AuctionManager;
 import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bll.CategoryManager;
