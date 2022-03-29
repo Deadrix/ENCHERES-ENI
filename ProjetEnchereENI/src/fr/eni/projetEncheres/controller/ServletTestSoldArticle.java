@@ -59,15 +59,14 @@ public class ServletTestSoldArticle extends HttpServlet {
 			article.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
 			article.setSoldPrice(Integer.parseInt(request.getParameter("soldPrice")));
 			//Comment récup' l'objet user connecté
-			article.setSeller(request.getAttribute("userID"));
+			article.setSeller((User)request.getAttribute("userID"));
 			article.setCategory(catMng.selectById(Integer.parseInt(request.getParameter("categoryId"))));
-			if(LocalDate.now().isBefore((ChronoLocalDate) request.getAttribute("auctionEnd")) request.getAttribute("auctionEnd")) {
-				
-				
+			if(LocalDate.parse(request.getParameter("auctionStart")).isAfter(LocalDate.now())) {
+				article.setState(0);
 			}
-				
 			
-			});
+							
+			
 			
 			
 			
