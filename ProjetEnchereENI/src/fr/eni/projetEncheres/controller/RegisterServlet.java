@@ -25,9 +25,7 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
-		getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -69,8 +67,10 @@ public class RegisterServlet extends HttpServlet {
 				session.setAttribute("street", tempUser.getStreet());
 				session.setAttribute("postalCode", tempUser.getPostalCode());
 				session.setAttribute("city" ,tempUser.getCity());
+				session.setAttribute("credit", tempUser.getCredit());
+				session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 				Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-				HHAconnection.setMaxAge(60*5);
+				HHAconnection.setMaxAge(60*24);
 				response.addCookie(HHAconnection);
 				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
 				

@@ -38,11 +38,10 @@ public class UpdateUserServlet extends HttpServlet {
 
 		if (alias.length() > 3 || email.length() > 5 && password.length() > 4) {
 
-			User tempUser = new User(alias, request.getParameter("lastName"),
+			User tempUser = new User((Integer)session.getAttribute("userID"), alias, request.getParameter("lastName"),
 					request.getParameter("firstName"), email, request.getParameter("telephone"),
 					request.getParameter("street"), request.getParameter("zipCode"), request.getParameter("city"),
-					password, (Integer)session.getAttribute("credit"));
-			tempUser.setUserId((Integer)session.getAttribute("userID"));
+					password, (Integer)session.getAttribute("credit"),(Boolean) session.getAttribute("amIAdmin"));
 			try {
 				UserManager.getInstance().updateProcess(tempUser);
 			} catch (BLLException | DALException e) {
@@ -57,7 +56,6 @@ public class UpdateUserServlet extends HttpServlet {
 			} else {
 
 				
-				session.setAttribute("userID", tempUser.getUserId());
 				session.setAttribute("alias", tempUser.getAlias());
 				session.setAttribute("lastName", tempUser.getLastName());
 				session.setAttribute("firstName", tempUser.getFirstName());
@@ -67,9 +65,8 @@ public class UpdateUserServlet extends HttpServlet {
 				session.setAttribute("postalCode", tempUser.getPostalCode());
 				session.setAttribute("city" ,tempUser.getCity());
 				session.setAttribute("credit" ,tempUser.getCredit());
+				session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 				Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-				HHAconnection.setMaxAge(60*5);
-				response.addCookie(HHAconnection);
 				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
 				
 			}

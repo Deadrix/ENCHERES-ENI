@@ -24,11 +24,23 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("connected") == null) {
+				Cookie cookies[] = request.getCookies();
+				for (Cookie chocolateFudge : cookies) {
+					if (chocolateFudge.getName().equals("HHAconnection")) {
+						request.setAttribute("email", chocolateFudge.getValue());
+					}
+				}
+				getServletContext().getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+			} else {
+				if ((Boolean) session.getAttribute("connected") == true) {
+				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
+			} 
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +52,9 @@ public class LoginServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		request.getSession().getAttribute("userID");
-		if (tempUser.getUserId() != null && request.getSession().getAttribute("userID") == null) {
-			
-			
+		if (tempUser.getUserId() != null && session.getAttribute("userID") == null) {
+
+			Boolean userIsConnected = true;
 			session.setAttribute("userID", tempUser.getUserId());
 			session.setAttribute("alias", tempUser.getAlias());
 			session.setAttribute("lastName", tempUser.getLastName());
@@ -50,23 +62,31 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email", tempUser.getEmail());
 			session.setAttribute("telephone", tempUser.getTelephone());
 			session.setAttribute("street", tempUser.getStreet());
+<<<<<<< HEAD
 			session.setAttribute("zipCode", tempUser.getPostalCode());
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
+=======
+			session.setAttribute("postalCode", tempUser.getPostalCode());
+			session.setAttribute("city", tempUser.getCity());
+			session.setAttribute("credit", tempUser.getCredit());
+			session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
+			session.setAttribute("connected", userIsConnected);
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-			
-			if (request.getParameter("rememberMe") != null){
-				HHAconnection.setMaxAge(0);								
+
+			if (request.getParameter("rememberMe") != null) {
+				HHAconnection.setMaxAge(3600 * 24 * 365);
 			} else {
-				HHAconnection.setMaxAge(60*5);								
+				HHAconnection.setMaxAge(3600);
 			}
 			response.addCookie(HHAconnection);
-			request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
-			
-		} else if (request.getSession().getAttribute("userID") != null){
-		request.setAttribute("loginErrorMessage", "you are already logged in");
-		request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
-		}else {
+			response.sendRedirect("Login");
+
+		} else if (request.getSession().getAttribute("userID") != null) {
+			request.setAttribute("loginErrorMessage", "you are already logged in");
+			request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
+		} else {
 			request.setAttribute("loginErrorMessage", "something wrong with your credentials");
 			request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
 		}

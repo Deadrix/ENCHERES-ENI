@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/*" })
-public class firstLineOfDefense implements Filter {
+@WebFilter(urlPatterns = { "/Admin/*" })
+public class AdminFilter implements Filter {
 
-	public firstLineOfDefense() {
+	public AdminFilter() {
 	}
 
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -28,15 +28,12 @@ public class firstLineOfDefense implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		HttpSession session;
-		session = ((HttpServletRequest) request).getSession();
-		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		
+		if ((Boolean) session.getAttribute("amIAdmin") == true) {
 			chain.doFilter(request, response);
-		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
-			chain.doFilter(request, response);
-		} else if (session.getAttribute("userID") != null) {
-			chain.doFilter(request, response);
-		} else {
+		} 
+		else {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
 	}

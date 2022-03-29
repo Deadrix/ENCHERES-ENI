@@ -36,8 +36,8 @@
 		<nav class="navbar navbar-expand-md navbar-light">
 			<a href="<%=request.getContextPath()%>/Login" class="navbar-brand">
 				<img src="Assets/emoji-sunglasses.svg" alt="sunglasses" width="25"
-				height="25" class="d-inline-block align-bottom"> <fmt:message
-					key="msg_home" bundle="${base}" />
+				height="25" class="d-inline-block align-bottom"> <!--<fmt:message
+					key="msg_home" bundle="${base}" />-->
 			</a>
 			<nav class="navbar navbar-dark bg-dark"></nav>
 			<form class="form-inline">
@@ -55,8 +55,8 @@
 				<ul class="navbar-nav ms-auto text-center">
 					<li><a class="nav-link" href="#"> Category</a></li>
 					<li><a class="nav-link" href="#"> Last Minute</a></li>
-					<li><a class="nav-link" href="<%=request.getContextPath()%>/TestSuccess.jsp"> Profile</a></li>
-					<li><a class="nav-link" href="ProjetEnchereENI/TestSuccess.jsp"> Contact</a></li>
+					<li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
+					<li><a class="nav-link" href="#"> Contact</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -78,7 +78,7 @@
 						id="Sign">
 						<div class="form-outline mb-4">
 							<input type="email" id="email" class="form-control" name="email"
-								value="${cookie.HHAconnection.value}" /> <label
+								value="${!empty email ? email : ''}" /> <label
 								class="form-label" for="email"> <fmt:message
 									key="msg_email" bundle="${base}" /> ${loginErrorMessage}
 							</label>
@@ -94,7 +94,7 @@
 							<div class="col d-flex justify-content-center">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox"
-										value="rememberMe" id="rememberMe" name="rememberMe" />
+										value="rememberMe" id="rememberMe" name="rememberMe" checked/>
 									<label class="form-check-label" for="rememberMe"
 										value="rememberMe"> <fmt:message key="msg_rememberMe"
 											bundle="${base}" />
@@ -160,7 +160,7 @@
 						</div>
 						<div class="form-outline mb-4">
 							<input type="email" id="email" class="form-control" name="email"
-								value="email" required /> <label class="form-label" for="email"
+								 required /> <label class="form-label" for="email"
 								name="email" value="email"> <fmt:message key="msg_email"
 									bundle="${base}" />
 							</label>
@@ -201,6 +201,7 @@
 									key="msg_password" bundle="${base}" />
 							</label>
 						</div>
+						
 						<button type="submit" class="btn btn-dark btn-block mb-4"
 							value="submit">
 							<fmt:message key="msg_register" bundle="${base}" />

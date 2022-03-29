@@ -2,7 +2,6 @@ package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +38,9 @@ public class LogoutServlet extends HttpServlet {
 		session.removeAttribute("street");
 		session.removeAttribute("postalCode");
 		session.removeAttribute("city");
+		session.removeAttribute("credit");
+		session.removeAttribute("amIAdmin");
+		session.removeAttribute("connected");
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Expires", "0");
