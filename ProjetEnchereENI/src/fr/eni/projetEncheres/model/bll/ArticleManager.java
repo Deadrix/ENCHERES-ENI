@@ -5,75 +5,127 @@ import java.util.List;
 
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 import fr.eni.projetEncheres.model.dal.DALException;
+import fr.eni.projetEncheres.model.dal.DAO;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 import fr.eni.projetEncheres.model.dal.SoldArticleDAO;
 import fr.eni.projetEncheres.model.dal.SoldArticleDAOImpl;
 
 public class ArticleManager {
 
-	private static ArticleManager instanceOfArticleManager = null;
-	private SoldArticleDAOImpl soldArticleDAOImpl = (SoldArticleDAOImpl) DAOFactory.getArticleDAO();
+//	private static ArticleManager instanceOfArticleManager = null;
+	private DAO<SoldArticle> soldArticleDAO;
+	
+	//private SoldArticleDAOImpl soldArticleDAOImpl = (SoldArticleDAOImpl) DAOFactory.getArticleDAO();
 
-	public ArticleManager(SoldArticleDAOImpl aSoldArticleDAOImpl) {
-		this.soldArticleDAOImpl = aSoldArticleDAOImpl;
-	}
+	//public ArticleManager(SoldArticleDAOImpl aSoldArticleDAOImpl) {
+//		this.soldArticleDAOImpl = aSoldArticleDAOImpl;
+//	}
 
 	public ArticleManager() {
-		// TODO Auto-generated constructor stub
+		this.soldArticleDAO = DAOFactory.getArticleDAO();
 	}
 
-	public static ArticleManager getInstance() {
-		if (instanceOfArticleManager == null) {
-			instanceOfArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());
+//	public static ArticleManager getInstance() {
+//		if (instanceOfArticleManager == null) {
+//			instanceOfArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());
+//		}
+//		return instanceOfArticleManager;
+//	}
+
+	public void insert(SoldArticle article) throws BLLException {
+		try {
+			soldArticleDAO.insert(article);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Insert failed - ", e);
 		}
-		return instanceOfArticleManager;
 	}
 
-	public void insert(SoldArticle article) throws DALException {
-		soldArticleDAOImpl.insert(article);
+	public void update(SoldArticle article) throws BLLException {
+		try {
+			soldArticleDAO.update(article);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Update failed - ", e);
+		}
 	}
 
-	public void update(SoldArticle article) throws DALException {
-		soldArticleDAOImpl.update(article);
+	public SoldArticle selectById(int articleId) throws BLLException {
+		try {
+			return soldArticleDAO.selectById(articleId);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select by Id failed - ", e);
+		}
 	}
 
-	public SoldArticle selectById(int articleId) throws DALException {
-		return soldArticleDAOImpl.selectById(articleId);
+	public List<SoldArticle> selectAll() throws BLLException {
+		try {
+			return soldArticleDAO.selectAll();
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select All failed - ", e);
+		}
 	}
 
-	public List<SoldArticle> selectAll() throws DALException {
-		return soldArticleDAOImpl.selectAll();
+	public void delete(int articleId) throws BLLException {
+		try {
+			soldArticleDAO.delete(articleId);
+		} catch (DALException e) {
+			throw new BLLException("Delete failed - ", e);
+		}
 	}
 
-	public void delete(int articleId) throws DALException {
-		soldArticleDAOImpl.delete(articleId);
-	}
-
-	public List<SoldArticle> selectByDescription(String motCle) throws DALException {
-		return soldArticleDAOImpl.selectByDescription(motCle);
+	public List<SoldArticle> selectByDescription(String motCle) throws BLLException {
+		try {
+			return ((SoldArticleDAO) soldArticleDAO).selectByDescription(motCle);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select by Description failed - ", e);
+		}
 	}
 	
-	public List<SoldArticle> selectByCategoryByState(int category, int state) throws DALException {
-		return soldArticleDAOImpl.selectByCategoryByState(category, state);
+	public List<SoldArticle> selectByCategoryByState(int category, int state) throws BLLException {
+		try {
+			return ((SoldArticleDAO) soldArticleDAO).selectByCategoryByState(category, state);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Select by Category by State failed - ", e);
+		}
 	}
 
-	public void updateAuction(SoldArticle article) throws DALException {
-		soldArticleDAOImpl.updateAuction(article);		
+	public void updateAuction(SoldArticle article) throws BLLException {
+		try {
+			((SoldArticleDAO) soldArticleDAO).updateAuction(article);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Update Auction failed - ", e);
+		}		
 	}
 
-	public void updateBuyer(SoldArticle article) throws DALException {
-		soldArticleDAOImpl.updateBuyer(article);
+	public void updateBuyer(SoldArticle article) throws BLLException {
+		try {
+			((SoldArticleDAO) soldArticleDAO).updateBuyer(article);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Update Buyer failed - ", e);
+		}
 	}
 
-	public void updateSoldPrice(SoldArticle article) throws DALException {
-		soldArticleDAOImpl.updateSoldPrice(article);
+	public void updateSoldPrice(SoldArticle article) throws BLLException {
+		try {
+			((SoldArticleDAO) soldArticleDAO).updateSoldPrice(article);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Update Sold Price failed - ", e);
+		}
 	}
 	
-	public SoldArticle newSell(SoldArticle article) {
+	public SoldArticle newSell(SoldArticle article) throws BLLException{
 		return article;
 	}
 	
-	public static void validatedDate(SoldArticle article) {
+	public static void validatedDate(SoldArticle article) throws BLLException{
 		if (article.getAuctionStart() == null || article.getAuctionEnd() == null || article.getAuctionStart().isBefore(LocalDate.now()) ||
 				article.getAuctionEnd().isBefore(article.getAuctionStart())) {
 			

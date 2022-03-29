@@ -20,10 +20,6 @@ public class PickUpManager {
 	}
 	
 
-
-
-
-
 	public void addPickUp(PickUp pickup) throws BLLException {
 		if(this.validatePickUp(pickup)) {
 			try {
