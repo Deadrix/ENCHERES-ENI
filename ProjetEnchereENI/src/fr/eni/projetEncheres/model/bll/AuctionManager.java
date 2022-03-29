@@ -18,6 +18,10 @@ public class AuctionManager {
 		this.aAuctionDAOImpl = aAuctionDAOImpl;
 		}
 	
+	public AuctionManager() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static AuctionManager getInstance() {
 		if (instanceOfAuctionManager ==null) {
 			instanceOfAuctionManager = new AuctionManager((AuctionDAOImpl) DAOFactory.getAuctionDAO());
@@ -25,8 +29,14 @@ public class AuctionManager {
 		return instanceOfAuctionManager;
 	}
 	
-	public void insert(Auction auction) throws DALException {
-		aAuctionDAOImpl.insert(auction);
+	public void insert(Auction auction) throws BLLException {
+		try {
+			aAuctionDAOImpl.insert(auction);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BLLException();
+		}
 	}
 	
 	public void update(Auction auction) throws DALException {

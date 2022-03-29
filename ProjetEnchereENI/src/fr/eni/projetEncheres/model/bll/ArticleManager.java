@@ -18,6 +18,10 @@ public class ArticleManager {
 		this.soldArticleDAOImpl = aSoldArticleDAOImpl;
 	}
 
+	public ArticleManager() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static ArticleManager getInstance() {
 		if (instanceOfArticleManager == null) {
 			instanceOfArticleManager = new ArticleManager((SoldArticleDAOImpl) DAOFactory.getArticleDAO());
