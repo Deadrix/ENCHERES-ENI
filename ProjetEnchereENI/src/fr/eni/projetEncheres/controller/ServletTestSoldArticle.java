@@ -2,6 +2,7 @@ package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bll.CategoryManager;
 import fr.eni.projetEncheres.model.bll.PickUpManager;
 import fr.eni.projetEncheres.model.bo.Category;
@@ -29,7 +31,7 @@ public class ServletTestSoldArticle extends HttpServlet {
        
   PickUpManager pm = new PickUpManager();
   
-	/**
+	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,25 +46,49 @@ public class ServletTestSoldArticle extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		SoldArticle article = new SoldArticle();
+		CategoryManager catMng = new CategoryManager();
+		User user = new User();
 		
 		
+		try {
 			
-			String article_name = request.getParameter("articleName");
-			String description = request.getParameter("description");
+			article.setArticleName(request.getParameter("articleName"));
+			article.setDescription(request.getParameter("description"));
+			article.setAuctionStart(LocalDate.parse((request.getParameter("auctionStart"))));
+			article.setAuctionEnd(LocalDate.parse((request.getParameter("auctionEnd"))));
+			article.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
+			article.setSoldPrice(Integer.parseInt(request.getParameter("soldPrice")));
+			//Comment récup' l'objet user connecté
+			article.setSeller(request.getAttribute("userID"));
+			article.setCategory(catMng.selectById(Integer.parseInt(request.getParameter("categoryId"))));
+			if(LocalDate.now().isBefore((ChronoLocalDate) request.getAttribute("auctionEnd")) request.getAttribute("auctionEnd")) {
+				
+				
+			}
+				
+			
+			});
+			
+			
+			
+		
+			//String article_name = request.getParameter("articleName");
+			//String description = request.getParameter("description");
 			//Catégorie à récup' ??
-			Integer categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			//Integer categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			
-			LocalDate auction_start_date = LocalDate.parse((request.getParameter("auctionStart")));
-			LocalDate auction_end_date = LocalDate.parse((request.getParameter("auctionEnd")));
-			Integer initial_price = Integer.parseInt(request.getParameter("initialPrice"));
-			Integer final_price = Integer.parseInt(request.getParameter("soldPrice"));
+//			LocalDate auction_start_date = LocalDate.parse((request.getParameter("auctionStart")));
+//			LocalDate auction_end_date = LocalDate.parse((request.getParameter("auctionEnd")));
+//			Integer initial_price = Integer.parseInt(request.getParameter("initialPrice"));
+//			Integer final_price = Integer.parseInt(request.getParameter("soldPrice"));
 			
-			String street = request.getParameter("street");
-			String postalCode = request.getParameter("postalCode");
-			String city = request.getParameter("city");
-		
-		Category cat = CategoryManager.getInstance().selectById(categoryId);
-		User user = (User) session.getAttribute("userID");
+//			String street = request.getParameter("street");
+//			String postalCode = request.getParameter("postalCode");
+//			String city = request.getParameter("city");
+//		
+//	
+//			Category cat = CategoryManager.getInstance().selectById(categoryId);
+//			User user = (User) session.getAttribute("userID");
 			
 			PickUp pickup = new PickUp();
 				pickup.setRueRetrait(street);
@@ -77,7 +103,15 @@ public class ServletTestSoldArticle extends HttpServlet {
 				article.setInitialPrice(initial_price);
 				article.setSoldPrice(final_price);
 				
-			
+				
+				
+				
+				
+				
+		} catch (DALException | BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 }

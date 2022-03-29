@@ -6,23 +6,30 @@ import fr.eni.projetEncheres.model.bo.Category;
 import fr.eni.projetEncheres.model.dal.CategoryDAO;
 import fr.eni.projetEncheres.model.dal.CategoryDAOImpl;
 import fr.eni.projetEncheres.model.dal.DALException;
+import fr.eni.projetEncheres.model.dal.DAO;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 
-public class CategoryManager implements CategoryDAO {
+public class CategoryManager  {
 
+	private DAO<Category> categoryDAO;
+	
 	private static CategoryManager instanceOfCategoryManager = null;
 	private CategoryDAOImpl categoryDAOImpl = (CategoryDAOImpl) DAOFactory.getCategoryDAO();
 
+	public CategoryManager() {
+		this.categoryDAO = DAOFactory.getCategoryDAO();
+	}
+	
 	public CategoryManager(CategoryDAOImpl aCategoryDAOImpl) {
 		this.categoryDAOImpl = aCategoryDAOImpl;
 	}
 
-	public static CategoryManager getInstance() {
-		if (instanceOfCategoryManager == null) {
-			instanceOfCategoryManager = new CategoryManager((CategoryDAOImpl) DAOFactory.getCategoryDAO());
-		}
-		return instanceOfCategoryManager;
-	}
+//	public static CategoryManager getInstance() {
+//		if (instanceOfCategoryManager == null) {
+//			instanceOfCategoryManager = new CategoryManager((CategoryDAOImpl) DAOFactory.getCategoryDAO());
+//		}
+//		return instanceOfCategoryManager;
+//	}
 	
 	public void insert(Category category) throws DALException {
 		categoryDAOImpl.insert(category);
