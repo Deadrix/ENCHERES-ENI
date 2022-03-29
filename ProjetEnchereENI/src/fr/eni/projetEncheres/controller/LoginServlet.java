@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email", tempUser.getEmail());
 			session.setAttribute("telephone", tempUser.getTelephone());
 			session.setAttribute("street", tempUser.getStreet());
-			session.setAttribute("postalCode", tempUser.getPostalCode());
+			session.setAttribute("zipCode", tempUser.getPostalCode());
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());

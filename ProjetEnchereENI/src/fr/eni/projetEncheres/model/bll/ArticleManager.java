@@ -1,5 +1,6 @@
 package fr.eni.projetEncheres.model.bll;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.projetEncheres.model.bo.SoldArticle;
@@ -62,6 +63,18 @@ public class ArticleManager implements SoldArticleDAO {
 
 	public void updateSoldPrice(SoldArticle article) throws DALException {
 		soldArticleDAOImpl.updateSoldPrice(article);
+	}
+	
+	public SoldArticle newSell(SoldArticle article) {
+		return article;
+	}
+	
+	public static void validatedDate(SoldArticle article) {
+		if (article.getAuctionStart() == null || article.getAuctionEnd() == null || article.getAuctionStart().isBefore(LocalDate.now()) ||
+				article.getAuctionEnd().isBefore(article.getAuctionStart())) {
+			
+		}
+	
 	}
 	
 }

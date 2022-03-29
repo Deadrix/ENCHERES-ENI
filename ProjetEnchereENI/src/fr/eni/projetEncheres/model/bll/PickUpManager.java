@@ -15,7 +15,7 @@ public class PickUpManager {
 	private DAO<PickUp> PickUpDAO;
 	
 	
-	public PickUpManager() throws BLLException {
+	public PickUpManager() {
 		this.PickUpDAO = DAOFactory.getPickUpDAO();
 	}
 	
@@ -121,6 +121,7 @@ public class PickUpManager {
 		}
 		return isValid;
 	}
+
 
 	
 	

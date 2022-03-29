@@ -33,8 +33,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, (Date) article.getAuctionStart());
-			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSeller().getUserId());
 			ps.setInt(7, article.getCategory().getCategoryId());
@@ -59,8 +59,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(UPDATE)) {
 			ps.setString(1, article.getArticleName());
 			ps.setString(2, article.getDescription());
-			ps.setDate(3, (Date) article.getAuctionStart());
-			ps.setDate(4, (Date) article.getAuctionEnd());
+			ps.setDate(3, java.sql.Date.valueOf(article.getAuctionStart()));
+			ps.setDate(4, java.sql.Date.valueOf(article.getAuctionEnd()));
 			ps.setInt(5, article.getInitialPrice());
 			ps.setInt(6, article.getSoldPrice());
 			ps.setInt(7, article.getSeller().getUserId());
@@ -88,8 +88,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
@@ -121,8 +121,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
@@ -169,8 +169,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
@@ -206,8 +206,8 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setArticleId(rs.getInt("no_article"));
 				art.setArticleName(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setAuctionStart(rs.getDate("date_debut_encheres"));
-				art.setAuctionEnd(rs.getDate("date_fin_encheres"));
+				art.setAuctionStart(rs.getDate("date_debut_encheres").toLocalDate());
+				art.setAuctionEnd(rs.getDate("date_fin_encheres").toLocalDate());
 				art.setInitialPrice(rs.getInt("prix_initial"));
 				art.setSoldPrice(rs.getInt("prix_vente"));
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));

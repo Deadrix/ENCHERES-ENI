@@ -1,6 +1,7 @@
 package fr.eni.projetEncheres.model.bo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SoldArticle implements Serializable {
@@ -10,8 +11,8 @@ public class SoldArticle implements Serializable {
 	private Integer articleId;
 	private String articleName;
 	private String description;
-	private Date auctionStart;
-	private Date auctionEnd;
+	private LocalDate auctionStart;
+	private LocalDate auctionEnd;
 	private Integer initialPrice;
 	private Integer soldPrice;
 	private User seller;
@@ -24,7 +25,7 @@ public class SoldArticle implements Serializable {
 		super();
 	}
 
-	public SoldArticle(Integer articleId, String articleName, String description, Date auctionStart, Date auctionEnd,
+	public SoldArticle(Integer articleId, String articleName, String description, LocalDate auctionStart, LocalDate auctionEnd,
 			Integer initialPrice, Integer soldPrice, Category category, User seller, User buyer, Integer state) {
 		super();
 		this.articleId = articleId;
@@ -41,7 +42,7 @@ public class SoldArticle implements Serializable {
 	}
 
 // Constructeur sans buyer pour l'initialiser plus tard (à l'achat de l'article)
-	public SoldArticle(String articleName, String description, Date auctionStart, Date auctionEnd,
+	public SoldArticle(String articleName, String description, LocalDate auctionStart, LocalDate auctionEnd,
 			Integer initialPrice, User seller, Category category, Integer state) {
 		super();
 		this.articleName = articleName;
@@ -79,19 +80,19 @@ public class SoldArticle implements Serializable {
 		this.description = description;
 	}
 
-	public Date getAuctionStart() {
+	public LocalDate getAuctionStart() {
 		return auctionStart;
 	}
 
-	public void setAuctionStart(Date auctionStart) {
+	public void setAuctionStart(LocalDate auctionStart) {
 		this.auctionStart = auctionStart;
 	}
 
-	public Date getAuctionEnd() {
+	public LocalDate getAuctionEnd() {
 		return auctionEnd;
 	}
 
-	public void setAuctionEnd(Date auctionEnd) {
+	public void setAuctionEnd(LocalDate auctionEnd) {
 		this.auctionEnd = auctionEnd;
 	}
 
