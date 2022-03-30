@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/*" })
+@WebFilter(urlPatterns = { "/hellofakechemin" })
 public class firstLineOfDefense implements Filter {
 
 	public firstLineOfDefense() {
@@ -39,5 +39,6 @@ public class firstLineOfDefense implements Filter {
 		} else {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
+
 	}
 }

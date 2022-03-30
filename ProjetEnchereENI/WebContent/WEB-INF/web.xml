@@ -5,13 +5,14 @@
 	id="WebApp_ID" version="3.1">
 	
 	<welcome-file-list>
-		 <welcome-file>home.html</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+	<welcome-file>auctionDetail.jsp</welcome-file>
+<!-- 		 <welcome-file>home.html</welcome-file> -->
+<!-- 		<welcome-file>index.html</welcome-file> -->
+<!-- 		<welcome-file>index.htm</welcome-file> -->
+<!-- 		<welcome-file>index.jsp</welcome-file> -->
+<!-- 		<welcome-file>default.html</welcome-file> -->
+<!-- 		<welcome-file>default.htm</welcome-file> -->
+<!-- 		<welcome-file>default.jsp</welcome-file> -->
 	</welcome-file-list>
 	<session-config>
 	    <session-timeout>5</session-timeout>

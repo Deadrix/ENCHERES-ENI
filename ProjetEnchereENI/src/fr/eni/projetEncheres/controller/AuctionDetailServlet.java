@@ -3,6 +3,7 @@ package fr.eni.projetEncheres.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class AuctionDetailServlet extends HttpServlet {
 	AuctionManager auctionManager = new AuctionManager();
 	UserManager userManager = new UserManager();
 	PickUpManager pickUpManager = new PickUpManager();
-	User seller = new User();
+	//User seller = new User();
 	private static int no_article;
 	private static int noUser;
 
@@ -42,8 +43,9 @@ public class AuctionDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// Récupère le numéro de l'utilisateur courant
-		User no_user = (User) request.getSession().getAttribute("loggedInUser");
-		noUser = no_user.getUserId();
+		User no_user = (User) request.getSession().getAttribute("Thierry");
+		
+		noUser = 5;
 		request.setAttribute("noUser", noUser);
 		System.out.println("userId " + noUser);
 
@@ -54,14 +56,14 @@ public class AuctionDetailServlet extends HttpServlet {
 		}
 
 		// On récupère la date du jour
-		Date today = new Date();
+		LocalDate today = LocalDate.now();
 		request.setAttribute("today", today);
 
 		// On récupère la date de fin d'enchere
 		try {
-			Date auctionEnds = articleManager.selectById(no_article).getAuctionEnd();
+			LocalDate auctionEnds = articleManager.selectById(no_article).getAuctionEnd();
 
-			boolean isBefore = auctionEnds.before(today);
+			boolean isBefore = auctionEnds.isBefore(today);
 
 			if (isBefore == true) {
 				request.setAttribute("isBefore", 1);
@@ -77,11 +79,11 @@ public class AuctionDetailServlet extends HttpServlet {
 
 			// Name of buyer
 			String auctionWinnerName = userManager.selectById(auctionWinnerId).getAlias();
-			request.setAttribute("nomAquereure", auctionWinnerName);
+			request.setAttribute("auctionWinnerName", auctionWinnerName);
 
 			// Article being auctioned
 			SoldArticle articleSold = articleManager.selectById(no_article);
-			request.setAttribute("article", articleSold);
+			request.setAttribute("articleSold", articleSold);
 
 			// category
 			Category category = articleManager.selectById(no_article).getCategory();
@@ -89,31 +91,29 @@ public class AuctionDetailServlet extends HttpServlet {
 
 			// best bid
 			Auction highestAuction = auctionManager.selectBestAuctionFromArticle(no_article);
-			request.setAttribute("auction", highestAuction);
+			request.setAttribute("highestAuction", highestAuction);
 
 			// pickup si défini
 			PickUp pickUpLocation = pickUpManager.getPickUp(no_article);
 			request.setAttribute("pickUpLocation", pickUpLocation);
 
-			// display seller (broken temporarily : peu importe ce que je fais, eclipse
-			// demande des try catch partout. Si vous voulez test faites un cc arpès User
-			// ci-dessous : seller = articleManager.selectById(no_article).getSeller;
-			User seller = null;
+			// display seller 
+			User seller = articleManager.selectById(no_article).getSeller();
 			seller = articleManager.selectById(no_article).getSeller();
-			request.setAttribute("user", seller);
+			request.setAttribute("seller", seller);
 		} catch (DALException | BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		request.getServletContext().getRequestDispatcher("/WEB-INF/auctioDetail.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/auctionDetail.jsp").forward(request, response);
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Pick Up management
+		// Pick Up And Credit Management
 		String thisPickUp = request.getParameter("pickUp");
 		int finalPrice;
 		try {
@@ -134,8 +134,7 @@ public class AuctionDetailServlet extends HttpServlet {
 				out.close();
 			}
 		}
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
+		} catch (BLLException e) {
 			e.printStackTrace();
 		}
 //		request.getServletContext().getRequestDispatcher("/AuctionList").forward(request, response);
