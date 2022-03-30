@@ -36,10 +36,8 @@ public class AdminFilter implements Filter {
 		else {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+	
+
 	}
 }

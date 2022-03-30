@@ -30,7 +30,7 @@ public class firstLineOfDefense implements Filter {
 
 		HttpSession session;
 		session = ((HttpServletRequest) request).getSession();
-<<<<<<< HEAD
+
 //		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
 //			chain.doFilter(request, response);
 //		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
@@ -41,7 +41,7 @@ public class firstLineOfDefense implements Filter {
 //			((HttpServletResponse) response).sendRedirect("Login");
 //		}
 		chain.doFilter(request, response);
-=======
+
 		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
 			chain.doFilter(request, response);
 		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
@@ -52,6 +52,6 @@ public class firstLineOfDefense implements Filter {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
 
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
+
 	}
 }
