@@ -7,9 +7,10 @@ function EnableDisableCalendar(){
 	var enchere_differe = document.getElementById("enchere_differe");
 	var calendar = document.getElementById("calendar");
 	calendar.disabled = enchere_differe.checked ? false : true;
+	var dateTime = new Date.now().toISOString().substring(0, 16);
+	document.getElementById("calendar").setAttribute('min', dateTime);
 	
 }
-
 </script>
 
 <%-- <c:set var = "category" value ="${SoldArticle.category }"></c:set> --%>
@@ -39,7 +40,7 @@ function EnableDisableCalendar(){
 		
 		<div>
 			<input type="radio" id="enchere_immediat" name="boutondébut" value="immédiat" onclick="EnableDisableCalendar()" checked>
-			<label for="date_debut_enchere">Mise en vente immadiate</label>
+			<label for="date_debut_enchere">Mise en vente immediate</label>
 		</div>
 		<div>	
 			<div>
