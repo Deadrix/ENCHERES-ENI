@@ -30,14 +30,15 @@ public class firstLineOfDefense implements Filter {
 
 		HttpSession session;
 		session = ((HttpServletRequest) request).getSession();
-		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
-			chain.doFilter(request, response);
-		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
-			chain.doFilter(request, response);
-		} else if (session.getAttribute("userID") != null) {
-			chain.doFilter(request, response);
-		} else {
-			((HttpServletResponse) response).sendRedirect("Login");
-		}
+//		if (((HttpServletRequest) request).getServletPath().startsWith("/Login")) {
+//			chain.doFilter(request, response);
+//		} else if (((HttpServletRequest) request).getServletPath().startsWith("/Register")) {
+//			chain.doFilter(request, response);
+//		} else if (session.getAttribute("userID") != null) {
+//			chain.doFilter(request, response);
+//		} else {
+//			((HttpServletResponse) response).sendRedirect("Login");
+//		}
+		chain.doFilter(request, response);
 	}
 }

@@ -36,5 +36,6 @@ public class AdminFilter implements Filter {
 		else {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
+	
 	}
 }
