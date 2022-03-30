@@ -58,7 +58,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
 
 			ps.setInt(1, categoryId);
-			ResultSet rs = ps.executeQuery(SELECTBYID);
+			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
 				cat = new Category();
@@ -84,7 +84,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
 
-			ResultSet rs = ps.executeQuery(SELECTALL);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				cat = new Category();
 				cat.setCategoryId(rs.getInt("no-categorie"));
