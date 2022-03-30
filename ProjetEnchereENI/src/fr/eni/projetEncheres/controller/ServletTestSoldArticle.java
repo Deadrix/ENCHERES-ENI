@@ -10,11 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-=======
->>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 
 import fr.eni.projetEncheres.model.bll.ArticleManager;
 import fr.eni.projetEncheres.model.bll.BLLException;

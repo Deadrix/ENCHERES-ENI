@@ -2,7 +2,8 @@
 
 <script type="text/javascript">
 
-fonction EnableDisableCalendar(){
+function EnableDisableCalendar(){
+	
 	var enchere_differe = document.getElementById("enchere_differe");
 	var calendar = document.getElementById("calendar");
 	calendar.disabled = enchere_differe.checked ? false : true;
