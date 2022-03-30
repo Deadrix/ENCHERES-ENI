@@ -2,15 +2,24 @@
 
 <script type="text/javascript">
 
-function EnableDisableCalendar(){
-	
-	var enchere_differe = document.getElementById("enchere_differe");
-	var calendar = document.getElementById("calendar");
-	calendar.disabled = enchere_differe.checked ? false : true;
-	var dateTime = new Date.now().toISOString().substring(0, 16);
-	document.getElementById("calendar").setAttribute('min', dateTime);
-	
-}
+;
+
+	function EnableDisableCalendar() {
+		var enchere_differe = document.getElementById("enchere_differe");
+		var calendar = document.getElementById("auctiondate");
+		calendar.disabled = enchere_differe.checked ? false : true;
+		
+
+	}
+
+	function setMinDate () {
+
+	var currentDate = new Date().toISOString().slice(0, 16); //yyyy-MM-ddThh:mm
+	var calendar = document.getElementById("auctiondate");
+	calendar.min = currentDate;
+
+	}
+
 </script>
 
 <%-- <c:set var = "category" value ="${SoldArticle.category }"></c:set> --%>
@@ -24,61 +33,65 @@ function EnableDisableCalendar(){
 <form class="SoldArticle" action="ServletTestSoldArticle" method="POST">
 
 
-<!-- Titre Article -->
-  	<div class="input-field">
-          <label for="article">Article :</label>
-          <input class="input" type="text" name="article" id="article"  placeholder="Article" required>
-         </div>
+	<!-- Titre Article -->
+	<div class="input-field">
+		<label for="article">Article :</label> <input class="input"
+			type="text" name="article" id="article" placeholder="Article"
+			required>
+	</div>
 
-<!-- Descriptiopn -->
-        <div class="input-field">
-          <label for="description">Description :</label>
-          <textarea class="input"name="description" id="description" placeholder="Entrez une description de l'article"></textarea>
-        </div>
+	<!-- Descriptiopn -->
+	<div class="input-field">
+		<label for="description">Description :</label>
+		<textarea class="input" name="description" id="description"
+			placeholder="Entrez une description de l'article"></textarea>
+	</div>
 
-<!-- Début Enchères -->
-		
+	<!-- Début Enchères -->
+
+	<div>
+		<input type="radio" id="enchere_immediat" name="boutondébut"
+			value="immédiat" onclick="EnableDisableCalendar()" checked> <label
+			for="date_debut_enchere">Mise en vente immediate</label>
+	</div>
+	<div>
 		<div>
-			<input type="radio" id="enchere_immediat" name="boutondébut" value="immédiat" onclick="EnableDisableCalendar()" checked>
-			<label for="date_debut_enchere">Mise en vente immediate</label>
-		</div>
-		<div>	
+			<input type="radio" id="enchere_differe" name="boutondébut"
+				value="différé" onclick="EnableDisableCalendar()"> <label
+				for="date_debut_enchere">Date de mise en vente</label>
 			<div>
-			<input type="radio" id="enchere_differe" name="boutondébut" value="différé" onclick="EnableDisableCalendar()">
-			<label for="date_debut_enchere">Date de mise en vente</label>
-				  <div>
-				 
-				    <label for="date_debut_enchere">Veuillez choisir une date et une heure du débt des enchères :</label>
-				    <input id="calendar" type="datetime-local" name="auctiondate" required disabled="disabled">
-				    <span class="validity"></span>
-				  </div>
-				  
-				  <div>
-				 
-				  </div>
-				
-	</div>>
-		
-		
-		
+
+				<label for="date_debut_enchere">Veuillez choisir une date et
+					une heure du débt des enchères :</label> <input id="auctiondate"
+					type="datetime-local" name="auctiondate" onclick="setMinDate()" required
+					disabled="disabled" min="min"/> <span class="validity"></span>
+			</div>
+
+			<div></div>
+
 		</div>
+		>
 
 
-<!-- Ajout Photo -->
-    <div class="input-field">
-          <label for="file">Photo de l'article :</label>
-          <div class="input"> 
-            <input type="file" name="file" id="file" accept="image/*"> <!--Only helps the user, need to put protection in the backend-->
-            
-          </div>
-        </div>
-        
-        
-        
-        
-        
-        
-       <input type="submit"> 
-</form>        
-        
-        
+
+	</div>
+
+
+	<!-- Ajout Photo -->
+	<div class="input-field">
+		<label for="file">Photo de l'article :</label>
+		<div class="input">
+			<input type="file" name="file" id="file" accept="image/*"/>
+			<!--Only helps the user, need to put protection in the backend-->
+
+		</div>
+	</div>
+
+
+
+
+
+
+	<input type="submit">
+</form>
+

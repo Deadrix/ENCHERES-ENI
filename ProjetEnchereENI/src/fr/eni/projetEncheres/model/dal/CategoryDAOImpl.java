@@ -87,7 +87,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				cat = new Category();
-				cat.setCategoryId(rs.getInt("no-categorie"));
+				cat.setCategoryId(rs.getInt("no_categorie"));
 				cat.setLibelle(rs.getString("libelle"));
 				lst.add(cat);
 			}
