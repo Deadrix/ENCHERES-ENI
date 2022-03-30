@@ -43,12 +43,12 @@ public class ServletTestSoldArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		User loggedUser = (User) request.getSession().getAttribute("Thierry");
 		SoldArticle article = new SoldArticle();
 		CategoryManager catMng = new CategoryManager();
 		ArticleManager artMng = new ArticleManager();
 		PickUpManager pickUpMng = new PickUpManager();
-		User user = new User();
+
 
 		// ARTICLE
 
@@ -65,8 +65,7 @@ public class ServletTestSoldArticle extends HttpServlet {
 		article.setAuctionEnd(LocalDate.parse((request.getParameter("auctionEnd"))));
 		article.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		article.setSoldPrice(Integer.parseInt(request.getParameter("soldPrice")));
-		// Comment récup' l'objet user connecté
-		article.setSeller((User) request.getAttribute("userID"));
+		article.setSeller(loggedUser);
 		try {
 			article.setCategory(catMng.selectById(Integer.parseInt(request.getParameter("categoryId"))));
 		} catch (NumberFormatException | BLLException e) {
