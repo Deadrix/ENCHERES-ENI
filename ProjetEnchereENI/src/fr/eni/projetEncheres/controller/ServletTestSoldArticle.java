@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import fr.eni.projetEncheres.model.bll.ArticleManager;
 import fr.eni.projetEncheres.model.bll.BLLException;
@@ -93,6 +94,6 @@ public class ServletTestSoldArticle extends HttpServlet {
 			e.printStackTrace();
 		}
 
-	}
+	}	
 
 }
