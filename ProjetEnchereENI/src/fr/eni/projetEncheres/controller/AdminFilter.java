@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/Admin/*" })
+@WebFilter(urlPatterns = { "/helloceciestfakechemin" })
 public class AdminFilter implements Filter {
 
 	public AdminFilter() {
@@ -36,6 +36,10 @@ public class AdminFilter implements Filter {
 		else {
 			((HttpServletResponse) response).sendRedirect("Login");
 		}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 	}
 }
