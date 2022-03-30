@@ -42,7 +42,7 @@ public class ServletTestSoldArticle extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, BLLException {
 
 		HttpSession session = request.getSession();
 		SoldArticle article = new SoldArticle();
@@ -106,19 +106,19 @@ public class ServletTestSoldArticle extends HttpServlet {
 //	
 //			Category cat = CategoryManager.getInstance().selectById(categoryId);
 //			User user = (User) session.getAttribute("userID");
-			
-			PickUp pickup = new PickUp();
-				pickup.setRueRetrait(street);
-				pickup.setCodePostalRetrait(postalCode);
-				pickup.setVilleRetrait(city);
-				
-			pm.addPickUp(pickup);
-				article.setArticleName(article_name);
-				article.setDescription(description);
-				article.setAuctionStart(auction_start_date);
-				article.setAuctionEnd(auction_end_date);
-				article.setInitialPrice(initial_price);
-				article.setSoldPrice(final_price);
+//			
+//			PickUp pickup = new PickUp();
+//				pickup.setRueRetrait(street);
+//				pickup.setCodePostalRetrait(postalCode);
+//				pickup.setVilleRetrait(city);
+//				
+//			pm.addPickUp(pickup);
+//				article.setArticleName(article_name);
+//				article.setDescription(description);
+//				article.setAuctionStart(auction_start_date);
+//				article.setAuctionEnd(auction_end_date);
+//				article.setInitialPrice(initial_price);
+//				article.setSoldPrice(final_price);
 				
 				
 				
@@ -128,7 +128,7 @@ public class ServletTestSoldArticle extends HttpServlet {
 		} catch (DALException | BLLException e) {
 			// TODO Auto-generated catch block
 
-		} catch (NumberFormatException | BLLException e) {
+		} catch (NumberFormatException e) {
 
 			e.printStackTrace();
 		}
