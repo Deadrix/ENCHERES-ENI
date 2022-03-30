@@ -1,33 +1,82 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="fragments/HeaderAndNavBar.jspf"%>
+
+<script type="text/javascript">
+
+fonction EnableDisableCalendar(){
+	var enchere_differe = document.getElementById("enchere_differe");
+	var calendar = document.getElementById("calendar");
+	calendar.disabled = enchere_differe.checked ? false : true;
+	
+}
+
+</script>
+
+<%-- <c:set var = "category" value ="${SoldArticle.category }"></c:set> --%>
+<%-- <c:set var = "auctionStart" value ="${SoldArticle.auctionStart }"></c:set> --%>
+<%-- <c:set var = "auctionEnd" value ="${SoldArticle.auctionEnd }"></c:set> --%>
+<%-- <c:set var = "initalPrice" value ="${SoldArticle.initialPrice }"></c:set> --%>
+<%-- <c:set var = "soldPrice" value ="${SoldArticle.soldPrice }"></c:set> --%>
+<%-- <c:set var = "seller" value="${SoldArticle.seller}"></c:set> --%>
+<%-- <c:set var = "buyer" value="${SoldArticle.buyer}"></c:set> --%>
+
+<form class="SoldArticle" action="ServletTestSoldArticle" method="POST">
 
 
-<html>
-<head>
+<!-- Titre Article -->
+  	<div class="input-field">
+          <label for="article">Article :</label>
+          <input class="input" type="text" name="article" id="article"  placeholder="Article" required>
+         </div>
 
-</head>
+<!-- Descriptiopn -->
+        <div class="input-field">
+          <label for="description">Description :</label>
+          <textarea class="input"name="description" id="description" placeholder="Entrez une description de l'article"></textarea>
+        </div>
 
- <title>ENI_Enchere</title>
+<!-- Début Enchères -->
+		
+		<div>
+			<input type="radio" id="enchere_immediat" name="boutondébut" value="immédiat" onclick="EnableDisableCalendar()" checked>
+			<label for="date_debut_enchere">Mise en vente immadiate</label>
+		</div>
+		<div>	
+			<div>
+			<input type="radio" id="enchere_differe" name="boutondébut" value="différé" onclick="EnableDisableCalendar()">
+			<label for="date_debut_enchere">Date de mise en vente</label>
+				  <div>
+				 
+				    <label for="date_debut_enchere">Veuillez choisir une date et une heure du débt des enchères :</label>
+				    <input id="calendar" type="datetime-local" name="auctiondate" required disable="disable">
+				    <span class="validity"></span>
+				  </div>
+				  
+				  <div>
+				 
+				  </div>
+				
+			</div>
+		
+		
+		
+		</div>
 
 
-<body>
-
-<div class="container-fluid pb-5 ">
-	<div class="row g-5">
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="card-header-pills">
-						<img src="Assets/FuckIt.jpg" alt="whatever" class="card-img">
-						<div class="card-body">
-							<h5 class="card-title">${requestScope.articleName}</h5>
-							<p class="card-text">${ }</p>
-							<p class="card-price">${ }</p>
-						</div>
-					</div>
-				</div>
-				</div>
-
-</body>
-
-
-</html>
+<!-- Ajout Photo -->
+    <div class="input-field">
+          <label for="file">Photo de l'article :</label>
+          <div class="input"> 
+            <input type="file" name="file" id="file" accept="image/*"> <!--Only helps the user, need to put protection in the backend-->
+            
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+       <input type="submit"> 
+</form>        
+        
+        

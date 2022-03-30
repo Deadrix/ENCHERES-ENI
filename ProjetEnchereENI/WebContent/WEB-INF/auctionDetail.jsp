@@ -1,4 +1,4 @@
-<%@ include file="fragments/HeaderAndNavBar.jspf"%>
+
 
 
 <c:choose>
