@@ -45,7 +45,7 @@ public class AuctionDetailServlet extends HttpServlet {
 		// Récupère le numéro de l'utilisateur courant
 		User no_user = (User) request.getSession().getAttribute("Thierry");
 		
-		noUser = 5;
+		noUser = no_user.getUserId();
 		request.setAttribute("noUser", noUser);
 		System.out.println("userId " + noUser);
 

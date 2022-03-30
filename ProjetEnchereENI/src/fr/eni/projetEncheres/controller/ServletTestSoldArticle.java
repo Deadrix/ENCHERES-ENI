@@ -2,6 +2,7 @@ package fr.eni.projetEncheres.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+=======
+>>>>>>> branch 'main' of https://github.com/Deadrix/ENCHERES-ENI.git
 
 import fr.eni.projetEncheres.model.bll.ArticleManager;
 import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bll.CategoryManager;
 import fr.eni.projetEncheres.model.bll.PickUpManager;
+import fr.eni.projetEncheres.model.bo.Category;
 import fr.eni.projetEncheres.model.bo.PickUp;
 import fr.eni.projetEncheres.model.bo.SoldArticle;
 import fr.eni.projetEncheres.model.bo.User;
@@ -33,6 +38,16 @@ public class ServletTestSoldArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		CategoryManager catMng = new CategoryManager();
+		List<Category> lstCat = null;
+		
+		try {
+			lstCat = catMng.selectAll();
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("category", lstCat);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/TestSoldArticle.jsp");
 		rd.forward(request, response);
 	}
@@ -44,12 +59,12 @@ public class ServletTestSoldArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		User loggedUser = (User) request.getSession().getAttribute("Thierry");
 		SoldArticle article = new SoldArticle();
 		CategoryManager catMng = new CategoryManager();
 		ArticleManager artMng = new ArticleManager();
 		PickUpManager pickUpMng = new PickUpManager();
-		User user = new User();
+
 
 		// ARTICLE
 
@@ -66,8 +81,7 @@ public class ServletTestSoldArticle extends HttpServlet {
 		article.setAuctionEnd(LocalDate.parse((request.getParameter("auctionEnd"))));
 		article.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		article.setSoldPrice(Integer.parseInt(request.getParameter("soldPrice")));
-		// Comment récup' l'objet user connecté
-		article.setSeller((User) request.getAttribute("userID"));
+		article.setSeller(loggedUser);
 		try {
 			article.setCategory(catMng.selectById(Integer.parseInt(request.getParameter("categoryId"))));
 		} catch (NumberFormatException | BLLException e) {
