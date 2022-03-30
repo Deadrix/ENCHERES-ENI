@@ -85,7 +85,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
 			ps.setInt(1, ArticleId);
-			ResultSet rs = ps.executeQuery(SELECTBYID);
+			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				art = new SoldArticle();
 				art.setArticleId(rs.getInt("no_article"));
@@ -120,7 +120,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
 
-			ResultSet rs = ps.executeQuery(SELECTALL);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				art = new SoldArticle();
 				art.setArticleId(rs.getInt("no_article"));
@@ -203,7 +203,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				PreparedStatement ps = connect.prepareStatement(SELECTBYCATEGORYBYSTATE)) {
 			ps.setInt(1, categorie);
 			ps.setInt(2, state);
-			ResultSet rs = ps.executeQuery(SELECTBYCATEGORYBYSTATE);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				art = new SoldArticle();
 				art.setArticleId(rs.getInt("no_article"));

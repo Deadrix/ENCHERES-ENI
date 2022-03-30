@@ -67,7 +67,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTALL)) {
-			ResultSet rs = ps.executeQuery(SELECTALL);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				auction = new Auction();
 				auction.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_utilisateur")));
@@ -90,7 +90,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBESTAUCTIONFROMARTICLE)) {
 			ps.setInt(1, article.getArticleId());
-			ResultSet rs = ps.executeQuery(SELECTBESTAUCTIONFROMARTICLE);
+			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				auction = new Auction();
 				auction.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_utilisateur")));
@@ -114,7 +114,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBESTAUCTIONFROMARTICLE)) {
 			ps.setInt(1, articleId);
-			ResultSet rs = ps.executeQuery(SELECTBESTAUCTIONFROMARTICLE);
+			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				auction = new Auction();
 				auction.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_utilisateur")));
