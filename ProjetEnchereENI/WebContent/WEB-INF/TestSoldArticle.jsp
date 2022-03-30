@@ -48,7 +48,7 @@ function EnableDisableCalendar(){
 				  <div>
 				 
 				    <label for="date_debut_enchere">Veuillez choisir une date et une heure du débt des enchères :</label>
-				    <input id="calendar" type="datetime-local" name="auctiondate" required disable="disable">
+				    <input id="calendar" type="datetime-local" name="auctiondate" required disabled="disabled">
 				    <span class="validity"></span>
 				  </div>
 				  
