@@ -62,17 +62,14 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email", tempUser.getEmail());
 			session.setAttribute("telephone", tempUser.getTelephone());
 			session.setAttribute("street", tempUser.getStreet());
-
 			session.setAttribute("zipCode", tempUser.getPostalCode());
 			session.setAttribute("city" ,tempUser.getCity());
 			session.setAttribute("credit" ,tempUser.getCredit());
-
 			session.setAttribute("postalCode", tempUser.getPostalCode());
 			session.setAttribute("city", tempUser.getCity());
 			session.setAttribute("credit", tempUser.getCredit());
 			session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
 			session.setAttribute("connected", userIsConnected);
-
 			Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
 
 			if (request.getParameter("rememberMe") != null) {
