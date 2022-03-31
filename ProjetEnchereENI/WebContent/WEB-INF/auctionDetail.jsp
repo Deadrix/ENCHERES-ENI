@@ -8,8 +8,7 @@
 		</h2>
 	</c:when>
 	<c:when test="${isBefore==1 && seller.userId==noUser}">
-		<h2>${auctionWinnerName}
-			<fmt:message key="msg_remporte2"></fmt:message>
+		<h2>${auctionWinnerName} <fmt:message key="msg_remporte2"></fmt:message>
 		</h2>
 	</c:when>
 	<c:when test="${isBefore==0}">
