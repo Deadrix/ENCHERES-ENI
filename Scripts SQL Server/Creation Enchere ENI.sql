@@ -94,6 +94,13 @@ ADD
     CONSTRAINT encheres_articles_vendus_fk
     FOREIGN KEY (no_article)
     REFERENCES ARTICLES_VENDUS (no_article) ON DELETE no action ON UPDATE no action
+    
+
+ALTER TABLE ENCHERES
+ADD
+    CONSTRAINT encheres_utilisateur_fk
+    FOREIGN KEY (no_utilisateur)
+    REFERENCES UTILISATEURS (no_utilisateur) ON DELETE no action ON UPDATE no action
 
 ALTER TABLE RETRAITS
 ADD
