@@ -10,6 +10,8 @@
 <fmt:setBundle
 	basename="fr.eni.projetEncheres.internationalisation.messages_encheres"
 	var="base" />
+	<fmt:setBundle
+	basename="fr.eni.projetEncheres.internationalisation.messages_encheres" />
 <c:if test="${!empty param.langue}">
 	<fmt:setLocale value="${param.langue}" />
 </c:if>

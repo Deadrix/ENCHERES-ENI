@@ -13,18 +13,18 @@ public class UserDAOImpl implements UserDAO {
 //MSSQL
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1)";
-	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET (pseudo,nom,prenom,email,rue,code_postal,"
+	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET (pseudo,nom,prenom,email,telephone,rue,code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,1) WHERE  no_utilisateur = ?";
 	private static final String UPDATEPASSWORDBYID = "UPDATE UTILISATEURS SET mot_de_passe=? where email=?";
 	private static final String UPDATEADMINBYID = "UPDATE UTILISATEURS SET administrateur=? where userID=?";
 	private static final String UPDATECREDITBYID = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
 	private static final String DELETEBYID = "DELETE FROM UTILISATEURS where no_utilisateur=?";
-	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email,telephone, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
-	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
 	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
-	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
+	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where pseudo=?";
 	private final String LOGIN="SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=? and mot_de_passe=?";
 
 //Kam's Tables

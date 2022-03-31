@@ -109,7 +109,7 @@ public class AuctionDetailServlet extends HttpServlet {
 			// display seller 
 			User seller = art.getSeller();
 			request.setAttribute("seller", seller);
-		} catch (DALException | BLLException e) {
+		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
