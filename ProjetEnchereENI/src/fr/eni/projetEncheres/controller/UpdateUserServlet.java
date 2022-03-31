@@ -1,9 +1,12 @@
 package fr.eni.projetEncheres.controller;
 
+import fr.eni.projetEncheres.model.bll.BLLException;
+import fr.eni.projetEncheres.model.bll.UserManager;
+import fr.eni.projetEncheres.model.bo.User;
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -11,70 +14,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.eni.projetEncheres.model.bo.User;
-import fr.eni.projetEncheres.model.dal.DALException;
-import fr.eni.projetEncheres.model.bll.BLLException;
-import fr.eni.projetEncheres.model.bll.UserManager;
-
-
-@WebServlet("/UpdateUser")
+@WebServlet({"/UpdateUser"})
 public class UpdateUserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("fucking hell");
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		String alias, email, password;
-		alias = request.getParameter("alias");
-		email = request.getParameter("email");
-		password = request.getParameter("password");
-
-		if (alias.length() > 3 || email.length() > 5 && password.length() > 4) {
-
-			User tempUser = new User((Integer)session.getAttribute("userID"), alias, request.getParameter("lastName"),
-					request.getParameter("firstName"), email, request.getParameter("telephone"),
-					request.getParameter("street"), request.getParameter("zipCode"), request.getParameter("city"),
-					password, (Integer)session.getAttribute("credit"),(Boolean) session.getAttribute("amIAdmin"));
-			try {
-				UserManager.getInstance().updateProcess(tempUser);
-			} catch (BLLException | DALException e) {
-				request.setAttribute("updateErrorMessage", "something was wrong with the info provided");
-				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
-				e.printStackTrace();
-			}
-
-			if (tempUser.getUserId() != session.getAttribute("userID")) {
-				request.setAttribute("updateErrorMessage", "i don't think you are logged in");
-				request.getRequestDispatcher("/WEB-INF/hp.jsp").forward(request, response);
-			} else {
-
-				
-				session.setAttribute("alias", tempUser.getAlias());
-				session.setAttribute("lastName", tempUser.getLastName());
-				session.setAttribute("firstName", tempUser.getFirstName());
-				session.setAttribute("email", tempUser.getEmail());
-				session.setAttribute("telephone", tempUser.getTelephone());
-				session.setAttribute("street", tempUser.getStreet());
-				session.setAttribute("postalCode", tempUser.getPostalCode());
-				session.setAttribute("city" ,tempUser.getCity());
-				session.setAttribute("credit" ,tempUser.getCredit());
-				session.setAttribute("amIAdmin", tempUser.getAmIAdmin());
-				Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
-				request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward(request, response);
-				
-			}
-		} else {
-			request.setAttribute("updateErrorMessage", "something was wrong with your form");
-			request.getRequestDispatcher("/ConnectedHP.jsp").forward(request, response);
-		}
-
-	}
-
+  private static final long serialVersionUID = 1L;
+  
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    System.out.println("fucking hell");
+  }
+  
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    User tempUser = (User)session.getAttribute("Thierry");
+    tempUser.setAlias(request.getParameter("alias"));
+    tempUser.setEmail(request.getParameter("email"));
+    tempUser.setFirstName(request.getParameter("firstName"));
+    tempUser.setLastName(request.getParameter("lastName"));
+    tempUser.setTelephone(request.getParameter("telephone"));
+    tempUser.setPostalCode(request.getParameter("postalCode"));
+    tempUser.setStreet(request.getParameter("street"));
+    tempUser.setCity(request.getParameter("city"));
+    tempUser.setPassword(request.getParameter("password"));
+    if (tempUser.getAlias().length() > 3 && 
+    		tempUser.getEmail().length() > 5 && tempUser.getPassword().length() > 4) {
+      try {
+        UserManager.getInstance().updateProcess(tempUser);
+      } catch (BLLException e) {
+        request.setAttribute("updateErrorMessage", "something was wrong with the info provided");
+        request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward((ServletRequest)request, (ServletResponse)response);
+        e.printStackTrace();
+        throw new ServletException(" Fuped servlet edition");
+      } 
+      if (tempUser.getUserId() == null) {
+        request.setAttribute("updateErrorMessage", "i don't think you are logged in");
+        request.getRequestDispatcher("/WEB-INF/hp.jsp").forward((ServletRequest)request, (ServletResponse)response);
+      } else {
+        Boolean userIsConnected = Boolean.valueOf(true);
+        session.setAttribute("Thierry", tempUser);
+        session.setAttribute("connected", userIsConnected);
+        Cookie HHAconnection = new Cookie("HHAconnection", tempUser.getEmail());
+        HHAconnection.setMaxAge(3600);
+        response.addCookie(HHAconnection);
+        request.getRequestDispatcher("/WEB-INF/ConnectedHP.jsp").forward((ServletRequest)request, (ServletResponse)response);
+      } 
+    } else {
+      request.setAttribute("updateErrorMessage", "something was wrong with your form");
+      request.getRequestDispatcher("/ConnectedHP.jsp").forward((ServletRequest)request, (ServletResponse)response);
+    } 
+  }
 }

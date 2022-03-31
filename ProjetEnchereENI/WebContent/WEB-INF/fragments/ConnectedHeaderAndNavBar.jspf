@@ -24,157 +24,196 @@
 	crossorigin="anonymous">
 
 </head>
+
 <body>
-	<h1 class="text-center text-muted" id="title">
-		<fmt:message key="msg_Welcome" bundle="${base}"></fmt:message>
-	</h1>
-	<div class="container-fluid">
-		<div
-			class="button-group-sm d-grid gap-2 d-sm-flex justify-content-md-end ">
-			<a class="btn btn-dark  .text-nowrap" data-bs-toggle="modal"
-				href="#profile" role="button"> <fmt:message key="msg_profile"
-					bundle="${base}" />
-			</a>
-			<form action="<%=request.getContextPath()%>/Logout" method="post"
-				id="logout">
-				<button type="submit" class="btn btn-dark  .text-nowrap"
-					value="submit">
-					<fmt:message key="msg_logout" bundle="${base}" />
-				</button>
-			</form>
-		</div>
+  <h1 class="text-center text-muted" id="title">
+    <fmt:message key="msg_Welcome" bundle="${base}"></fmt:message>
+  </h1>
+    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="First group">
+              <a class="btn btn-dark  d-grid gap-2 d-sm-flex" data-bs-toggle="modal" href="BuyCredit"
+              role="button">
+              <fmt:message key="msg_BuyCredit" bundle="${base}" />
+            </a>
+            <a class="btn btn-dark d-grid gap-2 d-sm-flex " data-bs-toggle="modal" href="#addArticle"
+          role="button">
+          <fmt:message key="msg_addArticle" bundle="${base}" />
+        </a>
+        </div>
+        <div class="input-group">
+            <div class="input-group">
+                <a class="btn btn-dark col-1 .text-nowrap d-grid gap-2 d-sm-flex offset-9" data-bs-toggle="modal" href="#profile"
+                role="button">
+                <fmt:message key="msg_profile" bundle="${base}" />
+              </a>  
+            </div>
+            <form action="<%=request.getContextPath()%>/Logout" method="post" id="logout">
+                <button type="submit" class="btn btn-dark  .text-nowrap" value="submit">
+                  <fmt:message key="msg_logout" bundle="${base}" />
+                </button>
+              </form>
+        </div>
+    </div>
+  
+  
+  <div class="container-fluid">
+    
 
-		<nav class="navbar navbar-expand-md navbar-light">
-			<a href="<%=request.getContextPath()%>/Login" class="navbar-brand">
-				<img src="Assets/emoji-sunglasses.svg" alt="sunglasses" width="25"
-				height="25" class="d-inline-block align-bottom"> <!--<fmt:message
+    <nav class="navbar navbar-expand-md navbar-light">
+      <a href="<%=request.getContextPath()%>/Login" class="navbar-brand">
+        <img src="Assets/emoji-sunglasses.svg" alt="sunglasses" width="25" height="25"
+          class="d-inline-block align-bottom">
+        <!--<fmt:message
 					key="msg_home" bundle="${base}" />-->
-			</a>
-			<nav class="navbar navbar-dark bg-dark"></nav>
-			<form class="form-inline">
-				<input class="form-control " type="search" placeholder="Search"
-					aria-label="Search">
-			</form>
+      </a>
+      <nav class="navbar navbar-dark bg-dark"></nav>
+      <form class="form-inline">
+        <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+      </form>
 
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu"
-				aria-controls="toggleMobileMenu" aria-expanded="false"
-				aria-label="Toggle Navigation">
-				<span class="navbar-toggler-icon"> </span>
-			</button>
-			<div class="collapse navbar-collapse" id="toggleMobileMenu">
-				<ul class="navbar-nav ms-auto text-center">
-					<li><a class="nav-link" href="#"> Category</a></li>
-					<li><a class="nav-link" href="#"> Last Minute</a></li>
-				<li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
-					<li><a class="nav-link" href="#"> Contact</a></li>
-				</ul>
-			</div>
-		</nav>
-	</div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu"
+        aria-controls="toggleMobileMenu" aria-expanded="false" aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"> </span>
+      </button>
+      <div class="collapse navbar-collapse" id="toggleMobileMenu">
+        <ul class="navbar-nav ms-auto text-center">
+          <li><a class="nav-link" href="#"> Category</a></li>
+          <li><a class="nav-link" href="#"> Last Minute</a></li>
+          <li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
+          <li><a class="nav-link" href="#"> Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
-	<!-- update profile -->
-	<div class="modal fade" id="profile" tabindex="-1"
-		aria-labelledby="profileLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="profileLabel">Your info buddy</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form action="<%=request.getContextPath()%>/UpdateUser"
-						method="post">
-						<div class="form-outline mb-4">
-							<h3>${updateErrorMessage}</h3>
-							<input type="text" id="alias" class="form-control" name="alias"
-								value=${alias} /> <label class="form-label" for="alias"
-								name="alias"> <fmt:message key="msg_alias"
-									bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="text" id="firstName" class="form-control"
-								name="firstName" value=${firstName} /> <label
-								class="form-label" for="firstName" name="firstName"> <fmt:message
-									key="msg_firstName" bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="text" id="lastName" class="form-control"
-								name="lastName" value=${lastName} /> <label class="form-label"
-								for="lastName" name="lastName"> <fmt:message
-									key="msg_lastName" bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="email" id="email" class="form-control" name="email"
-								value=${email} /> <label class="form-label" for="email"
-								name="email"> <fmt:message key="msg_email"
-									bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="number" id="telephone" class="form-control"
-								name="telephone" value=${telephone} /> <label
-								class="form-label" for="telephone" name="telephone"}> <fmt:message
-									key="msg_phone" bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="text" id="street" class="form-control" name="street"
-								value=${street} /> <label class="form-label" for="street"
-								name="street"}> <fmt:message key="msg_street"
-									bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="text" id="zipCode" class="form-control"
-								name="zipCode" value=${postalCode} /> <label
-								class="form-label" for="zipCode" name="zipCode"}> <fmt:message
-									key="msg_postalCode" bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="text" id="city" class="form-control" name="city"
-								value=${city} /> <label class="form-label" for="city"
-								name="city"> <fmt:message key="msg_city"
-									bundle="${base}" />
-							</label>
-						</div>
-						<div class="form-outline mb-4">
-							<input type="password" id="password" class="form-control"
-								name="password" /> <label class="form-label" for="password"
-								name="password"> <fmt:message
-									key="msg_password" bundle="${base}" />
-							</label>
-						</div>
-						<button type="submit" class="btn btn-dark btn-block mb-4"
-							value="submit">
-							<fmt:message key="msg_update" bundle="${base}" />
-						</button>
-					</form>
-					<form action="<%=request.getContextPath()%>/DeleteUser"
-						method="post">
-						<div class="form-outline mb-4">
-							<input type="password" id="password" class="form-control"
-								name="password"/> <label class="form-label" for="password"
-								name="password" aria-placeholder="8 char min"> <fmt:message
-									key="msg_password" bundle="${base}" />
-							</label>
-						</div>
-						<button type="submit" class="btn btn-dark btn-block mb-4"
-							value="deleteMe" name="deleteMe" >
-							<fmt:message key="msg_deleteMe" bundle="${base}" />
-						</button>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-dark btn-block mb-4"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- Cheat Code -->
+  <div class="modal fade" id="MakeMeAdmin" tabindex="-1" aria-labelledby="profileLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="MakeMeAdmin">${msg_MakeMeAdmin}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath()%>/cheatCodes" method="post">
+            <div class="form-outline mb-4">
+              <h3>${updateErrorMessage}</h3>
+              <input type="button" id="amIAdmin" class="form-control" name="admin" value=${Thierry.amIAdmin}> <label
+                class="form-label" for="amIAdmin" name="amIAdmin">
+                <fmt:message key="msg_amIAdmin" bundle="${base}" />
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="BuyCredit" tabindex="-1" aria-labelledby="BuyCredit" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="BuyCredit">${msg_BuyCredit}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath()%>/cheatCodes" method="post">
+            <div class="form-outline mb-4">
+              <h3>${updateErrorMessage}</h3>
+              <input type="button" id="BuyCredit" class="form-control" name="BuyCredit" value=${Thierry.credit}> <label
+                class="form-label" for="amIAdmin" name="amIAdmin">
+                <fmt:message key="msg_amIAdmin" bundle="${base}" />
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- update profile -->
+  <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profileLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileLabel">${msg_Profile}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath()%>/UpdateUser" method="post">
+            <div class="form-outline mb-4">
+              <h3>${updateErrorMessage}</h3>
+              <input type="text" id="alias" class="form-control" name="alias" value=${Thierry.alias}> <label
+                class="form-label" for="alias" name="alias">
+                <fmt:message key="msg_alias" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="text" id="firstName" class="form-control" name="firstName" value=${Thierry.firstName}>
+              <label class="form-label" for="firstName" name="firstName">
+                <fmt:message key="msg_firstName" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="text" id="lastName" class="form-control" name="lastName" value=${Thierry.lastName}> <label
+                class="form-label" for="lastName" name="lastName">
+                <fmt:message key="msg_lastName" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="email" id="email" class="form-control" name="email" value=${Thierry.email}> <label
+                class="form-label" for="email" name="email">
+                <fmt:message key="msg_email" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="number" id="telephone" class="form-control" name="telephone" value=${Thierry.telephone}>
+              <label class="form-label" for="telephone" name="telephone" }>
+                <fmt:message key="msg_phone" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="text" id="street" class="form-control" name="street" value=${Thierry.street}> <label
+                class="form-label" for="street" name="street" }>
+                <fmt:message key="msg_street" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="text" id="postalCode" class="form-control" name="postalCode" value=${Thierry.postalCode}>
+              <label class="form-label" for="postalCode" name="postalCode" }>
+                <fmt:message key="msg_postalCode" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="text" id="city" class="form-control" name="city" value=${Thierry.city}> <label
+                class="form-label" for="city" name="city">
+                <fmt:message key="msg_city" bundle="${base}" />
+              </label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="password" id="password" class="form-control" name="password" /> <label class="form-label"
+                for="password" name="password">
+                <fmt:message key="msg_password" bundle="${base}" />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-dark btn-block mb-4" value="submit">
+              <fmt:message key="msg_update" bundle="${base}" />
+            </button>
+          </form>
+          <form action="<%=request.getContextPath()%>/DeleteUser" method="post">
+            <div class="form-outline mb-4">
+              <input type="password" id="password" class="form-control" name="password" /> <label class="form-label"
+                for="password" name="password" aria-placeholder="8 char min">
+                <fmt:message key="msg_password" bundle="${base}" />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-dark btn-block mb-4" value="deleteMe" name="deleteMe">
+              <fmt:message key="msg_deleteMe" bundle="${base}" />
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-block mb-4" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
