@@ -1,7 +1,9 @@
 <%@ include file="/WEB-INF/fragments/ConnectedHeaderAndNavBar.jspf"%>
+	<fmt:setBundle
+	basename="fr.eni.projetEncheres.internationalisation.messages_encheres" />
 
 <h1>
-	<fmt:message key="msg_Success"></fmt:message>
+	<fmt:message key="msg_Success"/>
 </h1>
 <!--<c:choose>
 <c:when test="${session.scope.userID > 0}">
@@ -13,20 +15,20 @@ Hoy hoy hoy
 </c:redirect>
 </c:when>
 </c:choose>-->
-<div class="container">
-	<div class="row g-5">
-		<div class="col-12 col-md-6">
-			<div class="card-header-pills">
-				<div class="card-body">
-					<iframe
-						src="https://www.youtube.com/embed/Go7gn6dugu0?autoplay=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&theme=light"
-						width="560" height="315" frameborder="0"></iframe>
+<!-- <div class="container"> -->
+<!-- 	<div class="row g-5"> -->
+<!-- 		<div class="col-12 col-md-6"> -->
+<!-- 			<div class="card-header-pills"> -->
+<!-- 				<div class="card-body"> -->
+<!-- 					<iframe -->
+<!-- 						src="https://www.youtube.com/embed/Go7gn6dugu0?autoplay=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&theme=light" -->
+<!-- 						width="560" height="315" frameborder="0"></iframe> -->
 
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 
  	<h3>Search by Alias</h3>
@@ -84,12 +86,12 @@ Hoy hoy hoy
             <div class="form-outline mb-4">
                 <input type="text" id="userID" class="form-control" name="userID" value=${requestScope.userID}> <label
                     class="form-label" for="userID" name="userID">
-                    <fmt:message key="msg_userId" />
+                    <fmt:message key="msg_userID" />
                 </label>
             </div>
 
             <button type="submit" class="btn btn-dark btn-block mb-4" value="submit">
-                <fmt:message key="msg_Lycos" />
+                <fmt:message key="msg_lycos" />
             </button>
         </form>
     </div>
@@ -100,12 +102,12 @@ Hoy hoy hoy
             <div class="form-outline mb-4">
                 <input type="text" id="userIDToDelete" class="form-control" name="userIDToDelete" > <label
                     class="form-label" for="userIDToDelete" name="userIDToDelete">
-                    <fmt:message key="msg_userIDToDelet" />
+                    <fmt:message key="msg_userIdToDelet" />
                 </label>
             </div>
 
             <button type="submit" class="btn btn-dark btn-block mb-4" value="submit">
-                <fmt:message key="msg_Delete" />
+                <fmt:message key="msg_delete" />
             </button>
             </form>
             </div>
