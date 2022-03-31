@@ -20,7 +20,8 @@ public class AuctionDAOImpl implements AuctionDAO {
 	private final String UPDATE = "UPDATE ENCHERES set no_utilisateur=?,no_article=?, date_enchere=?, montant_enchere=? WHERE id=?";
 	private final String DELETE = "DELETE FROM ENCHERES WHERE id=?";
 	private final String SELECTALL = "SELECT no_utilisateur,no_article,date_enchere,montant_enchere FROM ENCHERES";
-	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur,no_article,date_enchere,MAX(montant_enchere) WHERE no_article=?";
+//	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur,no_article,date_enchere,MAX(montant_enchere)" + "WHERE no_article=?";
+	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur, no_article, date_enchere, MAX(montant_enchere)" + "WHERE no_article=?";
 
 	private static ArticleManager articlMng = new ArticleManager();
 	

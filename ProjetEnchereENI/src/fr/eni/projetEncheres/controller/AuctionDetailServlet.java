@@ -46,7 +46,7 @@ public class AuctionDetailServlet extends HttpServlet {
 //		User no_user = (User) request.getSession().getAttribute("Thierry");
 		
 //		noUser = no_user.getUserId();
-		noUser = 1;
+		noUser = 3;
 		request.setAttribute("noUser", noUser);
 		System.out.println("userId " + noUser);
 
@@ -56,7 +56,7 @@ public class AuctionDetailServlet extends HttpServlet {
 //			System.out.println("numero article :" + no_article);
 //		}
 		
-		no_article = 1006;
+		no_article = 4;
 
 		// On récupère la date du jour
 		LocalDate today = LocalDate.now();

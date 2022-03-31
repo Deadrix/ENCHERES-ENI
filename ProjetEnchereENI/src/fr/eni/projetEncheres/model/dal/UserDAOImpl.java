@@ -23,9 +23,9 @@ public class UserDAOImpl implements UserDAO {
 	private static final String UPDATECREDITBYID = "UPDATE UTILISATEURS SET credit=? where no_utilisateur=?";
 	
 	private static final String DELETEBYID = "DELETE FROM UTILISATEURS where no_utilisateur=?";
-	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+	private static final String SELECTBYID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS WHERE  no_utilisateur = ?";
-	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, rue, code_postal,"
+	private static final String SELECTALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal,"
 			+ "ville,mot_de_passe,credit,administrateur from UTILISATEURS";
 	private static final String SELECTBYMAIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where email=?";
 	private static final String SELECTBYALIAS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS where alias=?";
@@ -88,52 +88,52 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 // ARX's Tables
-//	private User getFields(ResultSet rs, User user) throws SQLException {
-//		user.setUserId(rs.getInt("no_utilisateur"));
-//		user.setAlias(rs.getString("pseudo"));
-//		user.setLastName(rs.getString("nom"));
-//		user.setFirstName(rs.getString("prenom"));
-//		user.setEmail(rs.getString("email"));
-//		user.setTelephone(rs.getString("telephone"));
-//		user.setStreet(rs.getString("rue"));
-//		user.setPostalCode(rs.getString("code_postal"));
-//		user.setCity(rs.getString("ville"));
-//		user.setPassword(rs.getString("mot_de_passe"));
-//		user.setCredit(rs.getInt("credit"));
-//		user.setamIAdmin(rs.getBoolean("administrateur"));
-//		return user;
-//	}
-
-//	Kam's Tables
 	private User getFields(ResultSet rs, User user) throws SQLException {
-
 		user.setUserId(rs.getInt("no_utilisateur"));
 		user.setAlias(rs.getString("pseudo"));
 		user.setLastName(rs.getString("nom"));
 		user.setFirstName(rs.getString("prenom"));
 		user.setEmail(rs.getString("email"));
+		user.setTelephone(rs.getString("telephone"));
 		user.setStreet(rs.getString("rue"));
 		user.setPostalCode(rs.getString("code_postal"));
 		user.setCity(rs.getString("ville"));
 		user.setPassword(rs.getString("mot_de_passe"));
-		user.setTelephone(rs.getString("telephone"));
 		user.setCredit(rs.getInt("credit"));
-
-		user.setUserId(rs.getInt("userID"));
-		user.setAlias(rs.getString("userAlias"));
-		user.setLastName(rs.getString("userLastName"));
-		user.setFirstName(rs.getString("userFirstName"));
-		user.setEmail(rs.getString("userEmail"));
-		user.setTelephone(rs.getString("userTelephone"));
-		user.setStreet(rs.getString("userStreet"));
-		user.setPostalCode(rs.getString("userZipCode"));
-		user.setCity(rs.getString("userCity"));
-		user.setPassword(rs.getString("userPassword"));
-		user.setCredit(rs.getInt("userCredit"));
-		user.setamIAdmin(rs.getBoolean("userAdmin"));
-
+		user.setamIAdmin(rs.getBoolean("administrateur"));
 		return user;
 	}
+
+//	Kam's Tables
+//	private User getFields(ResultSet rs, User user) throws SQLException {
+//
+//		user.setUserId(rs.getInt("no_utilisateur"));
+//		user.setAlias(rs.getString("pseudo"));
+//		user.setLastName(rs.getString("nom"));
+//		user.setFirstName(rs.getString("prenom"));
+//		user.setEmail(rs.getString("email"));
+//		user.setStreet(rs.getString("rue"));
+//		user.setPostalCode(rs.getString("code_postal"));
+//		user.setCity(rs.getString("ville"));
+//		user.setPassword(rs.getString("mot_de_passe"));
+//		user.setTelephone(rs.getString("telephone"));
+//		user.setCredit(rs.getInt("credit"));
+//
+//		user.setUserId(rs.getInt("userID"));
+//		user.setAlias(rs.getString("userAlias"));
+//		user.setLastName(rs.getString("userLastName"));
+//		user.setFirstName(rs.getString("userFirstName"));
+//		user.setEmail(rs.getString("userEmail"));
+//		user.setTelephone(rs.getString("userTelephone"));
+//		user.setStreet(rs.getString("userStreet"));
+//		user.setPostalCode(rs.getString("userZipCode"));
+//		user.setCity(rs.getString("userCity"));
+//		user.setPassword(rs.getString("userPassword"));
+//		user.setCredit(rs.getInt("userCredit"));
+//		user.setamIAdmin(rs.getBoolean("userAdmin"));
+//
+//		return user;
+//	}
 
 	public boolean existingEmail(String email) throws BLLException {
 		boolean exist = false;
