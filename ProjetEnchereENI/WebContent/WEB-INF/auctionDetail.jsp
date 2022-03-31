@@ -1,5 +1,6 @@
 <%@ include file="fragments/HeaderAndNavBar.jspf"%>
-
+<fmt:setBundle
+	basename="fr.eni.projetEncheres.internationalisation.messages_encheres" />
 
 <c:choose>
 	<c:when test="${isBefore==1 && auctionWinnerId==noUser}">
@@ -8,7 +9,8 @@
 		</h2>
 	</c:when>
 	<c:when test="${isBefore==1 && seller.userId==noUser}">
-		<h2>${auctionWinnerName} <fmt:message key="msg_remporte2"></fmt:message>
+		<h2>${auctionWinnerName}
+			<fmt:message key="msg_remporte2"></fmt:message>
 		</h2>
 	</c:when>
 	<c:when test="${isBefore==0}">
@@ -31,7 +33,7 @@
 
 <c:if test="${isBefore==0}">
 	<label id="labelauctiondetail"><fmt:message key="msg_categorie"></fmt:message>
-		: </label>
+ </label>
 	<textarea> ${category.libelle}</textarea>
 	<br>
 </c:if>
@@ -40,7 +42,7 @@
 <textarea> ${highestAuction.itemPrice}</textarea>
 <br>
 <label id="labelauctiondetail"><fmt:message
-		key="msg_prix_initial"></fmt:message> : </label>
+		key="msg_prix_initial"></fmt:message></label>
 <textarea> ${articleSold.initialPrice}</textarea>
 <br>
 
