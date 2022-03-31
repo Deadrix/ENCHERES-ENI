@@ -46,7 +46,7 @@ CREATE TABLE UTILISATEURS
         rue            NVARCHAR(100) NOT NULL,
         code_postal    NVARCHAR(10) NOT NULL,
         ville          NVARCHAR(30) NOT NULL,
-        mot_de_passe   NVARCHAR(30) NOT NULL,
+        mot_de_passe   NVARCHAR(64) NOT NULL,
         credit         INTEGER     NOT NULL,
         administrateur BIT         NOT NULL
     )
