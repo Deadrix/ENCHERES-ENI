@@ -38,7 +38,7 @@
 	<br>
 </c:if>
 <label id="labelauctiondetail"><fmt:message key="msg_best"></fmt:message>
-	: </label>
+	 </label>
 <textarea> ${highestAuction.itemPrice}</textarea>
 <br>
 <label id="labelauctiondetail"><fmt:message
@@ -55,7 +55,7 @@
 
 </c:if>
 <label id="labelauctiondetail"><fmt:message key="msg_retrait"></fmt:message>
-	: </label>
+	</label>
 <textarea> ${pickUpLocation.rueRetrait} </textarea>
 <br>
 <label id="labelauctiondetail"></label>
@@ -63,7 +63,7 @@
 ${pickUpLocation.villeRetrait} </textarea>
 <br>
 <label id="labelauctiondetail"><fmt:message key="msg_vendeur"></fmt:message>
-	: </label>
+	 </label>
 <textarea> ${seller.alias} </textarea>
 <br>
 <c:if test="${isBefore==1 && auctionWinnerId==noUser}">
