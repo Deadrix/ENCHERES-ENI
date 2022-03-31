@@ -1,15 +1,7 @@
-
-
-
 INSERT INTO CATEGORIES (libelle) VALUES ('Sports & Loisirs');
 INSERT INTO CATEGORIES (libelle) VALUES ('Informatique');
 INSERT INTO CATEGORIES (libelle) VALUES ('Ameublement');
 INSERT INTO CATEGORIES (libelle) VALUES ('Vêtements');
-
-ALTER TABLE [UTILISATEURS]
-ALTER COLUMN email NVARCHAR(50);
-ALTER TABLE [UTILISATEURS]
-ALTER COLUMN rue NVARCHAR(100);
 
 INSERT INTO [UTILISATEURS] (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur)
 VALUES
