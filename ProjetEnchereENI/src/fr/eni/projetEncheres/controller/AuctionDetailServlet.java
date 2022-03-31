@@ -43,17 +43,20 @@ public class AuctionDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// Récupère le numéro de l'utilisateur courant
-		User no_user = (User) request.getSession().getAttribute("Thierry");
+//		User no_user = (User) request.getSession().getAttribute("Thierry");
 		
-		noUser = no_user.getUserId();
+//		noUser = no_user.getUserId();
+		noUser = 1;
 		request.setAttribute("noUser", noUser);
 		System.out.println("userId " + noUser);
 
 		// On récupère le numéro de l'article
-		if (request.getParameter("articleId") != null) {
-			no_article = Integer.parseInt(request.getParameter("articleId"));
-			System.out.println("numero article :" + no_article);
-		}
+//		if (request.getParameter("articleId") != null) {
+//			no_article = Integer.parseInt(request.getParameter("articleId"));
+//			System.out.println("numero article :" + no_article);
+//		}
+		
+		no_article = 1006;
 
 		// On récupère la date du jour
 		LocalDate today = LocalDate.now();
