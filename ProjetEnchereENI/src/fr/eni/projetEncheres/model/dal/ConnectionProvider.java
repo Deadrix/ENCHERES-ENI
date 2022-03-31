@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 abstract class ConnectionProvider {
 	private static DataSource dataSource;
+	private static int nb = 0;
 	
 	/**
 	 * Au chargement de la classe, la DataSource est recherchée dans l'arbre JNDI
@@ -34,6 +35,8 @@ abstract class ConnectionProvider {
 	 */
 	public static Connection getConnection() throws SQLException
 	{
+		nb ++;
+		System.out.println(nb);
 		return ConnectionProvider.dataSource.getConnection();
 	}
 }

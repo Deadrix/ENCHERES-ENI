@@ -12,10 +12,10 @@ import fr.eni.projetEncheres.model.bo.Category;
 public class CategoryDAOImpl implements CategoryDAO {
 
 	private final String INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
-	private final String UPDATE = "UPDATE Categories set libelle=? where id=?";
-	private final String SELECTBYID = "SELECT libelle FROM Categories where id=?";
+	private final String UPDATE = "UPDATE Categories set libelle=? where no_categorie=?";
+	private final String SELECTBYID = "SELECT no_categorie, libelle FROM Categories where no_categorie=?";
 	private final String SELECTALL = "SELECT no_categorie, libelle FROM CATEGORIES";
-	private final String DELETEBYID = "DELETE FROM Categories WHERE id=? ";
+	private final String DELETEBYID = "DELETE FROM Categories WHERE no_categorie=? ";
 
 	public void insert(Category category) throws DALException {
 

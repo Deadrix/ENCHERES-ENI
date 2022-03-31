@@ -16,16 +16,18 @@ import fr.eni.projetEncheres.model.bo.SoldArticle;
 
 public class SoldArticleDAOImpl implements SoldArticleDAO {
 
-	private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,no_vendeur,no_categorie, state) VALUES(?,?,?,?,?,?,?,?,?)";
-	private final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=? WHERE id=?";
-	private final String SELECTBYID = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS where id=?";
-	private final String SELECTALL = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS";
-	private final String DELETEBYID = "DELETE FROM ARTICLES_VENDUS WHERE id=?";
-	private final String SELECTBYDESCRIPTION = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS where description like=%?%";
-	private final String SELECTBYCATEGORYBYSTATE = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, state FROM ARTICLES_VENDUS where no_categorie=? AND state=?";
-	private final String AUCTIONUPDATE = "UPDATE ARTICLES_VENDUS SET enchere_courante=? WHERE id=?";
-	private final String BUYERNUPDATE = "UPDATE ARTICLES_VENDUS SET no_acheteur=? WHERE id=?";
-	private final String SOLDPRICEUPDATE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE id=?";
+	private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,no_vendeur,no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?)";
+	private final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=? WHERE no_article=?";
+	
+	private final String SELECTBYID = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, etat_vente FROM ARTICLES_VENDUS where no_article=?";
+	
+	private final String SELECTALL = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, etat_vente FROM ARTICLES_VENDUS";
+	private final String DELETEBYID = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
+	private final String SELECTBYDESCRIPTION = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, etat_vente FROM ARTICLES_VENDUS where description like=%?%";
+	private final String SELECTBYCATEGORYBYSTATE = "SELECT no_article, nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_vendeur,no_acheteur,no_categorie, etat_vente FROM ARTICLES_VENDUS where no_categorie=? AND state=?";
+	private final String AUCTIONUPDATE = "UPDATE ARTICLES_VENDUS SET enchere_courante=? WHERE no_article=?";
+	private final String BUYERNUPDATE = "UPDATE ARTICLES_VENDUS SET no_acheteur=? WHERE no_article=?";
+	private final String SOLDPRICEUPDATE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
 
 	private static AuctionManager auctionMng = new AuctionManager();
 	private static CategoryManager categoryMng = new CategoryManager();
@@ -78,13 +80,13 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		}
 	}
 
-	public SoldArticle selectById(int ArticleId) throws DALException {
+	public SoldArticle selectById(int articleId) throws DALException {
 
 		SoldArticle art = null;
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
-			ps.setInt(1, ArticleId);
+			ps.setInt(1, articleId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				art = new SoldArticle();
@@ -98,7 +100,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
-				art.setState(rs.getInt("state"));
+				art.setState(rs.getInt("etat_vente"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 			}
 			
@@ -133,7 +135,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
-				art.setState(rs.getInt("state"));
+				art.setState(rs.getInt("etat_vente"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
@@ -180,7 +182,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
-				art.setState(rs.getInt("state"));
+				art.setState(rs.getInt("etat_vente"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
@@ -216,7 +218,7 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 				art.setSeller(UserManager.getInstance().selectById(rs.getInt("no_vendeur")));
 				art.setBuyer(UserManager.getInstance().selectById(rs.getInt("no_acheteur")));
 				art.setCategory(categoryMng.selectById(rs.getInt("no_categorie")));
-				art.setState(rs.getInt("state"));
+				art.setState(rs.getInt("etat_vente"));
 				art.setAuction(auctionMng.selectBestAuctionFromArticle(rs.getInt("no_article")));
 				lst.add(art);
 			}
