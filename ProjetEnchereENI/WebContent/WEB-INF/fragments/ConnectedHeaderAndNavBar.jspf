@@ -79,10 +79,10 @@
       </button>
       <div class="collapse navbar-collapse" id="toggleMobileMenu">
         <ul class="navbar-nav ms-auto text-center">
-          <li><a class="nav-link" href="#"> Category</a></li>
-          <li><a class="nav-link" href="#"> Last Minute</a></li>
-          <li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> Profile</a></li>
-          <li><a class="nav-link" href="#"> Contact</a></li>
+				<li><a class="nav-link" href="#"><fmt:message key="msg_menu_cat"/></a></li>
+					<li><a class="nav-link" href="#"><fmt:message key="msg_menu_lastMin"/></a></li>
+					<li><a class="nav-link" href="<%=request.getContextPath()%>/Admin.jsp"> <fmt:message key="msg_menu_profil"/></a></li>
+					<li><a class="nav-link" href="#"><fmt:message key="msg_menu_contact"/></a></li>
         </ul>
       </div>
     </nav>
