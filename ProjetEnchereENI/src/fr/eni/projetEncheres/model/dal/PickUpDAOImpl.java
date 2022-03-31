@@ -20,9 +20,9 @@ public class PickUpDAOImpl implements DAO<PickUp> {
 	private static final String INSERT = "INSERT INTO RETRAITS(rue, code_postal, ville) VALUES (?, ?, ?);";
 	private static final String UPDATE = "UPDATE RETRAITS SET " + "rue = ?, " + "code_postal = ?, " + "ville = ? "
 			+ "WHERE no_article = ?;";
-	private static final String DELETE = "DELETE FROM PICKUPS WHERE no_article = ?;";
-	private static final String SELECTBYID = "SELECT * FROM PICKUPS WHERE no_article = ?;";
-	private static final String SELECTALL = "SELECT * FROM PICKUPS";
+	private static final String DELETE = "DELETE FROM RETRAITS WHERE no_article = ?;";
+	private static final String SELECTBYID = "SELECT * FROM RETRAITS WHERE no_article = ?;";
+	private static final String SELECTALL = "SELECT * FROM RETRAIT";
 	private static final String SELECTBYKEYWORD = "SELECT rue, code_postal, ville"
 			+ " FROM RETRAITS WHERE rue like ? or ville like ? or code_postal like ?";
 
