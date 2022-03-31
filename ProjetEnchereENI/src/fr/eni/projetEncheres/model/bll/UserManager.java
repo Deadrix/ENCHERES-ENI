@@ -1,19 +1,20 @@
 package fr.eni.projetEncheres.model.bll;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import fr.eni.projetEncheres.model.bo.User;
 import fr.eni.projetEncheres.model.dal.DALException;
 import fr.eni.projetEncheres.model.dal.DAOFactory;
 import fr.eni.projetEncheres.model.dal.UserDAOImpl;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class UserManager {
-
 	private static UserManager instanceOfUserManager = null;
+
 	private UserDAOImpl aUserDAOImpl = (UserDAOImpl) DAOFactory.getUserDAO();
+
 	private String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-	private String passwordRegex = "(?i)^[A-Za-zÀ-ÖØ-öø-ÿ0-9 @!&-]+$";
+
+	private String passwordRegex = "^[A-Za-z@!&-]+$";
 
 	public UserManager(UserDAOImpl aUserDAOImpl) {
 		this.aUserDAOImpl = aUserDAOImpl;
@@ -23,139 +24,173 @@ public class UserManager {
 	}
 
 	public static UserManager getInstance() {
-		if (instanceOfUserManager == null) {
+		if (instanceOfUserManager == null)
 			instanceOfUserManager = new UserManager((UserDAOImpl) DAOFactory.getUserDAO());
-		}
 		return instanceOfUserManager;
 	}
 
 	public User registerProcess(User user) throws BLLException {
 		boolean registered = false;
 		registered = validatePassword(user.getPassword());
-		if (registered == true) {
+		if (registered) {
 			registered = validateEmail(user.getEmail());
-			if (registered == true) {
+			if (registered) {
 				registered = existingEmail(user.getEmail());
-				if (registered == false) {
-					try {
-						user.setPassword(anneHashaway(user.getPassword()));
-						user.setCredit(0);
-						register(user);
-					} catch (DALException | NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				if (!registered) {
+					user.setPassword(anneHashaway(user.getPassword()));
+					user.setCredit(Integer.valueOf(0));
+					register(user);
 				} else {
 					throw new BLLException("Are you Drunk, you are already in");
 				}
 			}
 		} else {
 			throw new BLLException("Are you Drunk, that is not your email");
-
 		}
 		return user;
-
 	}
 
-	private  String anneHashaway(String input)throws NoSuchAlgorithmException{
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		byte[] digested = md.digest(input.getBytes());
+	public String anneHashaway(String input) throws BLLException {
 		StringBuilder bs = new StringBuilder();
-		for (byte b:digested) {
-			bs.append(String.format("%02x" , b));
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] digested = md.digest(input.getBytes());
+			byte b;
+			int i;
+			byte[] arrayOfByte1;
+			for (i = (arrayOfByte1 = digested).length, b = 0; b < i;) {
+				byte b1 = arrayOfByte1[b];
+				bs.append(String.format("%02x", new Object[] { Byte.valueOf(b1) }));
+				b++;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		} finally {
 		}
-		
 		return bs.toString();
 	}
-	public User updateProcess(User user) throws DALException, BLLException {
+
+	public User updateProcess(User user) throws BLLException {
 		boolean youAreAllowed = false;
-		youAreAllowed = validatePassword(user.getPassword());
-		if (youAreAllowed == true) {
-			youAreAllowed = validateEmail(user.getEmail());
-			if (youAreAllowed == true) {
-				if (login(user.getEmail(), user.getPassword()) != null) {
-					updateUser(user);
-				}
-				;
-				aUserDAOImpl.updateUser(user);
-			} else {
-				throw new BLLException("password not valid for an update");
-			}
+		youAreAllowed = validateEmail(user.getEmail());
+		if (youAreAllowed) {
+			if (login(user.getEmail(), user.getPassword()).getUserId() == user.getUserId())
+				updateUser(user);
 		} else {
 			throw new BLLException("email not valid for an update");
-		}return user;
+		}
+		return user;
 	}
 
-	private void updateUser(User user) throws DALException {
-		 aUserDAOImpl.updateUser(user);
-		
+	
+	public void updateAdmin(User user) throws BLLException {
+		try {
+			this.aUserDAOImpl.updateAdmin(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
+	}
+	public void updateCredit (User user) throws BLLException {
+		try {
+			this.aUserDAOImpl.updateCredit(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
+	}
+	private void updateUser(User user) throws BLLException {
+		try {
+			this.aUserDAOImpl.updateUser(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public boolean validatePassword(String password) throws BLLException {
+	public boolean validatePassword(String password) {
 		boolean legit = true;
-
-		if (!(password.length() >= 4)) {
+		if (password.length() < 4)
 			legit = false;
-			throw new BLLException("Password must be at least 8 characters");
-		}
-
-		if (!password.matches(passwordRegex)) {
+		if (!password.matches(this.passwordRegex))
 			legit = false;
-			throw new BLLException(
-					"password must contain only letters, numbers, white spaces and some special characters (!@&-)");
-		}
 		return legit;
 	}
 
 	private boolean existingEmail(String email) throws BLLException {
-		return aUserDAOImpl.existingEmail(email);
+		return this.aUserDAOImpl.existingEmail(email);
 	}
 
 	public boolean validateEmail(String email) throws BLLException {
 		boolean legit = true;
-
-		if (!email.matches(emailRegex)) {
+		if (!email.matches(this.emailRegex)) {
 			legit = false;
 			throw new BLLException("email invalid, come on you can do better");
 		}
 		return legit;
 	}
 
-	public User login(String email, String pwd){
+	public User login(String email, String pwd) {
 		try {
 			pwd = anneHashaway(pwd);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
+		} catch (BLLException e) {
 			e.printStackTrace();
 		}
-		return aUserDAOImpl.Login(email, pwd);
+		return this.aUserDAOImpl.Login(email, pwd);
 	}
 
-	public User register(User user) throws DALException {
-		return aUserDAOImpl.register(user);
+	public User register(User user) throws BLLException {
+		try {
+			return this.aUserDAOImpl.register(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public void insert(User user) throws DALException {
-		aUserDAOImpl.insert(user);
+	public void insert(User user) throws BLLException {
+		try {
+			this.aUserDAOImpl.insert(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public User selectByMail(User user) throws DALException {
-		return aUserDAOImpl.selectByMail(user);
+	public User selectByMail(User user) throws BLLException {
+		try {
+			return this.aUserDAOImpl.selectByMail(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public User selectByAlias(User user) throws DALException {
-		return aUserDAOImpl.selectByAlias(user);
+	public User selectByAlias(User user) throws BLLException {
+		try {
+			return this.aUserDAOImpl.selectByAlias(user);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public void delete(Integer userId) throws DALException {
-		aUserDAOImpl.delete(userId);
+	public void delete(Integer userId) throws BLLException {
+		try {
+			this.aUserDAOImpl.delete(userId.intValue());
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
 
-	public User selectById(Integer userId) throws DALException {
-		return aUserDAOImpl.selectById(userId);
+	public User selectById(Integer userId) throws BLLException {
+		try {
+			return this.aUserDAOImpl.selectById(userId.intValue());
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException(" you fucked up boy bll edition");
+		}
 	}
-
-//	public void update(User user) throws DALException {
-//		aUserDAOImpl.update(user);
-//	}
 }

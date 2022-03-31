@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import fr.eni.projetEncheres.model.bll.BLLException;
 import fr.eni.projetEncheres.model.bo.User;
 
 public class UserDAOImpl implements UserDAO {
 
 	
-
 
 //MSSQL
 //	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,rue,code_postal,"
@@ -35,9 +33,10 @@ public class UserDAOImpl implements UserDAO {
 //Kam's Tables
 	private static final String INSERT = "INSERT INTO USERS (userAlias,userLastName,userFirstName,userEmail,userTelephone, userStreet, userZipCode,"
 			+ "userCity,userPassword,userCredit,userAdmin) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?, userTelephone=?, userStreet=?, userZipCode=?, userCity=?, userPassword=?, userCredit=?, userAdmin=? WHERE userID = ?";
-	private static final String UPDATEPASSWORD = "UPDATE USERS SET userPassword=? where userEmail=?";
-	private static final String UPDATEuserCreditBYID = "UPDATE USERS SET userCredit=? where userID=?";
+	private static final String UPDATEUSER = "UPDATE USERS SET userAlias=? ,userLastName=? ,userFirstName=? ,userEmail=?, userTelephone=?, userStreet=?, userZipCode=?, userCity=?, userCredit=?, userAdmin=? WHERE userID = ?";
+	private static final String UPDATEPASSWORDBYID = "UPDATE USERS SET userPassword=? where userEmail=?";
+	private static final String UPDATECREDITBYID = "UPDATE USERS SET userCredit=? where userID=?";
+	private static final String UPDATEADMINBYID = "UPDATE USERS SET userAdmin=? where userID=?";
 	private static final String DELETEBYID = "DELETE FROM USERS where userID=?";
 	private static final String SELECTBYID = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userStreet, userZipCode,"
 			+ "userCity,userPassword,userCredit,userAdmin from USERS WHERE  userID = ?";
@@ -47,20 +46,7 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SELECTBYALIAS = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userAlias=?";
 	private final String LOGIN = "SELECT userID, userAlias, userLastName, userFirstName, userEmail, userTelephone, userStreet, userZipCode, userCity, userPassword, userCredit, userAdmin FROM USERS where userEmail=? and userPassword=?";
 
-	private void setFields(PreparedStatement ps, User user) throws SQLException {
-		ps.setString(1, user.getAlias());
-		ps.setString(2, user.getLastName());
-		ps.setString(3, user.getFirstName());
-		ps.setString(4, user.getEmail());
-		ps.setString(5, user.getTelephone());
-		ps.setString(6, user.getStreet());
-		ps.setString(7, user.getPostalCode());
-		ps.setString(8, user.getCity());
-		ps.setString(9, user.getPassword());
-		ps.setInt(10, user.getCredit());
-		ps.setBoolean(11, user.getAmIAdmin());
-
-	}
+	
 
 // ARX's Tables
 //	private User getFields(ResultSet rs, User user) throws SQLException {
@@ -79,37 +65,51 @@ public class UserDAOImpl implements UserDAO {
 //		return user;
 //	}
 
-//	Kam's Tables
 	private User getFields(ResultSet rs, User user) throws SQLException {
+// ARX's Tables
+//	user.setUserId(rs.getInt("no_utilisateur"));
+//	user.setAlias(rs.getString("pseudo"));
+//	user.setLastName(rs.getString("nom"));
+//	user.setFirstName(rs.getString("prenom"));
+//	user.setEmail(rs.getString("email"));
+//	user.setStreet(rs.getString("rue"));
+//	user.setPostalCode(rs.getString("code_postal"));
+//	user.setCity(rs.getString("ville"));
+//	user.setPassword(rs.getString("mot_de_passe"));
+//	user.setTelephone(rs.getString("telephone"));
+//	user.setCredit(rs.getInt("credit"));
 
-//		user.setUserId(rs.getInt("no_utilisateur"));
-//		user.setAlias(rs.getString("pseudo"));
-//		user.setLastName(rs.getString("nom"));
-//		user.setFirstName(rs.getString("prenom"));
-//		user.setEmail(rs.getString("email"));
-//		user.setStreet(rs.getString("rue"));
-//		user.setPostalCode(rs.getString("code_postal"));
-//		user.setCity(rs.getString("ville"));
-//		user.setPassword(rs.getString("mot_de_passe"));
-//		user.setTelephone(rs.getString("telephone"));
-//		user.setCredit(rs.getInt("credit"));
+//	Kam's Tables
+    user.setUserId(Integer.valueOf(rs.getInt("userID")));
+    user.setAlias(rs.getString("userAlias"));
+    user.setLastName(rs.getString("userLastName"));
+    user.setFirstName(rs.getString("userFirstName"));
+    user.setEmail(rs.getString("userEmail"));
+    user.setTelephone(rs.getString("userTelephone"));
+    user.setStreet(rs.getString("userStreet"));
+    user.setPostalCode(rs.getString("userZipCode"));
+    user.setCity(rs.getString("userCity"));
+    user.setPassword(rs.getString("userPassword"));
+    user.setCredit(Integer.valueOf(rs.getInt("userCredit")));
+    user.setamIAdmin(rs.getBoolean("userAdmin"));
+    return user;
+  }
 
-		user.setUserId(rs.getInt("userID"));
-		user.setAlias(rs.getString("userAlias"));
-		user.setLastName(rs.getString("userLastName")); 
-		user.setFirstName(rs.getString("userFirstName"));
-		user.setEmail(rs.getString("userEmail"));
-		user.setTelephone(rs.getString("userTelephone"));
-		user.setStreet(rs.getString("userStreet"));
-		user.setPostalCode(rs.getString("userZipCode"));
-		user.setCity(rs.getString("userCity"));
-		user.setPassword(rs.getString("userPassword"));
-		user.setCredit(rs.getInt("userCredit"));
-		user.setamIAdmin(rs.getBoolean("userAdmin"));
+	private void setFields(PreparedStatement ps, User user) throws SQLException {
+		ps.setString(1, user.getAlias());
+		ps.setString(2, user.getLastName());
+		ps.setString(3, user.getFirstName());
+		ps.setString(4, user.getEmail());
+		ps.setString(5, user.getTelephone());
+		ps.setString(6, user.getStreet());
+		ps.setString(7, user.getPostalCode());
+		ps.setString(8, user.getCity());
+		ps.setString(9, user.getPassword());
+		ps.setInt(10, user.getCredit());
+		ps.setBoolean(11, user.getAmIAdmin());
 
-		return user;
 	}
-
+	
 	public boolean existingEmail(String email) throws BLLException {
 		boolean exist = false;
 		try (Connection connect = ConnectionProvider.getConnection();
@@ -120,7 +120,6 @@ public class UserDAOImpl implements UserDAO {
 				exist = true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return exist;
@@ -147,7 +146,7 @@ public class UserDAOImpl implements UserDAO {
 	public void updateUser(User user) throws DALException {
 		if (user != null) {
 			try (Connection connect = ConnectionProvider.getConnection();
-					PreparedStatement ps = connect.prepareStatement(UPDATE)) {
+					PreparedStatement ps = connect.prepareStatement(UPDATEUSER)) {
 				setFields(ps, user);
 				ps.setInt(12, user.getUserId());
 				ps.executeUpdate();
@@ -159,6 +158,48 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	@Override
+	public void updatePassword(User user) throws DALException {
+		if (user != null) {
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(UPDATEPASSWORDBYID)) {
+				setFields(ps, user);
+				ps.setInt(12, user.getUserId());
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void updateCredit(User user) throws DALException {
+		if (user != null) {
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(UPDATECREDITBYID)) {
+				setFields(ps, user);
+				ps.setInt(12, user.getUserId());
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void updateAdmin(User user) throws DALException {
+		if (user != null) {
+			try (Connection connect = ConnectionProvider.getConnection();
+					PreparedStatement ps = connect.prepareStatement(UPDATEADMINBYID)) {
+				setFields(ps, user);
+				ps.setInt(12, user.getUserId());
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	@Override
 	public void insert(User user) throws DALException {
 		if (user != null) {
@@ -171,21 +212,6 @@ public class UserDAOImpl implements UserDAO {
 					getFields(rs, user);
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void update(User user) throws DALException {
-		if (user != null) {
-			try (Connection connect = ConnectionProvider.getConnection();
-					PreparedStatement ps = connect.prepareStatement(UPDATE)) {
-				setFields(ps, user);
-				ps.setInt(12, user.getUserId());
-				ps.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -294,6 +320,12 @@ public User selectByMail(User user) throws DALException {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void update(User object) throws DALException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
