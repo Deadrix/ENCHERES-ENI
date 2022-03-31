@@ -80,13 +80,13 @@ public class SoldArticleDAOImpl implements SoldArticleDAO {
 		}
 	}
 
-	public SoldArticle selectById(int ArticleId) throws DALException {
+	public SoldArticle selectById(int articleId) throws DALException {
 
 		SoldArticle art = null;
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBYID)) {
-			ps.setInt(1, ArticleId);
+			ps.setInt(1, articleId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				art = new SoldArticle();

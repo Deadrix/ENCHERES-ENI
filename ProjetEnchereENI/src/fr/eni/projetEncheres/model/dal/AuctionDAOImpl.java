@@ -17,11 +17,11 @@ import fr.eni.projetEncheres.model.bo.SoldArticle;
 public class AuctionDAOImpl implements AuctionDAO {
 
 	private final String INSERT = "INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere) VALUES(?,?,?,?)";
-	private final String UPDATE = "UPDATE ENCHERES set no_utilisateur=?,no_article=?, date_enchere=?, montant_enchere=? WHERE id=?";
+	private final String UPDATE = "UPDATE ENCHERES set no_utilisateur=?,no_article=?, date_enchere=?, montant_enchere=? "+ "WHERE id=?";
 	private final String DELETE = "DELETE FROM ENCHERES WHERE id=?";
 	private final String SELECTALL = "SELECT no_utilisateur,no_article,date_enchere,montant_enchere FROM ENCHERES";
-//	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur,no_article,date_enchere,MAX(montant_enchere)" + "WHERE no_article=?";
-	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur, no_article, date_enchere, MAX(montant_enchere)" + "WHERE no_article=?";
+//	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur,no_article,date_enchere,MAX(montant_enchere)" + "FROM WHERE no_article=?";
+	private final String SELECTBESTAUCTIONFROMARTICLE = "SELECT no_utilisateur, no_article, date_enchere, MAX(montant_enchere)" + "FROM ENCHERES GROUP BY no_utilisateur, no_article, date_enchere";
 
 	private static ArticleManager articlMng = new ArticleManager();
 	
@@ -114,7 +114,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 
 		try (Connection connect = ConnectionProvider.getConnection();
 				PreparedStatement ps = connect.prepareStatement(SELECTBESTAUCTIONFROMARTICLE)) {
-			ps.setInt(1, articleId);
+			//ps.setInt(1, articleId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				auction = new Auction();

@@ -56,15 +56,22 @@ public class AuctionDetailServlet extends HttpServlet {
 //			System.out.println("numero article :" + no_article);
 //		}
 		
-		no_article = 4;
+		no_article = 3;
+		request.setAttribute("no_article", noUser);
+		System.out.println("no_article " + noUser);
 
 		// On récupère la date du jour
 		LocalDate today = LocalDate.now();
 		request.setAttribute("today", today);
-
+		
+		
 		// On récupère la date de fin d'enchere
 		try {
-			LocalDate auctionEnds = articleManager.selectById(no_article).getAuctionEnd();
+			
+			SoldArticle art = articleManager.selectById(no_article);
+			request.setAttribute("articleSold", art);
+
+			LocalDate auctionEnds = art.getAuctionEnd();
 
 			boolean isBefore = auctionEnds.isBefore(today);
 
@@ -74,22 +81,21 @@ public class AuctionDetailServlet extends HttpServlet {
 				request.setAttribute("isBefore", 0);
 			}
 
-			int bestAuction = auctionManager.selectBestAuctionFromArticle(no_article).getItemPrice();
-
+			//int bestAuction = auctionManager.selectBestAuctionFromArticle(no_article).getItemPrice();
+			
 			// User ID of buyer
-			int auctionWinnerId = articleManager.selectById(no_article).getBuyer().getUserId();
+			int auctionWinnerId = art.getBuyer().getUserId();
 			request.setAttribute("auctionWinner", auctionWinnerId);
 
 			// Name of buyer
 			String auctionWinnerName = userManager.selectById(auctionWinnerId).getAlias();
 			request.setAttribute("auctionWinnerName", auctionWinnerName);
 
-			// Article being auctioned
-			SoldArticle articleSold = articleManager.selectById(no_article);
-			request.setAttribute("articleSold", articleSold);
+
+			
 
 			// category
-			Category category = articleManager.selectById(no_article).getCategory();
+			Category category = art.getCategory();
 			request.setAttribute("category", category);
 
 			// best bid
@@ -101,8 +107,7 @@ public class AuctionDetailServlet extends HttpServlet {
 			request.setAttribute("pickUpLocation", pickUpLocation);
 
 			// display seller 
-			User seller = articleManager.selectById(no_article).getSeller();
-			seller = articleManager.selectById(no_article).getSeller();
+			User seller = art.getSeller();
 			request.setAttribute("seller", seller);
 		} catch (DALException | BLLException e) {
 			// TODO Auto-generated catch block
